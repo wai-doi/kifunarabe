@@ -1,50 +1,125 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+================================================================================
+Version change: 0.0.0 → 1.0.0 (initial ratification)
+Modified principles: N/A (initial creation)
+Added sections:
+  - 基本原則 (5 principles)
+  - 開発ワークフロー
+  - ガバナンス
+Templates requiring updates:
+  ✅ plan-template.md - updated with Constitution Check checklist
+  ✅ spec-template.md - added Japanese language reminder
+  ✅ tasks-template.md - added Japanese language reminder
+  ✅ checklist-template.md - added Japanese language reminder
+  ✅ agent-file-template.md - added Japanese language reminder
+Command prompts:
+  ✅ All command prompts (.github/prompts/) reference constitution correctly
+Follow-up TODOs: None
+================================================================================
+-->
 
-## Core Principles
+# Kifunarabe プロジェクト憲法
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## 基本原則
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### I. 日本語優先 (絶対遵守)
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**全てのドキュメント、コメント、コミュニケーションは日本語で記述しなければならない**
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+- Markdown ファイルは全て日本語で記述する
+- コードコメントも日本語で記述する
+- 変数名・関数名は英語でも可とするが、説明は日本語で行う
+- 全ての会話と応答は日本語で行う
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+**理由**: プロジェクトメンバーの母国語での効率的なコミュニケーションと理解を保証するため。技術的な正確性よりも、チーム全体の理解を優先する。
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### II. Speckit フレームワーク準拠 (絶対遵守)
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+**全ての機能開発は Speckit プロセスに従わなければならない**
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- 実装前に必ず仕様書 (spec.md) を作成する
+- 仕様書承認後に実装計画 (plan.md) を作成する
+- 計画承認後にタスク分解 (tasks.md) を行う
+- 全てのドキュメントは `.specify/` 配下の適切なディレクトリに配置する
+- テンプレート構造を遵守する
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**理由**: 計画的な開発を保証し、実装前の設計レビューを可能にする。後戻りを最小化し、プロジェクトの予測可能性を高める。
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+### III. テスト駆動開発 (絶対遵守)
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+**実装の前にテストを書き、失敗を確認してから実装する**
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- Red-Green-Refactor サイクルを厳格に遵守する
+- テストは仕様書の受け入れ基準から導出する
+- テストが通るまで実装は完了とみなさない
+- テストコードも日本語でコメントを記述する
+
+**理由**: 要件の明確化、リグレッションの防止、リファクタリングの安全性を保証する。仕様書との整合性を自動的に検証する。
+
+### IV. ドキュメント優先
+
+**コードよりもドキュメントを先に作成し、常に最新に保つ**
+
+- 仕様書 (spec.md) は実装の唯一の情報源とする
+- 実装計画 (plan.md) は技術的意思決定を記録する
+- データモデル (data-model.md)、契約仕様 (contracts/) は実装前に確定する
+- 変更時は対応するドキュメントを同時に更新する
+
+**理由**: チーム全体の理解を統一し、将来のメンテナンスを容易にする。設計の意図を明確に記録し、技術的負債を防ぐ。
+
+### V. シンプルさの追求
+
+**YAGNI (You Aren't Gonna Need It) 原則を適用する**
+
+- 必要になるまで機能を実装しない
+- 過度な抽象化を避ける
+- 複雑性の導入は必ず正当化を記録する (plan.md の Complexity Tracking セクション)
+- シンプルな代替案を常に検討する
+
+**理由**: コードの理解しやすさとメンテナンス性を最大化する。将来の変更に対する柔軟性を保つ。
+
+## 開発ワークフロー
+
+**機能開発の標準フロー**:
+
+1. `/speckit.specify` コマンドで仕様書を作成 → ユーザー承認
+2. `/speckit.plan` コマンドで実装計画を作成 → ユーザー承認
+3. `/speckit.tasks` コマンドでタスク分解 → 実装開始
+4. テスト作成 → テスト失敗確認 → 実装 → テスト成功
+5. コードレビュー (憲法準拠確認含む)
+6. マージ
+
+**ブランチ戦略**:
+- 機能ブランチ: `###-feature-name` 形式
+- メインブランチ: `main`
+
+**レビュー基準**:
+- 憲法の全原則に準拠しているか
+- 対応するドキュメントが更新されているか
+- テストが存在し、パスしているか
+- 日本語ドキュメント/コメントが適切か
+
+## ガバナンス
+
+**憲法の位置づけ**:
+この憲法は全ての開発プラクティスに優先する。憲法と矛盾する既存のコードやドキュメントは、憲法に従って修正されなければならない。
+
+**憲法の改訂手続き**:
+1. 改訂提案を憲法ファイルに記録
+2. チーム承認を得る
+3. バージョンを更新 (セマンティックバージョニング)
+4. 影響を受けるテンプレート/ドキュメントを同時に更新
+5. Sync Impact Report を憲法ファイルに追記
+
+**バージョニングポリシー**:
+- **MAJOR**: 後方互換性のない変更 (原則の削除・再定義)
+- **MINOR**: 新しい原則やセクションの追加
+- **PATCH**: 文言の明確化、誤字修正、非本質的な改善
+
+**コンプライアンス**:
+- 全てのプルリクエストは憲法準拠を検証する
+- 複雑性の導入は plan.md の Complexity Tracking で正当化する
+- 開発中は `AGENTS.md` の指示に従う
+
+**Version**: 1.0.0 | **Ratified**: 2025-11-01 | **Last Amended**: 2025-11-01

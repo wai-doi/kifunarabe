@@ -2,6 +2,8 @@
 
 Auto-generated from all feature plans. Last updated: [DATE]
 
+<!-- 注意: このファイルから生成される開発ガイドラインは、憲法に従い日本語で記述してください -->
+
 ## Active Technologies
 
 [EXTRACTED FROM ALL PLAN.MD FILES]
