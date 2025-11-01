@@ -46,10 +46,10 @@ export const MOVE_PATTERNS: Record<PieceType, MovePattern> = {
   銀: {
     vectors: [
       { dFile: -1, dRank: 1 }, // 右前
-      { dFile: 0, dRank: 1 },  // 前
-      { dFile: 1, dRank: 1 },  // 左前
+      { dFile: 0, dRank: 1 }, // 前
+      { dFile: 1, dRank: 1 }, // 左前
       { dFile: -1, dRank: -1 }, // 右後ろ
-      { dFile: 1, dRank: -1 },  // 左後ろ
+      { dFile: 1, dRank: -1 }, // 左後ろ
     ],
     range: 1,
   },
@@ -58,10 +58,10 @@ export const MOVE_PATTERNS: Record<PieceType, MovePattern> = {
   金: {
     vectors: [
       { dFile: -1, dRank: 1 }, // 右前
-      { dFile: 0, dRank: 1 },  // 前
-      { dFile: 1, dRank: 1 },  // 左前
+      { dFile: 0, dRank: 1 }, // 前
+      { dFile: 1, dRank: 1 }, // 左前
       { dFile: -1, dRank: 0 }, // 右
-      { dFile: 1, dRank: 0 },  // 左
+      { dFile: 1, dRank: 0 }, // 左
       { dFile: 0, dRank: -1 }, // 後ろ
     ],
     range: 1,
@@ -70,9 +70,9 @@ export const MOVE_PATTERNS: Record<PieceType, MovePattern> = {
   // 飛: 縦横4方向直進
   飛: {
     vectors: [
-      { dFile: 0, dRank: 1 },  // 前
+      { dFile: 0, dRank: 1 }, // 前
       { dFile: 0, dRank: -1 }, // 後ろ
-      { dFile: 1, dRank: 0 },  // 左
+      { dFile: 1, dRank: 0 }, // 左
       { dFile: -1, dRank: 0 }, // 右
     ],
     range: Infinity,
@@ -81,9 +81,9 @@ export const MOVE_PATTERNS: Record<PieceType, MovePattern> = {
   // 角: 斜め4方向直進
   角: {
     vectors: [
-      { dFile: 1, dRank: 1 },   // 左前
-      { dFile: 1, dRank: -1 },  // 左後ろ
-      { dFile: -1, dRank: 1 },  // 右前
+      { dFile: 1, dRank: 1 }, // 左前
+      { dFile: 1, dRank: -1 }, // 左後ろ
+      { dFile: -1, dRank: 1 }, // 右前
       { dFile: -1, dRank: -1 }, // 右後ろ
     ],
     range: Infinity,
@@ -92,14 +92,14 @@ export const MOVE_PATTERNS: Record<PieceType, MovePattern> = {
   // 王/玉: 全方向1マス
   王: {
     vectors: [
-      { dFile: -1, dRank: 1 },  // 右前
-      { dFile: 0, dRank: 1 },   // 前
-      { dFile: 1, dRank: 1 },   // 左前
-      { dFile: -1, dRank: 0 },  // 右
-      { dFile: 1, dRank: 0 },   // 左
+      { dFile: -1, dRank: 1 }, // 右前
+      { dFile: 0, dRank: 1 }, // 前
+      { dFile: 1, dRank: 1 }, // 左前
+      { dFile: -1, dRank: 0 }, // 右
+      { dFile: 1, dRank: 0 }, // 左
       { dFile: -1, dRank: -1 }, // 右後ろ
-      { dFile: 0, dRank: -1 },  // 後ろ
-      { dFile: 1, dRank: -1 },  // 左後ろ
+      { dFile: 0, dRank: -1 }, // 後ろ
+      { dFile: 1, dRank: -1 }, // 左後ろ
     ],
     range: 1,
   },
@@ -171,9 +171,7 @@ export function isPathClear(from: Position, to: Position, board: Piece[]): boole
 
   while (currentFile !== to.file || currentRank !== to.rank) {
     // このマスに駒があるかチェック
-    const pieceAtPosition = board.find(
-      (p) => p.file === currentFile && p.rank === currentRank
-    );
+    const pieceAtPosition = board.find((p) => p.file === currentFile && p.rank === currentRank);
 
     if (pieceAtPosition) {
       return false; // 経路上に駒がある
@@ -193,11 +191,7 @@ export function isPathClear(from: Position, to: Position, board: Piece[]): boole
  * @param board - 現在の盤面状態
  * @returns 移動可能なマスの配列
  */
-export function calculateValidMoves(
-  piece: Piece,
-  position: Position,
-  board: Piece[]
-): Position[] {
+export function calculateValidMoves(piece: Piece, position: Position, board: Piece[]): Position[] {
   const pattern = MOVE_PATTERNS[piece.type];
   const adjustedVectors = getAdjustedVectors(piece, pattern);
   const validMoves: Position[] = [];
@@ -218,9 +212,7 @@ export function calculateValidMoves(
       }
 
       // T027: 移動先に駒があるかチェック
-      const pieceAtTarget = board.find(
-        (p) => p.file === target.file && p.rank === target.rank
-      );
+      const pieceAtTarget = board.find((p) => p.file === target.file && p.rank === target.rank);
 
       if (pieceAtTarget) {
         // 駒がある場合、この方向の探索を終了
@@ -248,12 +240,7 @@ export function calculateValidMoves(
  * @param board - 現在の盤面状態
  * @returns 移動可能ならtrue
  */
-export function isValidMove(
-  from: Position,
-  to: Position,
-  piece: Piece,
-  board: Piece[]
-): boolean {
+export function isValidMove(from: Position, to: Position, piece: Piece, board: Piece[]): boolean {
   // 移動先が盤内かチェック
   if (!isValidPosition(to)) {
     return false;

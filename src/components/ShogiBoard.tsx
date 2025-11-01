@@ -20,17 +20,11 @@ const ShogiBoard = () => {
    */
   const handleSquareClick = (position: Position) => {
     // クリックされた位置に駒があるか確認
-    const clickedPiece = pieces.find(
-      (p) => p.file === position.file && p.rank === position.rank
-    );
+    const clickedPiece = pieces.find((p) => p.file === position.file && p.rank === position.rank);
 
     if (clickedPiece) {
       // 駒がある場合
-      if (
-        selected &&
-        selected.file === position.file &&
-        selected.rank === position.rank
-      ) {
+      if (selected && selected.file === position.file && selected.rank === position.rank) {
         // 同じ駒をクリック → 選択解除
         setSelected(null);
       } else {
