@@ -1,6 +1,6 @@
 # Tasks: 将棋盤と駒の初期配置表示
 
-**Input**: Design documents from `/specs/001-shogi-board-display/`
+**Input**: Design documents from `/specs/002-shogi-board-display/`
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/, quickstart.md
 
 <!-- 注意: このテンプレートから生成されるタスクリストは、憲法に従い日本語で記述してください -->

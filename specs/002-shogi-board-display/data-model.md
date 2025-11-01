@@ -1,7 +1,7 @@
 # Data Model: 将棋盤と駒の初期配置表示
 
 **Date**: 2025-11-01
-**Feature**: 001-shogi-board-display
+**Feature**: 002-shogi-board-display
 
 ## エンティティ概要
 
