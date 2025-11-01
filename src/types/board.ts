@@ -17,4 +17,8 @@ export interface SquareProps {
   position: Position;
   /** このマス目に配置される駒(オプション) */
   piece?: Piece;
+  /** このマス目が選択されているか */
+  isSelected?: boolean;
+  /** クリックハンドラー */
+  onClick?: () => void;
 }
