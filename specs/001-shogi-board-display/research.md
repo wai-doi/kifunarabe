@@ -9,7 +9,7 @@
 
 **Decision**: CSS Gridを使用
 
-**Rationale**: 
+**Rationale**:
 - 9×9の均等なグリッドレイアウトを作成するにはCSS Gridが最適
 - `display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);` で簡潔に表現可能
 - マス目の配置を座標で指定しやすい(`grid-column`, `grid-row`)

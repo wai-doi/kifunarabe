@@ -264,7 +264,7 @@ npm run preview
 export const Piece: React.FC<PieceProps> = ({ piece }) => {
   // 後手の駒は180度回転させる
   const rotation = piece.player === 'gote' ? 'rotate-180' : '';
-  
+
   return (
     <div className={rotation}>
       {piece.type}

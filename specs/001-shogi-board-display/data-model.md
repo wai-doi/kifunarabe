@@ -19,7 +19,7 @@
 /**
  * 駒の種類
  */
-export type PieceType = 
+export type PieceType =
   | '王' // 先手の王将
   | '玉' // 後手の玉将
   | '飛' // 飛車
@@ -41,13 +41,13 @@ export type Player = 'sente' | 'gote'; // 先手・後手
 export interface Piece {
   /** 駒の種類(表示用の日本語文字) */
   type: PieceType;
-  
+
   /** 駒の所属(先手・後手) */
   player: Player;
-  
+
   /** 駒の位置(筋: 1-9) */
   file: number;
-  
+
   /** 駒の位置(段: 1-9) */
   rank: number;
 }
@@ -102,7 +102,7 @@ const goteKing: Piece = {
 export interface Position {
   /** 筋(1-9): 右から左へ */
   file: number;
-  
+
   /** 段(1-9): 上から下へ */
   rank: number;
 }
@@ -133,7 +133,7 @@ export interface Position {
 export interface SquareProps {
   /** マス目の位置 */
   position: Position;
-  
+
   /** このマス目に配置されている駒(なければundefined) */
   piece?: Piece;
 }
@@ -205,7 +205,7 @@ export const INITIAL_POSITION: Piece[] = [
   { type: '歩', player: 'gote', file: 7, rank: 3 },
   { type: '歩', player: 'gote', file: 8, rank: 3 },
   { type: '歩', player: 'gote', file: 9, rank: 3 },
-  
+
   // 先手(sente)の駒 - 下段(rank 7-9)
   { type: '歩', player: 'sente', file: 1, rank: 7 },
   { type: '歩', player: 'sente', file: 2, rank: 7 },

@@ -73,7 +73,7 @@ interface BoardProps {
 interface SquareProps {
   /** マス目の位置 */
   position: Position;
-  
+
   /** このマス目に配置されている駒(なければundefined) */
   piece?: Piece;
 }
@@ -90,9 +90,9 @@ interface SquareProps {
 <Square position={{ file: 1, rank: 4 }} />
 
 // 駒が配置されたマス目
-<Square 
-  position={{ file: 5, rank: 9 }} 
-  piece={{ type: '王', player: 'sente', file: 5, rank: 9 }} 
+<Square
+  position={{ file: 5, rank: 9 }}
+  piece={{ type: '王', player: 'sente', file: 5, rank: 9 }}
 />
 ```
 
