@@ -1,6 +1,6 @@
 # Feature Specification: 将棋盤と駒の初期配置表示
 
-**Feature Branch**: `001-shogi-board-display`
+**Feature Branch**: `002-shogi-board-display`
 **Created**: 2025-11-01
 **Status**: Draft
 **Input**: User description: "トップページに将棋盤と将棋盤の上に駒が初期配置で表示されること。"

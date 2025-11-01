@@ -1,7 +1,7 @@
 # Quickstart: 将棋盤と駒の初期配置表示
 
 **Date**: 2025-11-01
-**Feature**: 001-shogi-board-display
+**Feature**: 002-shogi-board-display
 
 ## 前提条件
 
@@ -21,7 +21,7 @@ cd kifunarabe
 ### 2. ブランチのチェックアウト
 
 ```bash
-git checkout 001-shogi-board-display
+git checkout 002-shogi-board-display
 ```
 
 ### 3. 依存関係のインストール
@@ -69,7 +69,7 @@ kifunarabe/
 │   ├── components/
 │   └── data/
 ├── specs/
-│   └── 001-shogi-board-display/
+│   └── 002-shogi-board-display/
 │       ├── spec.md         # 機能仕様
 │       ├── plan.md         # 実装計画(このファイル)
 │       ├── research.md     # 技術調査
@@ -107,7 +107,7 @@ touch src/types/board.ts
 touch tests/types/piece.test.ts
 ```
 
-**参照**: `specs/001-shogi-board-display/data-model.md` の型定義を使用
+**参照**: `specs/002-shogi-board-display/data-model.md` の型定義を使用
 
 #### Phase 2: 初期配置データの作成
 

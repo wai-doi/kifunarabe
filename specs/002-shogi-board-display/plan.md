@@ -1,7 +1,7 @@
 # Implementation Plan: 将棋盤と駒の初期配置表示
 
-**Branch**: `001-shogi-board-display` | **Date**: 2025-11-01 | **Spec**: [spec.md](./spec.md)
-**Input**: Feature specification from `/specs/001-shogi-board-display/spec.md`
+**Branch**: `002-shogi-board-display` | **Date**: 2025-11-01 | **Spec**: [spec.md](./spec.md)
+**Input**: Feature specification from `/specs/002-shogi-board-display/spec.md`
 
 <!-- 注意: このテンプレートから生成される実装計画は、憲法に従い日本語で記述してください -->
 
