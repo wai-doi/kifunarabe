@@ -18,14 +18,9 @@ const Board = ({ pieces, selected, onSquareClick }: BoardProps) => {
     for (let file = 1; file <= 9; file++) {
       const position = { file, rank };
       // この位置に駒があるか検索
-      const piece = pieces.find(
-        (p) => p.file === file && p.rank === rank
-      );
+      const piece = pieces.find((p) => p.file === file && p.rank === rank);
       // この位置が選択されているか
-      const isSelected =
-        selected !== null &&
-        selected.file === file &&
-        selected.rank === rank;
+      const isSelected = selected !== null && selected.file === file && selected.rank === rank;
 
       squares.push(
         <Square

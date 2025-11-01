@@ -21,11 +21,7 @@ export function isValidPosition(pos: Position): boolean {
  * @param to - 移動先の位置
  * @returns 新しい盤面状態
  */
-export function updateBoardAfterMove(
-  board: Piece[],
-  from: Position,
-  to: Position
-): Piece[] {
+export function updateBoardAfterMove(board: Piece[], from: Position, to: Position): Piece[] {
   return board.map((piece) => {
     // 移動する駒を見つけて新しい位置に更新
     if (piece.file === from.file && piece.rank === from.rank) {

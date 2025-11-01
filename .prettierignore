@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# production
+dist/
+build/
+
+# misc
+.DS_Store
+*.log
+coverage/
+
+# config files that shouldn't be formatted
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# spec files
+specs/
