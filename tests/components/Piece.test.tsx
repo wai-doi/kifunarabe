@@ -54,4 +54,27 @@ describe('Piece', () => {
     const piece = screen.getByLabelText('後手の玉');
     expect(piece).toBeInTheDocument();
   });
+
+  // T007: 選択状態のテスト
+  it('isSelectedがtrueの時、選択状態のスタイルが適用される', () => {
+    const { container } = render(<Piece piece={sentePiece} isSelected={true} />);
+    const piece = container.firstChild as HTMLElement;
+    expect(piece).toHaveClass('bg-yellow-200');
+    expect(piece).toHaveClass('ring-4');
+    expect(piece).toHaveClass('ring-yellow-500');
+  });
+
+  it('isSelectedがfalseの時、通常のスタイルが適用される', () => {
+    const { container } = render(<Piece piece={sentePiece} isSelected={false} />);
+    const piece = container.firstChild as HTMLElement;
+    expect(piece).toHaveClass('bg-amber-100');
+    expect(piece).not.toHaveClass('bg-yellow-200');
+    expect(piece).not.toHaveClass('ring-4');
+  });
+
+  it('isSelectedが未指定の時、通常のスタイルが適用される', () => {
+    const { container } = render(<Piece piece={sentePiece} />);
+    const piece = container.firstChild as HTMLElement;
+    expect(piece).toHaveClass('bg-amber-100');
+  });
 });

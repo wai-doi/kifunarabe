@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Square from '../../src/components/Square';
 import type { Position } from '../../src/types/position';
@@ -15,7 +15,7 @@ describe('Square', () => {
   it('aria-labelに正しい位置情報が含まれる', () => {
     render(<Square position={position} />);
     const square = screen.getByRole('gridcell');
-    expect(square).toHaveAttribute('aria-label', '5-5');
+    expect(square).toHaveAttribute('aria-label', '5筋5段');
   });
 
   it('境界線のスタイルが適用されている', () => {
@@ -28,5 +28,20 @@ describe('Square', () => {
     render(<Square position={position} />);
     const square = screen.getByRole('gridcell');
     expect(square.textContent).toBe('');
+  });
+
+  // T008: クリックハンドラーのテスト
+  it('onClickプロパティが渡された時、クリックでハンドラーが呼ばれる', () => {
+    const mockOnClick = vi.fn();
+    render(<Square position={position} onClick={mockOnClick} />);
+    const square = screen.getByRole('gridcell');
+    square.click();
+    expect(mockOnClick).toHaveBeenCalledOnce();
+  });
+
+  it('onClickプロパティが未指定の時、クリックしてもエラーにならない', () => {
+    render(<Square position={position} />);
+    const square = screen.getByRole('gridcell');
+    expect(() => square.click()).not.toThrow();
   });
 });
