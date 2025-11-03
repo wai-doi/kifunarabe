@@ -8,9 +8,7 @@ describe('INITIAL_POSITION', () => {
   });
 
   it('重複する位置がない', () => {
-    const positions = INITIAL_POSITION.map(
-      (piece) => `${piece.file}-${piece.rank}`
-    );
+    const positions = INITIAL_POSITION.map((piece) => `${piece.file}-${piece.rank}`);
     const uniquePositions = new Set(positions);
     expect(uniquePositions.size).toBe(INITIAL_POSITION.length);
   });
@@ -39,16 +37,12 @@ describe('INITIAL_POSITION', () => {
   });
 
   it('先手の駒が20枚存在する', () => {
-    const sentePieces = INITIAL_POSITION.filter(
-      (piece) => piece.player === 'sente'
-    );
+    const sentePieces = INITIAL_POSITION.filter((piece) => piece.player === 'sente');
     expect(sentePieces).toHaveLength(20);
   });
 
   it('後手の駒が20枚存在する', () => {
-    const gotePieces = INITIAL_POSITION.filter(
-      (piece) => piece.player === 'gote'
-    );
+    const gotePieces = INITIAL_POSITION.filter((piece) => piece.player === 'gote');
     expect(gotePieces).toHaveLength(20);
   });
 

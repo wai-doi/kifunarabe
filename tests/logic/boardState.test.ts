@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { isValidPosition, updateBoardAfterMove, createInitialGameState } from '../../src/logic/boardState';
+import {
+  isValidPosition,
+  updateBoardAfterMove,
+  createInitialGameState,
+} from '../../src/logic/boardState';
 import type { Piece } from '../../src/types/piece';
 import type { Position } from '../../src/types/position';
 

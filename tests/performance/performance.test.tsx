@@ -63,8 +63,8 @@ describe('Performance Requirements', () => {
     // 10回の連続操作でパフォーマンスを測定
     for (let i = 0; i < 10; i++) {
       // 歩を選択
-      const piece = screen.getByLabelText(/5筋3段.*先手の歩/) ||
-                    screen.getByLabelText(/5筋4段.*先手の歩/);
+      const piece =
+        screen.getByLabelText(/5筋3段.*先手の歩/) || screen.getByLabelText(/5筋4段.*先手の歩/);
 
       const startTime = performance.now();
       await user.click(piece);

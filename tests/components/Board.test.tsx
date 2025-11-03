@@ -28,7 +28,9 @@ describe('Board', () => {
   });
 
   it('グリッドレイアウトのクラスが適用されている', () => {
-    const { container } = render(<Board pieces={INITIAL_POSITION} selected={null} onSquareClick={mockOnSquareClick} />);
+    const { container } = render(
+      <Board pieces={INITIAL_POSITION} selected={null} onSquareClick={mockOnSquareClick} />
+    );
     const board = container.querySelector('[role="grid"]') as HTMLElement;
     expect(board).toHaveClass('grid');
   });
@@ -38,11 +40,11 @@ describe('Board', () => {
     it('先手のターンで先手の駒を選択できる', async () => {
       const currentTurn: Turn = 'sente';
       const user = userEvent.setup();
-      
+
       render(
-        <Board 
-          pieces={INITIAL_POSITION} 
-          selected={null} 
+        <Board
+          pieces={INITIAL_POSITION}
+          selected={null}
           onSquareClick={mockOnSquareClick}
           currentTurn={currentTurn}
           onInvalidSelection={mockOnInvalidSelection}
@@ -66,11 +68,11 @@ describe('Board', () => {
     it('先手のターンで後手の駒を選択できない', async () => {
       const currentTurn: Turn = 'sente';
       const user = userEvent.setup();
-      
+
       render(
-        <Board 
-          pieces={INITIAL_POSITION} 
-          selected={null} 
+        <Board
+          pieces={INITIAL_POSITION}
+          selected={null}
           onSquareClick={mockOnSquareClick}
           currentTurn={currentTurn}
           onInvalidSelection={mockOnInvalidSelection}
