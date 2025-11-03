@@ -4,6 +4,8 @@
 
 import type { Position } from '../types/position';
 import type { Piece } from '../types/piece';
+import type { GameState } from '../types/board';
+import { INITIAL_POSITION } from '../data/initialPosition';
 
 /**
  * 座標が盤面内の有効な位置かどうかを判定
@@ -12,6 +14,18 @@ import type { Piece } from '../types/piece';
  */
 export function isValidPosition(pos: Position): boolean {
   return pos.file >= 1 && pos.file <= 9 && pos.rank >= 1 && pos.rank <= 9;
+}
+
+/**
+ * 初期ゲーム状態を作成(ターン情報を含む)
+ * @returns 初期ゲーム状態
+ */
+export function createInitialGameState(): GameState {
+  return {
+    pieces: INITIAL_POSITION,
+    selectedSquare: null,
+    currentTurn: 'sente',
+  };
 }
 
 /**
