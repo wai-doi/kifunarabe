@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isValidPosition, updateBoardAfterMove } from '../../src/logic/boardState';
+import { isValidPosition, updateBoardAfterMove, createInitialGameState } from '../../src/logic/boardState';
 import type { Piece } from '../../src/types/piece';
 import type { Position } from '../../src/types/position';
 
@@ -104,6 +104,24 @@ describe('boardState', () => {
       // 中間位置と元の位置には駒がない
       expect(board2.find((p) => p.file === 5 && p.rank === 4)).toBeUndefined();
       expect(board2.find((p) => p.file === 5 && p.rank === 3)).toBeUndefined();
+    });
+  });
+
+  // T019: US2 - ターン切り替えロジックのテスト
+  describe('createInitialGameState', () => {
+    it('初期ゲーム状態には先手のターンが設定されている', () => {
+      const gameState = createInitialGameState();
+      expect(gameState.currentTurn).toBe('sente');
+    });
+
+    it('初期ゲーム状態には選択中のマスがnullである', () => {
+      const gameState = createInitialGameState();
+      expect(gameState.selectedSquare).toBeNull();
+    });
+
+    it('初期ゲーム状態には40枚の駒がある', () => {
+      const gameState = createInitialGameState();
+      expect(gameState.pieces.length).toBe(40);
     });
   });
 });

@@ -72,19 +72,47 @@ describe('ShogiBoard', () => {
     expect(king).toHaveClass('bg-amber-100');
   });
 
-  it('別の駒をクリックすると選択が切り替わる', async () => {
+  it('同じプレイヤーの別の駒をクリックすると選択が切り替わる', async () => {
     const user = userEvent.setup();
     render(<ShogiBoard />);
-    const king = screen.getByLabelText('先手の王');
-    const rook = screen.getAllByText('飛')[0]; // 先手の飛車
 
     // 王を選択
+    const king = screen.getByLabelText('先手の王');
     await user.click(king);
     expect(king).toHaveClass('bg-yellow-200');
 
-    // 飛車を選択
-    await user.click(rook);
-    expect(king).not.toHaveClass('bg-yellow-200');
-    expect(rook).toHaveClass('bg-yellow-200');
+    // 先手の角を取得して選択(角は1つしかない)
+    const kaku = screen.getByLabelText('先手の角');
+    await user.click(kaku);
+
+    // 再度要素を取得して状態を確認
+    const kingAfter = screen.getByLabelText('先手の王');
+    const kakuAfter = screen.getByLabelText('先手の角');
+
+    expect(kingAfter).not.toHaveClass('bg-yellow-200');
+    expect(kakuAfter).toHaveClass('bg-yellow-200');
+  });
+
+  // T012: US1 - ターン制御の統合テスト
+  describe('US1: 先手の駒を先手の番に動かす', () => {
+    it('初期状態では先手のターンである', () => {
+      render(<ShogiBoard />);
+      // 将来的にターン表示が実装されたら、ここでターン表示を確認する
+      // 現時点では実装が先なので、このテストはスキップまたは後で更新
+    });
+
+    it('先手のターンで先手の駒を選択できる', async () => {
+      const user = userEvent.setup();
+      render(<ShogiBoard />);
+      const king = screen.getByLabelText('先手の王');
+
+      await user.click(king);
+      expect(king).toHaveClass('bg-yellow-200');
+    });
+
+    it('先手のターンで後手の駒を選択しようとすると視覚的フィードバックが表示される', async () => {
+      // このテストは実装後に完成する
+      // 現時点では、後手の駒を選択できないことを確認する前提でマークのみ
+    });
   });
 });

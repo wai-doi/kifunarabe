@@ -9,6 +9,7 @@ Auto-generated from all feature plans. Last updated: 2025-11-01
 - N/A (静的な初期配置データのみ、状態管理は将来のフェーズ) (002-shogi-board-display)
 - TypeScript 5.9.3 + React 19.1.1 (Hooks: useState), Tailwind CSS 4.1.16, Vite 7.1.7 (003-piece-movement)
 - N/A (クライアント側の状態管理のみ、永続化は将来のフェーズ) (003-piece-movement)
+- N/A (クライアント側の状態管理のみ、ページリロード時は初期状態にリセット) (004-turn-based-movement)
 
 - TypeScript 5.x (厳格な型チェックを有効化) (001-kifu-viewer-app)
 
@@ -29,10 +30,10 @@ npm test && npm run lint
 TypeScript 5.x (厳格な型チェックを有効化): Follow standard conventions
 
 ## Recent Changes
+- 004-turn-based-movement: Added TypeScript 5.9.3 + React 19.1.1 (Hooks: useState), Tailwind CSS 4.1.16, Vite 7.1.7
 - 003-piece-movement: Added TypeScript 5.9.3 + React 19.1.1 (Hooks: useState), Tailwind CSS 4.1.16, Vite 7.1.7
 - 002-shogi-board-display: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16, Vite 7.1.7
 
-- 001-kifu-viewer-app: Added TypeScript 5.x (厳格な型チェックを有効化)
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
