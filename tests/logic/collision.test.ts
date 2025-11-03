@@ -113,9 +113,7 @@ describe('collision detection', () => {
     it('1マス移動の駒(歩、金、銀、王): 常にtrue', () => {
       const from: Position = { file: 5, rank: 5 };
       const to: Position = { file: 5, rank: 6 };
-      const board: Piece[] = [
-        { type: '歩', player: 'sente', file: 5, rank: 5 },
-      ];
+      const board: Piece[] = [{ type: '歩', player: 'sente', file: 5, rank: 5 }];
 
       expect(isPathClear(from, to, board)).toBe(true);
     });

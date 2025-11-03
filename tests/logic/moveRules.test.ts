@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { calculateValidMoves, isValidMove, getAdjustedVectors, MOVE_PATTERNS } from '../../src/logic/moveRules';
+import {
+  calculateValidMoves,
+  isValidMove,
+  getAdjustedVectors,
+  MOVE_PATTERNS,
+} from '../../src/logic/moveRules';
 import type { Piece } from '../../src/types/piece';
 import type { Position } from '../../src/types/position';
 
