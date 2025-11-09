@@ -1,6 +1,7 @@
 import type { Piece } from '../types/piece';
 import type { Position } from '../types/position';
 import type { Turn } from '../types/turn';
+import type { CapturedPieces } from '../types/capturedPieces';
 import { canSelectPiece } from '../logic/turnControl';
 import Square from './Square';
 
@@ -9,6 +10,7 @@ interface BoardProps {
   selected: Position | null;
   onSquareClick: (position: Position) => void;
   currentTurn: Turn;
+  capturedPieces: CapturedPieces;
   onInvalidSelection?: () => void;
 }
 
@@ -26,8 +28,10 @@ const Board = ({
   const handleSquareClick = (position: Position) => {
     const clickedPiece = pieces.find((p) => p.file === position.file && p.rank === position.rank);
 
-    // 駒がクリックされた場合、ターン検証を実行
-    if (clickedPiece) {
+    // 駒を選択しようとしている場合のみターン検証を実行
+    // （移動先として相手の駒をクリックする場合は検証しない）
+    if (clickedPiece && !selected) {
+      // 駒が選択されていない状態で駒をクリック = 駒を選択しようとしている
       if (!canSelectPiece(currentTurn, clickedPiece.player)) {
         // 無効な選択 - 親コンポーネントに通知
         onInvalidSelection?.();

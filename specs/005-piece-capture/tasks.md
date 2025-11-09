@@ -27,8 +27,8 @@
 
 **目的**: 型定義の作成と既存の型の拡張
 
-- [ ] T001 持ち駒関連の型定義を作成 in `src/types/capturedPieces.ts`
-- [ ] T002 GameState型を拡張して持ち駒プロパティを追加 in `src/types/board.ts`
+- [x] T001 持ち駒関連の型定義を作成 in `src/types/capturedPieces.ts`
+- [x] T002 GameState型を拡張して持ち駒プロパティを追加 in `src/types/board.ts`
 
 ---
 
@@ -38,16 +38,16 @@
 
 **⚠️ 重要**: このフェーズが完了するまで、ユーザーストーリーの作業を開始できない
 
-- [ ] T003 駒の捕獲ロジックのテストを作成 in `tests/logic/captureLogic.test.ts` (Red: getTargetPiece)
-- [ ] T004 [P] getTargetPiece関数を実装 in `src/logic/captureLogic.ts` (Green)
-- [ ] T005 駒の捕獲ロジックのテストを追加 in `tests/logic/captureLogic.test.ts` (Red: addToCapturedPieces)
-- [ ] T006 [P] addToCapturedPieces関数を実装 in `src/logic/captureLogic.ts` (Green)
-- [ ] T007 駒の捕獲ロジックのテストを追加 in `tests/logic/captureLogic.test.ts` (Red: removePieceFromBoard)
-- [ ] T008 [P] removePieceFromBoard関数を実装 in `src/logic/captureLogic.ts` (Green)
-- [ ] T009 boardState拡張のテストを作成 in `tests/logic/boardState.test.ts` (Red: updateBoardAfterMove拡張)
-- [ ] T010 updateBoardAfterMove関数を拡張して駒の捕獲を統合 in `src/logic/boardState.ts` (Green)
-- [ ] T011 boardState拡張のテストを追加 in `tests/logic/boardState.test.ts` (Red: createInitialGameState拡張)
-- [ ] T012 createInitialGameState関数を拡張して持ち駒の初期化を追加 in `src/logic/boardState.ts` (Green)
+- [x] T003 駒の捕獲ロジックのテストを作成 in `tests/logic/captureLogic.test.ts` (Red: getTargetPiece)
+- [x] T004 [P] getTargetPiece関数を実装 in `src/logic/captureLogic.ts` (Green)
+- [x] T005 駒の捕獲ロジックのテストを追加 in `tests/logic/captureLogic.test.ts` (Red: addToCapturedPieces)
+- [x] T006 [P] addToCapturedPieces関数を実装 in `src/logic/captureLogic.ts` (Green)
+- [x] T007 駒の捕獲ロジックのテストを追加 in `tests/logic/captureLogic.test.ts` (Red: removePieceFromBoard)
+- [x] T008 [P] removePieceFromBoard関数を実装 in `src/logic/captureLogic.ts` (Green)
+- [x] T009 boardState拡張のテストを作成 in `tests/logic/boardState.test.ts` (Red: updateBoardAfterMove拡張)
+- [x] T010 updateBoardAfterMove関数を拡張して駒の捕獲を統合 in `src/logic/boardState.ts` (Green)
+- [x] T011 boardState拡張のテストを追加 in `tests/logic/boardState.test.ts` (Red: createInitialGameState拡張)
+- [x] T012 createInitialGameState関数を拡張して持ち駒の初期化を追加 in `src/logic/boardState.ts` (Green)
 
 **チェックポイント**: 基礎ロジックが完成 - ユーザーストーリーの実装を並列で開始可能
 
@@ -63,18 +63,18 @@
 
 > **注意: これらのテストを最初に書き、実装前に失敗することを確認する**
 
-- [ ] T013 [P] [US1] Boardコンポーネントの駒捕獲テストを作成 in `tests/components/Board.test.tsx` (Red: 相手の駒を取る)
-- [ ] T014 [P] [US1] Boardコンポーネントの駒捕獲テストを追加 in `tests/components/Board.test.tsx` (Red: 持ち駒への追加)
-- [ ] T015 [P] [US1] ShogiBoardコンポーネントの持ち駒状態テストを作成 in `tests/components/ShogiBoard.test.tsx` (Red: 初期状態)
-- [ ] T016 [P] [US1] ShogiBoardコンポーネントの持ち駒状態テストを追加 in `tests/components/ShogiBoard.test.tsx` (Red: 捕獲後の更新)
+- [x] T013 [P] [US1] Boardコンポーネントの駒捕獲テストを作成 in `tests/components/Board.test.tsx` (Red: 相手の駒を取る)
+- [x] T014 [P] [US1] Boardコンポーネントの駒捕獲テストを追加 in `tests/components/Board.test.tsx` (Red: 持ち駒への追加)
+- [x] T015 [P] [US1] ShogiBoardコンポーネントの持ち駒状態テストを作成 in `tests/components/ShogiBoard.test.tsx` (Red: 初期状態)
+- [x] T016 [P] [US1] ShogiBoardコンポーネントの持ち駒状態テストを追加 in `tests/components/ShogiBoard.test.tsx` (Red: 捕獲後の更新)
 
 ### Implementation for User Story 1
 
-- [ ] T017 [US1] ShogiBoardコンポーネントを拡張して持ち駒状態を追加 in `src/components/ShogiBoard.tsx` (Green: T015)
-- [ ] T018 [US1] Boardコンポーネントを拡張して駒の捕獲処理を統合 in `src/components/Board.tsx` (Green: T013, T014)
-- [ ] T019 [US1] ShogiBoardコンポーネントで持ち駒の状態更新を実装 in `src/components/ShogiBoard.tsx` (Green: T016)
-- [ ] T020 [US1] 駒の捕獲後のターン制御をテスト in `tests/components/ShogiBoard.test.tsx` (追加テスト)
-- [ ] T021 [US1] コードのリファクタリングとクリーンアップ (Refactor)
+- [x] T017 [US1] ShogiBoardコンポーネントを拡張して持ち駒状態を追加 in `src/components/ShogiBoard.tsx` (Green: T015)
+- [x] T018 [US1] Boardコンポーネントを拡張して駒の捕獲処理を統合 in `src/components/Board.tsx` (Green: T013, T014)
+- [x] T019 [US1] ShogiBoardコンポーネントで持ち駒の状態更新を実装 in `src/components/ShogiBoard.tsx` (Green: T016)
+- [x] T020 [US1] 駒の捕獲後のターン制御をテスト in `tests/components/ShogiBoard.test.tsx` (追加テスト)
+- [x] T021 [US1] コードのリファクタリングとクリーンアップ (Refactor)
 
 **チェックポイント**: この時点で、ユーザーストーリー1が完全に機能し、独立してテスト可能
 
@@ -90,22 +90,22 @@
 
 > **注意: これらのテストを最初に書き、実装前に失敗することを確認する**
 
-- [ ] T022 [P] [US2] CapturedPiecesコンポーネントのテストを作成 in `tests/components/CapturedPieces.test.tsx` (Red: 空の持ち駒表示)
-- [ ] T023 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: 1個の駒表示)
-- [ ] T024 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: 複数個の駒表示)
-- [ ] T025 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: 複数種類の駒表示)
-- [ ] T026 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: プレイヤーごとの配置)
+- [x] T022 [P] [US2] CapturedPiecesコンポーネントのテストを作成 in `tests/components/CapturedPieces.test.tsx` (Red: 空の持ち駒表示)
+- [x] T023 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: 1個の駒表示)
+- [x] T024 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: 複数個の駒表示)
+- [x] T025 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: 複数種類の駒表示)
+- [x] T026 [P] [US2] CapturedPiecesコンポーネントのテストを追加 in `tests/components/CapturedPieces.test.tsx` (Red: プレイヤーごとの配置)
 
 ### Implementation for User Story 2
 
-- [ ] T027 [US2] CapturedPiecesコンポーネントを作成 in `src/components/CapturedPieces.tsx` (Green: T022)
-- [ ] T028 [US2] CapturedPiecesコンポーネントで駒の表示を実装 in `src/components/CapturedPieces.tsx` (Green: T023)
-- [ ] T029 [US2] CapturedPiecesコンポーネントで数量表示を実装 in `src/components/CapturedPieces.tsx` (Green: T024)
-- [ ] T030 [US2] CapturedPiecesコンポーネントで複数種類の表示を実装 in `src/components/CapturedPieces.tsx` (Green: T025)
-- [ ] T031 [US2] CapturedPiecesコンポーネントでプレイヤーごとの配置を実装 in `src/components/CapturedPieces.tsx` (Green: T026)
-- [ ] T032 [US2] ShogiBoardコンポーネントにCapturedPiecesコンポーネントを統合 in `src/components/ShogiBoard.tsx`
-- [ ] T033 [US2] Tailwind CSSでスタイリングを追加 in `src/components/CapturedPieces.tsx`
-- [ ] T034 [US2] コードのリファクタリングとクリーンアップ (Refactor)
+- [x] T027 [US2] CapturedPiecesコンポーネントを作成 in `src/components/CapturedPieces.tsx` (Green: T022)
+- [x] T028 [US2] CapturedPiecesコンポーネントで駒の表示を実装 in `src/components/CapturedPieces.tsx` (Green: T023)
+- [x] T029 [US2] CapturedPiecesコンポーネントで数量表示を実装 in `src/components/CapturedPieces.tsx` (Green: T024)
+- [x] T030 [US2] CapturedPiecesコンポーネントで複数種類の表示を実装 in `src/components/CapturedPieces.tsx` (Green: T025)
+- [x] T031 [US2] CapturedPiecesコンポーネントでプレイヤーごとの配置を実装 in `src/components/CapturedPieces.tsx` (Green: T026)
+- [x] T032 [US2] ShogiBoardコンポーネントにCapturedPiecesコンポーネントを統合 in `src/components/ShogiBoard.tsx`
+- [x] T033 [US2] Tailwind CSSでスタイリングを追加 in `src/components/CapturedPieces.tsx`
+- [x] T034 [US2] コードのリファクタリングとクリーンアップ (Refactor)
 
 **チェックポイント**: この時点で、ユーザーストーリー2が完全に機能し、独立してテスト可能
 
@@ -115,16 +115,16 @@
 
 **目的**: 全体の統合、エッジケース処理、パフォーマンス最適化
 
-- [ ] T035 [P] エッジケースのテストを追加 in `tests/logic/captureLogic.test.ts` (同じ種類の駒を複数回取る)
-- [ ] T036 [P] エッジケースのテストを追加 in `tests/components/Board.test.tsx` (空の盤面での捕獲)
-- [ ] T037 全てのテストを実行して合格を確認 `npm run test`
-- [ ] T038 カバレッジレポートを生成して確認 `npm run test:coverage`
-- [ ] T039 Lintとフォーマットチェックを実行 `npm run check`
-- [ ] T040 開発サーバーで動作確認 `npm run dev`
-- [ ] T041 ブラウザで全てのAcceptance Scenariosを手動確認
-- [ ] T042 パフォーマンス計測(駒の捕獲処理時間、持ち駒表示更新時間)
-- [ ] T043 必要に応じてReact.memoでCapturedPiecesコンポーネントを最適化
-- [ ] T044 ドキュメントの最終更新(README、コメント等)
+- [x] T035 [P] エッジケースのテストを追加 in `tests/logic/captureLogic.test.ts` (同じ種類の駒を複数回取る)
+- [x] T036 [P] エッジケースのテストを追加 in `tests/components/Board.test.tsx` (空の盤面での捕獲)
+- [x] T037 全てのテストを実行して合格を確認 `npm run test`
+- [x] T038 カバレッジレポートを生成して確認 `npm run test:coverage`
+- [x] T039 Lintとフォーマットチェックを実行 `npm run check`
+- [x] T040 開発サーバーで動作確認 `npm run dev`
+- [x] T041 ブラウザで全てのAcceptance Scenariosを手動確認
+- [x] T042 パフォーマンス計測(駒の捕獲処理時間、持ち駒表示更新時間)
+- [x] T043 必要に応じてReact.memoでCapturedPiecesコンポーネントを最適化
+- [x] T044 ドキュメントの最終更新(README、コメント等)
 
 ---
 

@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import Board from './Board';
 import TurnDisplay from './TurnDisplay';
+import CapturedPiecesComponent from './CapturedPieces';
 import { INITIAL_POSITION } from '../data/initialPosition';
 import type { Position } from '../types/position';
 import type { Piece } from '../types/piece';
 import type { Turn } from '../types/turn';
+import type { CapturedPieces } from '../types/capturedPieces';
 import { isValidMove } from '../logic/moveRules';
 import { updateBoardAfterMove } from '../logic/boardState';
 import { switchTurn } from '../logic/turnControl';
+import { createEmptyCapturedPieces } from '../types/capturedPieces';
+import { getTargetPiece, addToCapturedPieces, removePieceFromBoard } from '../logic/captureLogic';
 
 /**
  * 将棋盤と駒を統合して表示するコンポーネント
@@ -19,6 +23,8 @@ const ShogiBoard = () => {
   const [selected, setSelected] = useState<Position | null>(null);
   // 現在のターン
   const [currentTurn, setCurrentTurn] = useState<Turn>('sente');
+  // 持ち駒の状態管理
+  const [capturedPieces, setCapturedPieces] = useState<CapturedPieces>(createEmptyCapturedPieces());
   // T032: 無効操作時のisHighlightedフラグ管理
   const [isHighlighted, setIsHighlighted] = useState(false);
 
@@ -29,17 +35,17 @@ const ShogiBoard = () => {
     // クリックされた位置に駒があるか確認
     const clickedPiece = pieces.find((p) => p.file === position.file && p.rank === position.rank);
 
-    if (clickedPiece) {
-      // 駒がある場合
+    if (clickedPiece && clickedPiece.player === currentTurn) {
+      // 自分の駒がある場合
       if (selected && selected.file === position.file && selected.rank === position.rank) {
         // 同じ駒をクリック → 選択解除
         setSelected(null);
       } else {
-        // 別の駒をクリック → 選択を切り替え
+        // 別の自分の駒をクリック → 選択を切り替え
         setSelected(position);
       }
     } else {
-      // 駒がない場合
+      // 駒がない場合、または相手の駒がある場合
       if (selected) {
         // T022: 選択中の駒を移動 (ルール検証あり)
         const selectedPiece = pieces.find(
@@ -47,9 +53,28 @@ const ShogiBoard = () => {
         );
 
         if (selectedPiece && isValidMove(selected, position, selectedPiece, pieces)) {
+          // 駒の捕獲チェック
+          const targetPiece = getTargetPiece(pieces, position, selectedPiece.player);
+
+          let updatedPieces = pieces;
+          let updatedCapturedPieces = capturedPieces;
+
+          // 相手の駒がある場合は捕獲処理
+          if (targetPiece) {
+            // 持ち駒に追加
+            updatedCapturedPieces = addToCapturedPieces(
+              capturedPieces,
+              targetPiece,
+              selectedPiece.player
+            );
+            // 盤面から駒を削除
+            updatedPieces = removePieceFromBoard(pieces, targetPiece);
+          }
+
           // T029: updateBoardAfterMoveを使用してイミュータブルに更新
-          const movedPieces = updateBoardAfterMove(pieces, selected, position);
+          const movedPieces = updateBoardAfterMove(updatedPieces, selected, position);
           setPieces(movedPieces);
+          setCapturedPieces(updatedCapturedPieces);
           setSelected(null); // 移動後に選択解除
 
           // T020: 駒移動成功後にターンを切り替える
@@ -72,6 +97,9 @@ const ShogiBoard = () => {
 
   return (
     <div className="flex flex-col items-center gap-4 w-full h-full p-4">
+      {/* 後手の持ち駒を盤面上部に配置 */}
+      <CapturedPiecesComponent capturedPieces={capturedPieces.gote} player="gote" />
+
       {/* T031: ターン表示を盤面上部に配置 */}
       <TurnDisplay currentTurn={currentTurn} isHighlighted={isHighlighted} />
 
@@ -81,9 +109,13 @@ const ShogiBoard = () => {
           selected={selected}
           onSquareClick={handleSquareClick}
           currentTurn={currentTurn}
+          capturedPieces={capturedPieces}
           onInvalidSelection={handleInvalidSelection}
         />
       </div>
+
+      {/* 先手の持ち駒を盤面下部に配置 */}
+      <CapturedPiecesComponent capturedPieces={capturedPieces.sente} player="sente" />
     </div>
   );
 };

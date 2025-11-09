@@ -215,8 +215,12 @@ export function calculateValidMoves(piece: Piece, position: Position, board: Pie
       const pieceAtTarget = board.find((p) => p.file === target.file && p.rank === target.rank);
 
       if (pieceAtTarget) {
-        // 駒がある場合、この方向の探索を終了
-        // (駒の取り合いは未実装のため、移動先に駒がある場合は移動不可)
+        // 味方の駒がある場合は移動不可、この方向の探索を終了
+        if (pieceAtTarget.player === piece.player) {
+          break;
+        }
+        // 相手の駒がある場合は捕獲可能なので移動可能マスに追加してから終了
+        validMoves.push(target);
         break;
       }
 
