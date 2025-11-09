@@ -30,9 +30,9 @@ npm test && npm run lint
 TypeScript 5.x (厳格な型チェックを有効化): Follow standard conventions
 
 ## Recent Changes
+- 005-piece-capture: Added TypeScript 5.9.3 + React 19.1.1 (Hooks: useState), Tailwind CSS 4.1.16, Vite 7.1.7
 - 004-turn-based-movement: Added TypeScript 5.9.3 + React 19.1.1 (Hooks: useState), Tailwind CSS 4.1.16, Vite 7.1.7
 - 003-piece-movement: Added TypeScript 5.9.3 + React 19.1.1 (Hooks: useState), Tailwind CSS 4.1.16, Vite 7.1.7
-- 002-shogi-board-display: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16, Vite 7.1.7
 
 
 <!-- MANUAL ADDITIONS START -->

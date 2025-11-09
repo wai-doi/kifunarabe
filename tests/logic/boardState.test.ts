@@ -127,5 +127,12 @@ describe('boardState', () => {
       const gameState = createInitialGameState();
       expect(gameState.pieces.length).toBe(40);
     });
+
+    it('初期ゲーム状態には空の持ち駒が設定されている', () => {
+      const gameState = createInitialGameState();
+      expect(gameState.capturedPieces).toBeDefined();
+      expect(gameState.capturedPieces.sente).toEqual({});
+      expect(gameState.capturedPieces.gote).toEqual({});
+    });
   });
 });

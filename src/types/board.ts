@@ -1,6 +1,7 @@
 import type { Piece } from './piece';
 import type { Position } from './position';
 import type { Turn } from './turn';
+import type { CapturedPieces } from './capturedPieces';
 
 /**
  * 将棋盤の状態
@@ -20,6 +21,8 @@ export interface GameState {
   selectedSquare: Position | null;
   /** 現在のターン */
   currentTurn: Turn;
+  /** 持ち駒(先手・後手それぞれ) */
+  capturedPieces: CapturedPieces;
 }
 
 /**
