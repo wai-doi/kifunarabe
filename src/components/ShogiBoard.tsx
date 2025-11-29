@@ -4,14 +4,22 @@ import TurnDisplay from './TurnDisplay';
 import CapturedPiecesComponent from './CapturedPieces';
 import { INITIAL_POSITION } from '../data/initialPosition';
 import type { Position } from '../types/position';
-import type { Piece } from '../types/piece';
+import type { Piece, PieceType } from '../types/piece';
 import type { Turn } from '../types/turn';
 import type { CapturedPieces } from '../types/capturedPieces';
+import type { Selection } from '../types/selection';
+import { isBoardSelection, isCapturedSelection } from '../types/selection';
 import { isValidMove } from '../logic/moveRules';
 import { updateBoardAfterMove } from '../logic/boardState';
 import { switchTurn } from '../logic/turnControl';
 import { createEmptyCapturedPieces } from '../types/capturedPieces';
-import { getTargetPiece, addToCapturedPieces, removePieceFromBoard } from '../logic/captureLogic';
+import {
+  getTargetPiece,
+  addToCapturedPieces,
+  removePieceFromBoard,
+  removeFromCapturedPieces,
+} from '../logic/captureLogic';
+import { canDropPiece, dropPiece } from '../logic/dropLogic';
 
 /**
  * 将棋盤と駒を統合して表示するコンポーネント
@@ -19,14 +27,45 @@ import { getTargetPiece, addToCapturedPieces, removePieceFromBoard } from '../lo
 const ShogiBoard = () => {
   // 盤面の状態管理
   const [pieces, setPieces] = useState<Piece[]>(INITIAL_POSITION);
-  // 選択中の駒の位置
-  const [selected, setSelected] = useState<Position | null>(null);
+  // 選択中の駒の状態（盤面上 or 持ち駒）
+  const [selection, setSelection] = useState<Selection | null>(null);
   // 現在のターン
   const [currentTurn, setCurrentTurn] = useState<Turn>('sente');
   // 持ち駒の状態管理
   const [capturedPieces, setCapturedPieces] = useState<CapturedPieces>(createEmptyCapturedPieces());
   // T032: 無効操作時のisHighlightedフラグ管理
   const [isHighlighted, setIsHighlighted] = useState(false);
+
+  // Board コンポーネント用に Position | null に変換
+  const selectedPosition = selection && isBoardSelection(selection) ? selection.position : null;
+
+  /**
+   * 持ち駒がクリックされた時のハンドラー
+   */
+  const handleCapturedPieceClick = (pieceType: PieceType, player: 'sente' | 'gote') => {
+    // 自分の手番でのみ選択可能
+    if (player !== currentTurn) {
+      return;
+    }
+
+    // 同じ持ち駒を再クリックした場合は選択解除
+    if (
+      selection &&
+      isCapturedSelection(selection) &&
+      selection.pieceType === pieceType &&
+      selection.player === player
+    ) {
+      setSelection(null);
+      return;
+    }
+
+    // 持ち駒を選択
+    setSelection({
+      type: 'captured',
+      pieceType,
+      player,
+    });
+  };
 
   /**
    * マス目がクリックされた時のハンドラー
@@ -35,24 +74,72 @@ const ShogiBoard = () => {
     // クリックされた位置に駒があるか確認
     const clickedPiece = pieces.find((p) => p.file === position.file && p.rank === position.rank);
 
+    // 持ち駒を選択中の場合
+    if (selection && isCapturedSelection(selection)) {
+      // 空きマスをクリックした場合は駒を打つ
+      if (!clickedPiece && canDropPiece(pieces, position)) {
+        // 持ち駒を盤面に打つ
+        const newPieces = dropPiece(pieces, position, selection.pieceType, selection.player);
+        setPieces(newPieces);
+
+        // 持ち駒を減らす
+        const newCapturedPieces = removeFromCapturedPieces(
+          capturedPieces,
+          selection.player,
+          selection.pieceType
+        );
+        setCapturedPieces(newCapturedPieces);
+
+        // 選択解除
+        setSelection(null);
+
+        // 手番を切り替える
+        setCurrentTurn(switchTurn(currentTurn));
+        return;
+      }
+
+      // 自分の駒をクリックした場合は盤面上の駒を選択状態に切り替え
+      if (clickedPiece && clickedPiece.player === currentTurn) {
+        setSelection({
+          type: 'board',
+          position,
+          player: clickedPiece.player,
+        });
+        return;
+      }
+
+      // 相手の駒をクリックした場合は何もしない
+      return;
+    }
+
+    // 盤面上の駒を選択中の場合 or 何も選択していない場合
     if (clickedPiece && clickedPiece.player === currentTurn) {
       // 自分の駒がある場合
-      if (selected && selected.file === position.file && selected.rank === position.rank) {
+      if (
+        selection &&
+        isBoardSelection(selection) &&
+        selection.position.file === position.file &&
+        selection.position.rank === position.rank
+      ) {
         // 同じ駒をクリック → 選択解除
-        setSelected(null);
+        setSelection(null);
       } else {
         // 別の自分の駒をクリック → 選択を切り替え
-        setSelected(position);
+        setSelection({
+          type: 'board',
+          position,
+          player: clickedPiece.player,
+        });
       }
     } else {
       // 駒がない場合、または相手の駒がある場合
-      if (selected) {
+      if (selection && isBoardSelection(selection)) {
         // T022: 選択中の駒を移動 (ルール検証あり)
         const selectedPiece = pieces.find(
-          (p) => p.file === selected.file && p.rank === selected.rank
+          (p) => p.file === selection.position.file && p.rank === selection.position.rank
         );
 
-        if (selectedPiece && isValidMove(selected, position, selectedPiece, pieces)) {
+        if (selectedPiece && isValidMove(selection.position, position, selectedPiece, pieces)) {
           // 駒の捕獲チェック
           const targetPiece = getTargetPiece(pieces, position, selectedPiece.player);
 
@@ -72,10 +159,10 @@ const ShogiBoard = () => {
           }
 
           // T029: updateBoardAfterMoveを使用してイミュータブルに更新
-          const movedPieces = updateBoardAfterMove(updatedPieces, selected, position);
+          const movedPieces = updateBoardAfterMove(updatedPieces, selection.position, position);
           setPieces(movedPieces);
           setCapturedPieces(updatedCapturedPieces);
-          setSelected(null); // 移動後に選択解除
+          setSelection(null); // 移動後に選択解除
 
           // T020: 駒移動成功後にターンを切り替える
           setCurrentTurn(switchTurn(currentTurn));
@@ -98,7 +185,17 @@ const ShogiBoard = () => {
   return (
     <div className="flex flex-col items-center gap-4 w-full h-full p-4">
       {/* 後手の持ち駒を盤面上部に配置 */}
-      <CapturedPiecesComponent capturedPieces={capturedPieces.gote} player="gote" />
+      <CapturedPiecesComponent
+        capturedPieces={capturedPieces.gote}
+        player="gote"
+        onPieceClick={(pieceType) => handleCapturedPieceClick(pieceType, 'gote')}
+        selectedPieceType={
+          selection && isCapturedSelection(selection) && selection.player === 'gote'
+            ? selection.pieceType
+            : undefined
+        }
+        isSelectable={currentTurn === 'gote'}
+      />
 
       {/* T031: ターン表示を盤面上部に配置 */}
       <TurnDisplay currentTurn={currentTurn} isHighlighted={isHighlighted} />
@@ -106,7 +203,7 @@ const ShogiBoard = () => {
       <div className="flex justify-center items-center flex-1 w-full">
         <Board
           pieces={pieces}
-          selected={selected}
+          selected={selectedPosition}
           onSquareClick={handleSquareClick}
           currentTurn={currentTurn}
           capturedPieces={capturedPieces}
@@ -115,7 +212,17 @@ const ShogiBoard = () => {
       </div>
 
       {/* 先手の持ち駒を盤面下部に配置 */}
-      <CapturedPiecesComponent capturedPieces={capturedPieces.sente} player="sente" />
+      <CapturedPiecesComponent
+        capturedPieces={capturedPieces.sente}
+        player="sente"
+        onPieceClick={(pieceType) => handleCapturedPieceClick(pieceType, 'sente')}
+        selectedPieceType={
+          selection && isCapturedSelection(selection) && selection.player === 'sente'
+            ? selection.pieceType
+            : undefined
+        }
+        isSelectable={currentTurn === 'sente'}
+      />
     </div>
   );
 };
