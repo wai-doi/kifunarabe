@@ -48,15 +48,15 @@ describe('INITIAL_POSITION', () => {
 
   it('先手の1段目に正しい駒配置', () => {
     const expectedRank1: Piece[] = [
-      { type: '香', player: 'sente', file: 1, rank: 1 },
-      { type: '桂', player: 'sente', file: 2, rank: 1 },
-      { type: '銀', player: 'sente', file: 3, rank: 1 },
-      { type: '金', player: 'sente', file: 4, rank: 1 },
-      { type: '王', player: 'sente', file: 5, rank: 1 },
-      { type: '金', player: 'sente', file: 6, rank: 1 },
-      { type: '銀', player: 'sente', file: 7, rank: 1 },
-      { type: '桂', player: 'sente', file: 8, rank: 1 },
-      { type: '香', player: 'sente', file: 9, rank: 1 },
+      { type: '香', player: 'sente', file: 1, rank: 1, promoted: false },
+      { type: '桂', player: 'sente', file: 2, rank: 1, promoted: false },
+      { type: '銀', player: 'sente', file: 3, rank: 1, promoted: false },
+      { type: '金', player: 'sente', file: 4, rank: 1, promoted: false },
+      { type: '王', player: 'sente', file: 5, rank: 1, promoted: false },
+      { type: '金', player: 'sente', file: 6, rank: 1, promoted: false },
+      { type: '銀', player: 'sente', file: 7, rank: 1, promoted: false },
+      { type: '桂', player: 'sente', file: 8, rank: 1, promoted: false },
+      { type: '香', player: 'sente', file: 9, rank: 1, promoted: false },
     ];
 
     const rank1Pieces = INITIAL_POSITION.filter((piece) => piece.rank === 1);
@@ -65,15 +65,15 @@ describe('INITIAL_POSITION', () => {
 
   it('後手の9段目に正しい駒配置', () => {
     const expectedRank9: Piece[] = [
-      { type: '香', player: 'gote', file: 1, rank: 9 },
-      { type: '桂', player: 'gote', file: 2, rank: 9 },
-      { type: '銀', player: 'gote', file: 3, rank: 9 },
-      { type: '金', player: 'gote', file: 4, rank: 9 },
-      { type: '玉', player: 'gote', file: 5, rank: 9 },
-      { type: '金', player: 'gote', file: 6, rank: 9 },
-      { type: '銀', player: 'gote', file: 7, rank: 9 },
-      { type: '桂', player: 'gote', file: 8, rank: 9 },
-      { type: '香', player: 'gote', file: 9, rank: 9 },
+      { type: '香', player: 'gote', file: 1, rank: 9, promoted: false },
+      { type: '桂', player: 'gote', file: 2, rank: 9, promoted: false },
+      { type: '銀', player: 'gote', file: 3, rank: 9, promoted: false },
+      { type: '金', player: 'gote', file: 4, rank: 9, promoted: false },
+      { type: '玉', player: 'gote', file: 5, rank: 9, promoted: false },
+      { type: '金', player: 'gote', file: 6, rank: 9, promoted: false },
+      { type: '銀', player: 'gote', file: 7, rank: 9, promoted: false },
+      { type: '桂', player: 'gote', file: 8, rank: 9, promoted: false },
+      { type: '香', player: 'gote', file: 9, rank: 9, promoted: false },
     ];
 
     const rank9Pieces = INITIAL_POSITION.filter((piece) => piece.rank === 9);
