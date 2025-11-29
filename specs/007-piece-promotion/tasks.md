@@ -16,9 +16,9 @@
 
 **Purpose**: 型定義の拡張と基盤整備
 
-- [ ] T001 [P] `src/types/piece.ts` に `promoted: boolean` フラグを追加し、`PromotablePieceType` と `NonPromotablePieceType` 型を定義する
-- [ ] T002 [P] `src/types/piece.ts` に `PROMOTED_PIECE_DISPLAY` 定数（成り駒の表示文字マッピング）を追加する
-- [ ] T003 `src/data/initialPosition.ts` の全ての駒データに `promoted: false` を追加する（T001に依存）
+- [x] T001 [P] `src/types/piece.ts` に `promoted: boolean` フラグを追加し、`PromotablePieceType` と `NonPromotablePieceType` 型を定義する
+- [x] T002 [P] `src/types/piece.ts` に `PROMOTED_PIECE_DISPLAY` 定数（成り駒の表示文字マッピング）を追加する
+- [x] T003 `src/data/initialPosition.ts` の全ての駒データに `promoted: false` を追加する（T001に依存）
 
 ---
 
@@ -28,11 +28,11 @@
 
 **⚠️ CRITICAL**: このフェーズが完了するまでユーザーストーリーの実装は開始できない
 
-- [ ] T004 `src/logic/promotionLogic.ts` を新規作成し、敵陣判定関数 `isInEnemyTerritory(rank: number, player: Player): boolean` を実装する
-- [ ] T005 `src/logic/promotionLogic.ts` に成れる駒種判定関数 `isPromotablePieceType(type: PieceType): boolean` を実装する
-- [ ] T006 `src/logic/promotionLogic.ts` に成り条件判定関数 `canPromoteMove(piece: Piece, from: Position, to: Position): boolean` を実装する
-- [ ] T007 `src/logic/promotionLogic.ts` に強制成り判定関数 `mustPromote(piece: Piece, toRank: number): boolean` を実装する
-- [ ] T008 `tests/logic/promotionLogic.test.ts` を新規作成し、T004-T007の関数をテストする
+- [x] T004 `src/logic/promotionLogic.ts` を新規作成し、敵陣判定関数 `isInEnemyTerritory(rank: number, player: Player): boolean` を実装する
+- [x] T005 `src/logic/promotionLogic.ts` に成れる駒種判定関数 `isPromotablePieceType(type: PieceType): boolean` を実装する
+- [x] T006 `src/logic/promotionLogic.ts` に成り条件判定関数 `canPromoteMove(piece: Piece, from: Position, to: Position): boolean` を実装する
+- [x] T007 `src/logic/promotionLogic.ts` に強制成り判定関数 `mustPromote(piece: Piece, toRank: number): boolean` を実装する
+- [x] T008 `tests/logic/promotionLogic.test.ts` を新規作成し、T004-T007の関数をテストする
 
 **Checkpoint**: 成り判定ロジック完成 - ユーザーストーリーの実装を開始可能
 
@@ -46,13 +46,13 @@
 
 ### 実装
 
-- [ ] T009 `src/types/selection.ts` に `PromotionChoice` と `PromotionState` 型を定義する
-- [ ] T010 `src/components/PromotionDialog.tsx` を新規作成し、成る/成らないボタンを持つポップアップUIを実装する
-- [ ] T011 `tests/components/PromotionDialog.test.tsx` を新規作成し、PromotionDialogのレンダリングとクリックイベントをテストする
-- [ ] T012 `src/components/ShogiBoard.tsx` に `promotionState` ステートを追加し、成り選択フローを統合する
-- [ ] T013 `src/components/ShogiBoard.tsx` の移動処理を修正し、敵陣への移動時に成り選択を表示するロジックを追加する
+- [x] T009 `src/types/selection.ts` に `PromotionChoice` と `PromotionState` 型を定義する
+- [x] T010 `src/components/PromotionDialog.tsx` を新規作成し、成る/成らないボタンを持つポップアップUIを実装する
+- [x] T011 `tests/components/PromotionDialog.test.tsx` を新規作成し、PromotionDialogのレンダリングとクリックイベントをテストする
+- [x] T012 `src/components/ShogiBoard.tsx` に `promotionState` ステートを追加し、成り選択フローを統合する
+- [x] T013 `src/components/ShogiBoard.tsx` の移動処理を修正し、敵陣への移動時に成り選択を表示するロジックを追加する
 
-**Checkpoint**: 敵陣に入る移動で成り選択が動作する
+**Checkpoint**: 敵陣に入る移動で成り選択が動作する ✅
 
 ---
 
@@ -64,9 +64,9 @@
 
 ### 実装
 
-- [ ] T014 `src/components/ShogiBoard.tsx` の移動処理を拡張し、敵陣から出る移動時にも成り選択を表示するロジックを追加する
+- [x] T014 `src/components/ShogiBoard.tsx` の移動処理を拡張し、敵陣から出る移動時にも成り選択を表示するロジックを追加する
 
-**Checkpoint**: 敵陣から出る移動でも成り選択が動作する
+**Checkpoint**: 敵陣から出る移動でも成り選択が動作する ✅
 
 ---
 
@@ -78,11 +78,11 @@
 
 ### 実装
 
-- [ ] T015 `src/logic/moveRules.ts` に `PROMOTED_MOVE_PATTERNS` 定数を追加する（と金/杏/圭/全→金の動き、竜→飛車+斜め1マス、馬→角+縦横1マス）
-- [ ] T016 `src/logic/moveRules.ts` の `calculateValidMoves` 関数を修正し、`promoted` フラグに応じて適切な移動パターンを使用するようにする
-- [ ] T017 `tests/logic/moveRules.test.ts` に成り駒の移動パターンテストを追加する（各成り駒種のテストケース）
+- [x] T015 `src/logic/moveRules.ts` に `PROMOTED_MOVE_PATTERNS` 定数を追加する（と金/杏/圭/全→金の動き、竜→飛車+斜め1マス、馬→角+縦横1マス）
+- [x] T016 `src/logic/moveRules.ts` の `calculateValidMoves` 関数を修正し、`promoted` フラグに応じて適切な移動パターンを使用するようにする
+- [x] T017 `tests/logic/moveRules.test.ts` に成り駒の移動パターンテストを追加する（各成り駒種のテストケース）
 
-**Checkpoint**: 成り駒が正しい移動パターンで動作する
+**Checkpoint**: 成り駒が正しい移動パターンで動作する ✅
 
 ---
 
@@ -94,11 +94,11 @@
 
 ### 実装
 
-- [ ] T018 `src/components/ShogiBoard.tsx` の成り選択ロジックを修正し、金・王・玉の場合は成り選択をスキップする
-- [ ] T019 `src/components/ShogiBoard.tsx` の成り選択ロジックを修正し、強制成り条件（歩/香が最奥段、桂が最奥2段）の場合は自動的に成りを適用する
-- [ ] T020 `tests/logic/promotionLogic.test.ts` に強制成りのエッジケーステストを追加する
+- [x] T018 `src/components/ShogiBoard.tsx` の成り選択ロジックを修正し、金・王・玉の場合は成り選択をスキップする
+- [x] T019 `src/components/ShogiBoard.tsx` の成り選択ロジックを修正し、強制成り条件（歩/香が最奥段、桂が最奥2段）の場合は自動的に成りを適用する
+- [x] T020 `tests/logic/promotionLogic.test.ts` に強制成りのエッジケーステストを追加する
 
-**Checkpoint**: 成れない駒と強制成りが正しく動作する
+**Checkpoint**: 成れない駒と強制成りが正しく動作する ✅
 
 ---
 
@@ -110,10 +110,10 @@
 
 ### 実装
 
-- [ ] T021 `src/components/Piece.tsx` を修正し、`promoted` フラグに応じて `PROMOTED_PIECE_DISPLAY` の文字を表示するようにする
-- [ ] T022 `tests/components/Piece.test.tsx` に成り駒表示のテストを追加する
+- [x] T021 `src/components/Piece.tsx` を修正し、`promoted` フラグに応じて `PROMOTED_PIECE_DISPLAY` の文字を表示するようにする
+- [x] T022 `tests/components/Piece.test.tsx` に成り駒表示のテストを追加する
 
-**Checkpoint**: 成り駒が正しい表記で表示される
+**Checkpoint**: 成り駒が正しい表記で表示される ✅
 
 ---
 
@@ -121,13 +121,13 @@
 
 **Purpose**: 残りのエッジケース対応と全体統合
 
-- [ ] T023 `src/components/ShogiBoard.tsx` を修正し、すでに成っている駒には成り選択を表示しないようにする
-- [ ] T024 `src/components/ShogiBoard.tsx` を修正し、敵陣内での移動（敵陣から敵陣）でも成り選択を表示するようにする
-- [ ] T025 `src/logic/captureLogic.ts` を修正し、成り駒が取られた際に `promoted: false` にリセットして持ち駒に追加する
-- [ ] T026 `tests/logic/captureLogic.test.ts` に成り駒が取られた際のテストを追加する
-- [ ] T027 `src/components/ShogiBoard.tsx` を確認し、持ち駒を打った際には成り選択が発生しないことを保証する
+- [x] T023 `src/components/ShogiBoard.tsx` を修正し、すでに成っている駒には成り選択を表示しないようにする
+- [x] T024 `src/components/ShogiBoard.tsx` を修正し、敵陣内での移動（敵陣から敵陣）でも成り選択を表示するようにする
+- [x] T025 `src/logic/captureLogic.ts` を修正し、成り駒が取られた際に `promoted: false` にリセットして持ち駒に追加する
+- [x] T026 `tests/logic/captureLogic.test.ts` に成り駒が取られた際のテストを追加する
+- [x] T027 `src/components/ShogiBoard.tsx` を確認し、持ち駒を打った際には成り選択が発生しないことを保証する
 
-**Checkpoint**: 全てのエッジケースが正しく動作する
+**Checkpoint**: 全てのエッジケースが正しく動作する ✅
 
 ---
 
@@ -135,9 +135,11 @@
 
 **Purpose**: ドキュメント更新、クリーンアップ、最終検証
 
-- [ ] T028 全テストを実行して合格を確認する（`npm test`）
-- [ ] T029 リンターとフォーマットチェックを実行してエラーがないことを確認する（`npm run check` = `npm run lint && npm run format:check`）
-- [ ] T030 `specs/007-piece-promotion/quickstart.md` の動作確認手順に従って手動テストを実施する
+- [x] T028 全テストを実行して合格を確認する（`npm test`）
+- [x] T029 リンターとフォーマットチェックを実行してエラーがないことを確認する（`npm run check` = `npm run lint && npm run format:check`）
+- [x] T030 `specs/007-piece-promotion/quickstart.md` の動作確認手順に従って手動テストを実施する
+
+**Checkpoint**: 最終検証完了 ✅
 
 ---
 

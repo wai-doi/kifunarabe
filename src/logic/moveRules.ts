@@ -2,7 +2,7 @@
  * 駒の移動ルールを定義するモジュール
  */
 
-import type { PieceType, Piece } from '../types/piece';
+import type { PieceType, Piece, PromotablePieceType } from '../types/piece';
 import type { MovePattern, Vector } from '../types/movePattern';
 import type { Position } from '../types/position';
 import { isValidPosition } from './boardState';
@@ -121,6 +121,63 @@ export const MOVE_PATTERNS: Record<PieceType, MovePattern> = {
 };
 
 /**
+ * 成り駒の移動パターン定義
+ * - と金(歩)、杏(香)、圭(桂)、全(銀): 金と同じ動き
+ * - 竜(飛車): 飛車の動き + 斜め1マス
+ * - 馬(角): 角の動き + 縦横1マス
+ */
+export const PROMOTED_MOVE_PATTERNS: Record<PromotablePieceType, MovePattern> = {
+  // と金: 金と同じ動き
+  歩: MOVE_PATTERNS.金,
+
+  // 成香: 金と同じ動き
+  香: MOVE_PATTERNS.金,
+
+  // 成桂: 金と同じ動き
+  桂: MOVE_PATTERNS.金,
+
+  // 成銀: 金と同じ動き
+  銀: MOVE_PATTERNS.金,
+
+  // 竜王: 飛車の動き + 斜め1マス
+  飛: {
+    vectors: [
+      // 飛車の動き（縦横直進）
+      { dFile: 0, dRank: 1 },
+      { dFile: 0, dRank: -1 },
+      { dFile: 1, dRank: 0 },
+      { dFile: -1, dRank: 0 },
+      // 追加: 斜め1マス
+      { dFile: 1, dRank: 1 },
+      { dFile: 1, dRank: -1 },
+      { dFile: -1, dRank: 1 },
+      { dFile: -1, dRank: -1 },
+    ],
+    // 複合range: 縦横は無限、斜めは1マス
+    // これを実現するため、rangeは無限にして斜め方向の探索は別途処理
+    range: Infinity,
+  },
+
+  // 龍馬: 角の動き + 縦横1マス
+  角: {
+    vectors: [
+      // 角の動き（斜め直進）
+      { dFile: 1, dRank: 1 },
+      { dFile: 1, dRank: -1 },
+      { dFile: -1, dRank: 1 },
+      { dFile: -1, dRank: -1 },
+      // 追加: 縦横1マス
+      { dFile: 0, dRank: 1 },
+      { dFile: 0, dRank: -1 },
+      { dFile: 1, dRank: 0 },
+      { dFile: -1, dRank: 0 },
+    ],
+    // 複合range: 斜めは無限、縦横は1マス
+    range: Infinity,
+  },
+};
+
+/**
  * 駒の所有者に応じて移動ベクトルを調整
  * @param piece - 駒
  * @param pattern - 移動パターン
@@ -185,6 +242,45 @@ export function isPathClear(from: Position, to: Position, board: Piece[]): boole
 }
 
 /**
+ * 駒の移動パターンを取得する
+ * 成り駒の場合は成り駒用のパターンを返す
+ * @param piece - 駒
+ * @returns 移動パターン
+ */
+function getMovePattern(piece: Piece): MovePattern {
+  if (piece.promoted && piece.type in PROMOTED_MOVE_PATTERNS) {
+    return PROMOTED_MOVE_PATTERNS[piece.type as PromotablePieceType];
+  }
+  return MOVE_PATTERNS[piece.type];
+}
+
+/**
+ * 成り駒（竜・馬）の特殊な移動範囲を計算するためのヘルパー
+ * - 竜: 縦横は無限、斜めは1マス
+ * - 馬: 斜めは無限、縦横は1マス
+ */
+function getRangeForVector(piece: Piece, vector: Vector, defaultRange: number): number {
+  if (!piece.promoted) {
+    return defaultRange;
+  }
+
+  // 斜め方向かどうかを判定
+  const isDiagonal = vector.dFile !== 0 && vector.dRank !== 0;
+
+  if (piece.type === '飛') {
+    // 竜: 斜めは1マス、縦横は無限
+    return isDiagonal ? 1 : defaultRange;
+  }
+
+  if (piece.type === '角') {
+    // 馬: 縦横は1マス、斜めは無限
+    return isDiagonal ? defaultRange : 1;
+  }
+
+  return defaultRange;
+}
+
+/**
  * 指定された駒の移動可能なマスを計算
  * @param piece - 移動する駒
  * @param position - 駒の現在位置
@@ -192,13 +288,16 @@ export function isPathClear(from: Position, to: Position, board: Piece[]): boole
  * @returns 移動可能なマスの配列
  */
 export function calculateValidMoves(piece: Piece, position: Position, board: Piece[]): Position[] {
-  const pattern = MOVE_PATTERNS[piece.type];
+  const pattern = getMovePattern(piece);
   const adjustedVectors = getAdjustedVectors(piece, pattern);
   const validMoves: Position[] = [];
 
   for (const vector of adjustedVectors) {
+    // 成り駒（竜・馬）の場合は方向に応じてrangeを調整
+    const effectiveRange = getRangeForVector(piece, vector, pattern.range);
+
     // rangeに応じて移動可能なマスを探索
-    for (let step = 1; step <= pattern.range; step++) {
+    for (let step = 1; step <= effectiveRange; step++) {
       const targetFile = position.file + vector.dFile * step;
       const targetRank = position.rank + vector.dRank * step;
       const target: Position = {
@@ -227,7 +326,7 @@ export function calculateValidMoves(piece: Piece, position: Position, board: Pie
       validMoves.push(target);
 
       // range=1の場合は1マスのみ
-      if (pattern.range === 1) {
+      if (effectiveRange === 1) {
         break;
       }
     }

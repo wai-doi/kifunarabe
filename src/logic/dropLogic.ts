@@ -50,6 +50,7 @@ export function dropPiece(
     player: player,
     file: position.file,
     rank: position.rank,
+    promoted: false, // 打った駒は必ず成っていない状態
   };
 
   return [...pieces, newPiece];

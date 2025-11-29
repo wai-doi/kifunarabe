@@ -60,14 +60,26 @@ describe('dropLogic', () => {
 
   describe('dropPiece', () => {
     test('空きマスに駒を打つと盤面に駒が追加される', () => {
-      const pieces: Piece[] = [{ type: '歩', player: 'sente', file: 5, rank: 7 }];
+      const pieces: Piece[] = [{ type: '歩', player: 'sente', file: 5, rank: 7, promoted: false }];
 
       const result = dropPiece(pieces, { file: 3, rank: 5 }, '角', 'sente');
 
       expect(result).toHaveLength(2);
-      expect(result).toContainEqual({ type: '角', player: 'sente', file: 3, rank: 5 });
+      expect(result).toContainEqual({
+        type: '角',
+        player: 'sente',
+        file: 3,
+        rank: 5,
+        promoted: false,
+      });
       // 元の駒も残っている
-      expect(result).toContainEqual({ type: '歩', player: 'sente', file: 5, rank: 7 });
+      expect(result).toContainEqual({
+        type: '歩',
+        player: 'sente',
+        file: 5,
+        rank: 7,
+        promoted: false,
+      });
     });
 
     test('後手が駒を打つと後手の駒として追加される', () => {
@@ -76,11 +88,17 @@ describe('dropLogic', () => {
       const result = dropPiece(pieces, { file: 1, rank: 1 }, '飛', 'gote');
 
       expect(result).toHaveLength(1);
-      expect(result[0]).toEqual({ type: '飛', player: 'gote', file: 1, rank: 1 });
+      expect(result[0]).toEqual({
+        type: '飛',
+        player: 'gote',
+        file: 1,
+        rank: 1,
+        promoted: false,
+      });
     });
 
     test('元の盤面は変更されない(イミュータブル)', () => {
-      const pieces: Piece[] = [{ type: '歩', player: 'sente', file: 5, rank: 7 }];
+      const pieces: Piece[] = [{ type: '歩', player: 'sente', file: 5, rank: 7, promoted: false }];
 
       const result = dropPiece(pieces, { file: 3, rank: 5 }, '角', 'sente');
 
@@ -105,6 +123,24 @@ describe('dropLogic', () => {
       // 香を打つ
       result = dropPiece(pieces, { file: 1, rank: 2 }, '香', 'sente');
       expect(result[0].type).toBe('香');
+    });
+
+    test('打った駒は成っていない状態で追加される', () => {
+      const pieces: Piece[] = [];
+
+      const result = dropPiece(pieces, { file: 5, rank: 5 }, '歩', 'sente');
+
+      expect(result[0].promoted).toBe(false);
+    });
+
+    test('持ち駒から打った飛車は成っていない', () => {
+      const pieces: Piece[] = [];
+
+      // 成り駒を取った後の持ち駒から打つ場合でも、成っていない状態で盤面に配置される
+      const result = dropPiece(pieces, { file: 2, rank: 5 }, '飛', 'sente');
+
+      expect(result[0].promoted).toBe(false);
+      expect(result[0].type).toBe('飛');
     });
   });
 });

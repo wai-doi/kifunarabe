@@ -244,4 +244,81 @@ describe('captureLogic', () => {
       expect(() => removeFromCapturedPieces(capturedPieces, 'sente', '歩')).toThrow();
     });
   });
+
+  describe('成り駒の捕獲', () => {
+    test('成り駒を取った場合、元の駒種として持ち駒に追加される', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: {},
+        gote: {},
+      };
+      // 成った飛車（竜）を取った場合
+      const promotedHisha: Piece = {
+        type: '飛',
+        player: 'gote',
+        file: 2,
+        rank: 8,
+        promoted: true,
+      };
+
+      const result = addToCapturedPieces(capturedPieces, promotedHisha, 'sente');
+
+      // 元の駒種「飛」として持ち駒に追加される
+      expect(result.sente['飛']).toBe(1);
+    });
+
+    test('成った歩（と金）を取った場合、「歩」として持ち駒に追加される', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: { 歩: 2 },
+        gote: {},
+      };
+      const promotedFu: Piece = {
+        type: '歩',
+        player: 'gote',
+        file: 5,
+        rank: 7,
+        promoted: true,
+      };
+
+      const result = addToCapturedPieces(capturedPieces, promotedFu, 'sente');
+
+      // 既存の歩に1枚追加される
+      expect(result.sente['歩']).toBe(3);
+    });
+
+    test('成った角（馬）を取った場合、「角」として持ち駒に追加される', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: {},
+        gote: {},
+      };
+      const promotedKaku: Piece = {
+        type: '角',
+        player: 'sente',
+        file: 8,
+        rank: 2,
+        promoted: true,
+      };
+
+      const result = addToCapturedPieces(capturedPieces, promotedKaku, 'gote');
+
+      expect(result.gote['角']).toBe(1);
+    });
+
+    test('成った銀（成銀）を取った場合、「銀」として持ち駒に追加される', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: { 銀: 1 },
+        gote: {},
+      };
+      const promotedGin: Piece = {
+        type: '銀',
+        player: 'gote',
+        file: 4,
+        rank: 7,
+        promoted: true,
+      };
+
+      const result = addToCapturedPieces(capturedPieces, promotedGin, 'sente');
+
+      expect(result.sente['銀']).toBe(2);
+    });
+  });
 });
