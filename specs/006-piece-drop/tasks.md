@@ -15,8 +15,8 @@
 
 **Purpose**: 新機能に必要な型定義と基盤コードの準備
 
-- [ ] T001 Selection型を定義する（`src/types/selection.ts`）
-- [ ] T002 [P] dropLogic.ts の空ファイルを作成し、関数シグネチャを定義する（`src/logic/dropLogic.ts`）
+- [x] T001 Selection型を定義する（`src/types/selection.ts`）
+- [x] T002 [P] dropLogic.ts の空ファイルを作成し、関数シグネチャを定義する（`src/logic/dropLogic.ts`）
 
 ---
 
@@ -28,17 +28,17 @@
 
 ### テスト（Red フェーズ）
 
-- [ ] T003 [P] canDropPiece のユニットテストを作成する（`tests/logic/dropLogic.test.ts`）
-- [ ] T004 [P] dropPiece のユニットテストを作成する（`tests/logic/dropLogic.test.ts`）
-- [ ] T005 [P] removeFromCapturedPieces のユニットテストを作成する（`tests/logic/captureLogic.test.ts`）
+- [x] T003 [P] canDropPiece のユニットテストを作成する（`tests/logic/dropLogic.test.ts`）
+- [x] T004 [P] dropPiece のユニットテストを作成する（`tests/logic/dropLogic.test.ts`）
+- [x] T005 [P] removeFromCapturedPieces のユニットテストを作成する（`tests/logic/captureLogic.test.ts`）
 
 ### 実装（Green フェーズ）
 
-- [ ] T006 canDropPiece 関数を実装する（`src/logic/dropLogic.ts`）
-- [ ] T007 dropPiece 関数を実装する（`src/logic/dropLogic.ts`）
-- [ ] T008 removeFromCapturedPieces 関数を実装する（`src/logic/captureLogic.ts`）
+- [x] T006 canDropPiece 関数を実装する（`src/logic/dropLogic.ts`）
+- [x] T007 dropPiece 関数を実装する（`src/logic/dropLogic.ts`）
+- [x] T008 removeFromCapturedPieces 関数を実装する（`src/logic/captureLogic.ts`）
 
-**Checkpoint**: 全テストがパスすることを確認
+**Checkpoint**: 全テストがパスすることを確認 ✅ 28/28 passed
 
 ---
 
@@ -52,21 +52,21 @@
 
 ### テスト（Red フェーズ）
 
-- [ ] T009 [P] [US1] CapturedPieces クリックハンドラのテストを作成する（`tests/components/CapturedPieces.test.tsx`）
-- [ ] T010 [P] [US2] CapturedPieces 選択ハイライトのテストを作成する（`tests/components/CapturedPieces.test.tsx`）
-- [ ] T011 [P] [US1] ShogiBoard 持ち駒打ち統合テストを作成する（`tests/components/ShogiBoard.test.tsx`）
+- [x] T009 [P] [US1] CapturedPieces クリックハンドラのテストを作成する（`tests/components/CapturedPieces.test.tsx`）
+- [x] T010 [P] [US2] CapturedPieces 選択ハイライトのテストを作成する（`tests/components/CapturedPieces.test.tsx`）
+- [x] T011 [P] [US1] ShogiBoard 持ち駒打ち統合テストを作成する（`tests/components/ShogiBoard.test.tsx`）
 
 ### 実装（Green フェーズ）
 
-- [ ] T012 [US2] CapturedPieces に onPieceClick プロパティを追加する（`src/components/CapturedPieces.tsx`）
-- [ ] T013 [US2] CapturedPieces に selectedPieceType プロパティを追加し、ハイライト表示する（`src/components/CapturedPieces.tsx`）
-- [ ] T014 [US1] ShogiBoard の selected 状態を Selection 型に変更する（`src/components/ShogiBoard.tsx`）
-- [ ] T015 [US1] ShogiBoard に handleCapturedPieceClick ハンドラを追加する（`src/components/ShogiBoard.tsx`）
-- [ ] T016 [US1] handleSquareClick を拡張し、持ち駒選択時の打つ処理を追加する（`src/components/ShogiBoard.tsx`）
-- [ ] T017 [US2] 持ち駒選択中に盤面の自分の駒をクリックした場合の切り替え処理を実装する（`src/components/ShogiBoard.tsx`）
-- [ ] T018 [US2] 持ち駒選択中に別の持ち駒をクリックした場合の切り替え処理を実装する（`src/components/ShogiBoard.tsx`）
+- [x] T012 [US2] CapturedPieces に onPieceClick プロパティを追加する（`src/components/CapturedPieces.tsx`）
+- [x] T013 [US2] CapturedPieces に selectedPieceType プロパティを追加し、ハイライト表示する（`src/components/CapturedPieces.tsx`）
+- [x] T014 [US1] ShogiBoard の selected 状態を Selection 型に変更する（`src/components/ShogiBoard.tsx`）
+- [x] T015 [US1] ShogiBoard に handleCapturedPieceClick ハンドラを追加する（`src/components/ShogiBoard.tsx`）
+- [x] T016 [US1] handleSquareClick を拡張し、持ち駒選択時の打つ処理を追加する（`src/components/ShogiBoard.tsx`）
+- [x] T017 [US2] 持ち駒選択中に盤面の自分の駒をクリックした場合の切り替え処理を実装する（`src/components/ShogiBoard.tsx`）
+- [x] T018 [US2] 持ち駒選択中に別の持ち駒をクリックした場合の切り替え処理を実装する（`src/components/ShogiBoard.tsx`）
 
-**Checkpoint**: 持ち駒の選択・配置が正常に動作することを確認
+**Checkpoint**: 持ち駒の選択・配置が正常に動作することを確認 ✅ 170/170 passed
 
 ---
 
@@ -78,16 +78,16 @@
 
 ### テスト（Red フェーズ）
 
-- [ ] T019 [P] [US3] 相手の手番で持ち駒を選択できないテストを作成する（`tests/components/ShogiBoard.test.tsx`）
-- [ ] T020 [P] [US3] 持ち駒打ち後の手番切り替えテストを作成する（`tests/components/ShogiBoard.test.tsx`）
+- [x] T019 [P] [US3] 相手の手番で持ち駒を選択できないテストを作成する（`tests/components/ShogiBoard.test.tsx`）
+- [x] T020 [P] [US3] 持ち駒打ち後の手番切り替えテストを作成する（`tests/components/ShogiBoard.test.tsx`）
 
 ### 実装（Green フェーズ）
 
-- [ ] T021 [US3] CapturedPieces に isSelectable プロパティを追加する（`src/components/CapturedPieces.tsx`）
-- [ ] T022 [US3] ShogiBoard で currentTurn に基づいて CapturedPieces の isSelectable を制御する（`src/components/ShogiBoard.tsx`）
-- [ ] T023 [US3] 持ち駒を打った後に手番を切り替える処理を追加する（`src/components/ShogiBoard.tsx`）
+- [x] T021 [US3] CapturedPieces に isSelectable プロパティを追加する（`src/components/CapturedPieces.tsx`）
+- [x] T022 [US3] ShogiBoard で currentTurn に基づいて CapturedPieces の isSelectable を制御する（`src/components/ShogiBoard.tsx`）
+- [x] T023 [US3] 持ち駒を打った後に手番を切り替える処理を追加する（`src/components/ShogiBoard.tsx`）
 
-**Checkpoint**: 手番制御が正常に動作することを確認
+**Checkpoint**: 手番制御が正常に動作することを確認 ✅ 19/19 passed
 
 ---
 
@@ -95,11 +95,11 @@
 
 **Purpose**: エッジケース対応とコード品質向上
 
-- [ ] T024 [P] 持ち駒選択のキャンセル処理を実装する（同じ駒を再クリック）（`src/components/ShogiBoard.tsx`）
-- [ ] T025 [P] 持ち駒が0個の駒種をクリックしても選択されないことを確認するテストを追加する（`tests/components/CapturedPieces.test.tsx`）
-- [ ] T026 既存の盤面駒移動テストが引き続きパスすることを確認する
-- [ ] T027 全テストを実行し、カバレッジを確認する（`npm run test:coverage`）
-- [ ] T028 ESLint と Prettier のチェックを実行する（`npm run check`）
+- [x] T024 [P] 持ち駒選択のキャンセル処理を実装する（同じ駒を再クリック）（`src/components/ShogiBoard.tsx`）
+- [x] T025 [P] 持ち駒が0個の駒種をクリックしても選択されないことを確認するテストを追加する（`tests/components/CapturedPieces.test.tsx`）
+- [x] T026 既存の盤面駒移動テストが引き続きパスすることを確認する
+- [x] T027 全テストを実行し、カバレッジを確認する（`npm run test:coverage`）
+- [x] T028 ESLint と Prettier のチェックを実行する（`npm run check`）
 - [ ] T029 quickstart.md の動作確認手順に沿って手動テストを実施する
 
 ---

@@ -3,6 +3,7 @@ import {
   getTargetPiece,
   addToCapturedPieces,
   removePieceFromBoard,
+  removeFromCapturedPieces,
 } from '../../src/logic/captureLogic';
 import type { Piece } from '../../src/types/piece';
 import type { CapturedPieces } from '../../src/types/capturedPieces';
@@ -174,6 +175,73 @@ describe('captureLogic', () => {
 
       expect(result).toHaveLength(1);
       expect(result).toEqual(pieces);
+    });
+  });
+
+  describe('removeFromCapturedPieces', () => {
+    test('持ち駒から指定した種類の駒を1枚減らす', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: { 歩: 3, 角: 1 },
+        gote: {},
+      };
+
+      const result = removeFromCapturedPieces(capturedPieces, 'sente', '歩');
+
+      expect(result.sente['歩']).toBe(2);
+      expect(result.sente['角']).toBe(1); // 他の駒は変わらない
+    });
+
+    test('持ち駒が1枚の場合、0になる', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: { 飛: 1 },
+        gote: {},
+      };
+
+      const result = removeFromCapturedPieces(capturedPieces, 'sente', '飛');
+
+      expect(result.sente['飛']).toBe(0);
+    });
+
+    test('後手の持ち駒から減らす', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: {},
+        gote: { 桂: 2 },
+      };
+
+      const result = removeFromCapturedPieces(capturedPieces, 'gote', '桂');
+
+      expect(result.gote['桂']).toBe(1);
+    });
+
+    test('元の持ち駒オブジェクトは変更されない(イミュータブル)', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: { 歩: 2 },
+        gote: {},
+      };
+
+      const result = removeFromCapturedPieces(capturedPieces, 'sente', '歩');
+
+      expect(capturedPieces.sente['歩']).toBe(2); // 元は変わらない
+      expect(result.sente['歩']).toBe(1); // 結果は減っている
+      expect(result).not.toBe(capturedPieces);
+    });
+
+    test('持っていない駒を減らそうとするとエラーになる', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: {},
+        gote: {},
+      };
+
+      expect(() => removeFromCapturedPieces(capturedPieces, 'sente', '歩')).toThrow();
+    });
+
+    test('既に0枚の駒を減らそうとするとエラーになる', () => {
+      const capturedPieces: CapturedPieces = {
+        sente: { 歩: 0 },
+        gote: {},
+      };
+
+      expect(() => removeFromCapturedPieces(capturedPieces, 'sente', '歩')).toThrow();
     });
   });
 });

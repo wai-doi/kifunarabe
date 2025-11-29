@@ -1,4 +1,4 @@
-import type { Piece, Player } from '../types/piece';
+import type { Piece, PieceType, Player } from '../types/piece';
 import type { Position } from '../types/position';
 import type { CapturedPieces, CapturedPiecesMap } from '../types/capturedPieces';
 
@@ -83,4 +83,37 @@ export function removePieceFromBoard(pieces: Piece[], pieceToRemove: Piece): Pie
         piece.player === pieceToRemove.player
       )
   );
+}
+
+/**
+ * 持ち駒から駒を1枚減らす(イミュータブル)
+ *
+ * @param capturedPieces - 現在の持ち駒
+ * @param player - 減らすプレイヤー
+ * @param pieceType - 減らす駒の種類
+ * @returns 更新された持ち駒(新しいオブジェクト)
+ * @throws 持ち駒がない、または0枚の場合エラー
+ */
+export function removeFromCapturedPieces(
+  capturedPieces: CapturedPieces,
+  player: Player,
+  pieceType: PieceType
+): CapturedPieces {
+  const playerPieces = capturedPieces[player];
+  const currentCount = playerPieces[pieceType];
+
+  // 持ち駒がない、または0枚の場合はエラー
+  if (currentCount === undefined || currentCount <= 0) {
+    throw new Error(`No ${pieceType} in ${player}'s captured pieces`);
+  }
+
+  const updatedPlayerPieces: CapturedPiecesMap = {
+    ...playerPieces,
+    [pieceType]: currentCount - 1,
+  };
+
+  return {
+    ...capturedPieces,
+    [player]: updatedPlayerPieces,
+  };
 }
