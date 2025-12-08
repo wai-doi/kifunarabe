@@ -3,12 +3,14 @@ import Board from './Board';
 import TurnDisplay from './TurnDisplay';
 import CapturedPiecesComponent from './CapturedPieces';
 import PromotionDialog from './PromotionDialog';
+import { NavigationControls } from './NavigationControls';
 import { INITIAL_POSITION } from '../data/initialPosition';
 import type { Position } from '../types/position';
 import type { Piece, PieceType } from '../types/piece';
 import type { Turn } from '../types/turn';
 import type { CapturedPieces } from '../types/capturedPieces';
 import type { Selection, PromotionState } from '../types/selection';
+import type { GameHistory } from '../types/history';
 import { isBoardSelection, isCapturedSelection } from '../types/selection';
 import { isValidMove } from '../logic/moveRules';
 import { updateBoardAfterMove } from '../logic/boardState';
@@ -22,18 +24,40 @@ import {
 } from '../logic/captureLogic';
 import { canDropPiece, dropPiece } from '../logic/dropLogic';
 import { canPromoteMove, mustPromote, isPromotablePieceType } from '../logic/promotionLogic';
+import {
+  addMove,
+  goToPrevious,
+  goToNext,
+  goToFirst,
+  goToLast,
+  getCurrentEntry,
+  getNavigationState,
+} from '../logic/historyManager';
 
 /**
  * 将棋盤と駒を統合して表示するコンポーネント
  */
 const ShogiBoard = () => {
-  // 盤面の状態管理
+  // T021: 履歴の初期状態（初期配置を記録）
+  const [history, setHistory] = useState<GameHistory>({
+    entries: [
+      {
+        pieces: INITIAL_POSITION,
+        capturedPieces: createEmptyCapturedPieces(),
+        currentTurn: 'sente',
+        moveNumber: 0,
+      },
+    ],
+    currentIndex: 0,
+  });
+
+  // 盤面の状態管理（履歴から復元）
   const [pieces, setPieces] = useState<Piece[]>(INITIAL_POSITION);
   // 選択中の駒の状態（盤面上 or 持ち駒）
   const [selection, setSelection] = useState<Selection | null>(null);
-  // 現在のターン
+  // 現在のターン（履歴から復元）
   const [currentTurn, setCurrentTurn] = useState<Turn>('sente');
-  // 持ち駒の状態管理
+  // 持ち駒の状態管理（履歴から復元）
   const [capturedPieces, setCapturedPieces] = useState<CapturedPieces>(createEmptyCapturedPieces());
   // T032: 無効操作時のisHighlightedフラグ管理
   const [isHighlighted, setIsHighlighted] = useState(false);
@@ -47,6 +71,50 @@ const ShogiBoard = () => {
 
   // Board コンポーネント用に Position | null に変換
   const selectedPosition = selection && isBoardSelection(selection) ? selection.position : null;
+
+  /**
+   * T024: 履歴から盤面を復元するヘルパー関数
+   */
+  const restoreFromHistory = (newHistory: GameHistory) => {
+    const currentEntry = getCurrentEntry(newHistory);
+    setPieces(currentEntry.pieces);
+    setCapturedPieces(currentEntry.capturedPieces);
+    setCurrentTurn(currentEntry.currentTurn);
+    setHistory(newHistory);
+    setSelection(null); // 選択状態もクリア
+  };
+
+  /**
+   * T023: 一手戻るハンドラー
+   */
+  const handleGoBack = () => {
+    const newHistory = goToPrevious(history);
+    restoreFromHistory(newHistory);
+  };
+
+  /**
+   * 一手進むハンドラー
+   */
+  const handleGoForward = () => {
+    const newHistory = goToNext(history);
+    restoreFromHistory(newHistory);
+  };
+
+  /**
+   * 初手に戻るハンドラー
+   */
+  const handleGoFirst = () => {
+    const newHistory = goToFirst(history);
+    restoreFromHistory(newHistory);
+  };
+
+  /**
+   * 最終手に進むハンドラー
+   */
+  const handleGoLast = () => {
+    const newHistory = goToLast(history);
+    restoreFromHistory(newHistory);
+  };
 
   /**
    * 持ち駒がクリックされた時のハンドラー
@@ -99,11 +167,21 @@ const ShogiBoard = () => {
         );
         setCapturedPieces(newCapturedPieces);
 
+        // 手番を切り替える
+        const newTurn = switchTurn(currentTurn);
+        setCurrentTurn(newTurn);
+
+        // 履歴に追加
+        const newHistory = addMove(history, {
+          pieces: newPieces,
+          capturedPieces: newCapturedPieces,
+          currentTurn: newTurn,
+          moveNumber: history.currentIndex + 1,
+        });
+        setHistory(newHistory);
+
         // 選択解除
         setSelection(null);
-
-        // 手番を切り替える
-        setCurrentTurn(switchTurn(currentTurn));
         return;
       }
 
@@ -185,8 +263,21 @@ const ShogiBoard = () => {
             );
             setPieces(promotedPieces);
             setCapturedPieces(updatedCapturedPieces);
+
+            // 手番を切り替える
+            const newTurn = switchTurn(currentTurn);
+            setCurrentTurn(newTurn);
+
+            // 履歴に追加
+            const newHistory = addMove(history, {
+              pieces: promotedPieces,
+              capturedPieces: updatedCapturedPieces,
+              currentTurn: newTurn,
+              moveNumber: history.currentIndex + 1,
+            });
+            setHistory(newHistory);
+
             setSelection(null);
-            setCurrentTurn(switchTurn(currentTurn));
           } else if (canPromote) {
             // 成り選択が必要: 成り選択ダイアログを表示
             setPendingState({ pieces: movedPieces, capturedPieces: updatedCapturedPieces });
@@ -200,9 +291,21 @@ const ShogiBoard = () => {
             // 成りなし: 通常の移動
             setPieces(movedPieces);
             setCapturedPieces(updatedCapturedPieces);
-            setSelection(null);
+
             // T020: 駒移動成功後にターンを切り替える
-            setCurrentTurn(switchTurn(currentTurn));
+            const newTurn = switchTurn(currentTurn);
+            setCurrentTurn(newTurn);
+
+            // 履歴に追加
+            const newHistory = addMove(history, {
+              pieces: movedPieces,
+              capturedPieces: updatedCapturedPieces,
+              currentTurn: newTurn,
+              moveNumber: history.currentIndex + 1,
+            });
+            setHistory(newHistory);
+
+            setSelection(null);
           }
         }
         // 移動不可能な場合は何もしない(選択状態を維持)
@@ -235,9 +338,22 @@ const ShogiBoard = () => {
 
     setPieces(promotedPieces);
     setCapturedPieces(pendingState.capturedPieces);
+
+    // 手番を切り替える
+    const newTurn = switchTurn(currentTurn);
+    setCurrentTurn(newTurn);
+
+    // 履歴に追加
+    const newHistory = addMove(history, {
+      pieces: promotedPieces,
+      capturedPieces: pendingState.capturedPieces,
+      currentTurn: newTurn,
+      moveNumber: history.currentIndex + 1,
+    });
+    setHistory(newHistory);
+
     setPromotionState(null);
     setPendingState(null);
-    setCurrentTurn(switchTurn(currentTurn));
   };
 
   /**
@@ -249,9 +365,22 @@ const ShogiBoard = () => {
     // 成らずに移動完了
     setPieces(pendingState.pieces);
     setCapturedPieces(pendingState.capturedPieces);
+
+    // 手番を切り替える
+    const newTurn = switchTurn(currentTurn);
+    setCurrentTurn(newTurn);
+
+    // 履歴に追加
+    const newHistory = addMove(history, {
+      pieces: pendingState.pieces,
+      capturedPieces: pendingState.capturedPieces,
+      currentTurn: newTurn,
+      moveNumber: history.currentIndex + 1,
+    });
+    setHistory(newHistory);
+
     setPromotionState(null);
     setPendingState(null);
-    setCurrentTurn(switchTurn(currentTurn));
   };
 
   return (
@@ -304,6 +433,15 @@ const ShogiBoard = () => {
             : undefined
         }
         isSelectable={currentTurn === 'sente'}
+      />
+
+      {/* T025: ナビゲーションコントロールを追加 */}
+      <NavigationControls
+        navigationState={getNavigationState(history)}
+        onGoBack={handleGoBack}
+        onGoForward={handleGoForward}
+        onGoFirst={handleGoFirst}
+        onGoLast={handleGoLast}
       />
     </div>
   );
