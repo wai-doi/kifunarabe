@@ -18,9 +18,9 @@
 
 **Purpose**: プロジェクトの基本構造確認と必要な依存関係の確認
 
-- [ ] T001 既存のプロジェクト構造を確認（src/, tests/ の配置）
-- [ ] T002 TypeScript, React, Vitest の設定が正しいことを確認
-- [ ] T003 [P] 既存のテストが正常に動作することを確認（npm test）
+- [x] T001 既存のプロジェクト構造を確認（src/, tests/ の配置）
+- [x] T002 TypeScript, React, Vitest の設定が正しいことを確認
+- [x] T003 [P] 既存のテストが正常に動作することを確認（npm test）
 
 ---
 
@@ -30,9 +30,9 @@
 
 **⚠️ CRITICAL**: このフェーズが完了するまでユーザーストーリーの実装は開始できません
 
-- [ ] T004 [P] 型定義ファイル `src/types/history.ts` を作成（HistoryEntry, GameHistory, NavigationState）
-- [ ] T005 [P] 履歴管理ロジックのテストファイル `tests/logic/historyManager.test.ts` を作成（TDD: 最初は空のテスト）
-- [ ] T006 履歴管理ロジック `src/logic/historyManager.ts` の基本構造を作成（空の関数エクスポート）
+- [x] T004 [P] 型定義ファイル `src/types/history.ts` を作成（HistoryEntry, GameHistory, NavigationState）
+- [x] T005 [P] 履歴管理ロジックのテストファイル `tests/logic/historyManager.test.ts` を作成（TDD: 最初は空のテスト）
+- [x] T006 履歴管理ロジック `src/logic/historyManager.ts` の基本構造を作成（空の関数エクスポート）
 
 **Checkpoint**: 基盤準備完了 - ユーザーストーリーの並行実装が可能
 
@@ -46,32 +46,32 @@
 
 ### Tests for User Story 1 (TDD - RED phase)
 
-- [ ] T007 [P] [US1] `historyManager.test.ts` に `goToPrevious` 関数のテストを追加（境界値: 0手目で戻れない）
-- [ ] T008 [P] [US1] `historyManager.test.ts` に履歴追加後に戻るテストを追加
-- [ ] T009 [P] [US1] `historyManager.test.ts` に `canGoBack` 状態判定のテストを追加
-- [ ] T010 [US1] テストを実行して RED（失敗）を確認
+- [x] T007 [P] [US1] `historyManager.test.ts` に `goToPrevious` 関数のテストを追加（境界値: 0手目で戻れない）
+- [x] T008 [P] [US1] `historyManager.test.ts` に履歴追加後に戻るテストを追加
+- [x] T009 [P] [US1] `historyManager.test.ts` に `canGoBack` 状態判定のテストを追加
+- [x] T010 [US1] テストを実行して RED（失敗）を確認
 
 ### Implementation for User Story 1 (TDD - GREEN phase)
 
-- [ ] T011 [P] [US1] `src/logic/historyManager.ts` に `goToPrevious` 関数を実装
-- [ ] T012 [P] [US1] `src/logic/historyManager.ts` に `getCurrentEntry` 関数を実装
-- [ ] T013 [P] [US1] `src/logic/historyManager.ts` に `getNavigationState` 関数を実装（canGoBack のみ）
-- [ ] T014 [US1] テストを実行して GREEN（成功）を確認
-- [ ] T015 [P] [US1] NavigationControls コンポーネントのテストファイル `tests/components/NavigationControls.test.tsx` を作成
-- [ ] T016 [P] [US1] `tests/components/NavigationControls.test.tsx` に「一手戻る」ボタンのレンダリングテストを追加
-- [ ] T017 [P] [US1] `tests/components/NavigationControls.test.tsx` にボタン無効化状態のテストを追加
-- [ ] T018 [US1] NavigationControls コンポーネントテストを実行して RED を確認
-- [ ] T019 [US1] `src/components/NavigationControls.tsx` を作成（「一手戻る」ボタンのみ実装）
-- [ ] T020 [US1] `src/components/ShogiBoard.tsx` に履歴状態（useState<GameHistory>）を追加
-- [ ] T021 [US1] `src/components/ShogiBoard.tsx` に初期配置を履歴の最初のエントリとして記録
-- [ ] T022 [US1] `src/components/ShogiBoard.tsx` の手を指すハンドラーに履歴記録処理を追加（addMove）
-- [ ] T023 [US1] `src/components/ShogiBoard.tsx` に「一手戻る」ハンドラーを実装
-- [ ] T024 [US1] `src/components/ShogiBoard.tsx` に盤面復元ロジック（restoreFromHistory）を実装
-- [ ] T025 [US1] `src/components/ShogiBoard.tsx` から NavigationControls をレンダリング（「一手戻る」のみ表示）
-- [ ] T026 [US1] すべてのテストが GREEN になることを確認
-- [ ] T027 [US1] 手動テスト: 駒を3手動かして「一手戻る」で2手目に戻ることを確認
-- [ ] T028 [US1] 手動テスト: 駒を取った後に戻ると盤面と持ち駒が正しく復元されることを確認
-- [ ] T029 [US1] 手動テスト: 駒を成った後に戻ると成る前の状態に戻ることを確認
+- [x] T011 [P] [US1] `src/logic/historyManager.ts` に `goToPrevious` 関数を実装
+- [x] T012 [P] [US1] `src/logic/historyManager.ts` に `getCurrentEntry` 関数を実装
+- [x] T013 [P] [US1] `src/logic/historyManager.ts` に `getNavigationState` 関数を実装（canGoBack のみ）
+- [x] T014 [US1] テストを実行して GREEN（成功）を確認
+- [x] T015 [P] [US1] NavigationControls コンポーネントのテストファイル `tests/components/NavigationControls.test.tsx` を作成
+- [x] T016 [P] [US1] `tests/components/NavigationControls.test.tsx` に「一手戻る」ボタンのレンダリングテストを追加
+- [x] T017 [P] [US1] `tests/components/NavigationControls.test.tsx` にボタン無効化状態のテストを追加
+- [x] T018 [US1] NavigationControls コンポーネントテストを実行して RED を確認
+- [x] T019 [US1] `src/components/NavigationControls.tsx` を作成（「一手戻る」ボタンのみ実装）
+- [x] T020 [US1] `src/components/ShogiBoard.tsx` に履歴状態（useState<GameHistory>）を追加
+- [x] T021 [US1] `src/components/ShogiBoard.tsx` に初期配置を履歴の最初のエントリとして記録
+- [x] T022 [US1] `src/components/ShogiBoard.tsx` の手を指すハンドラーに履歴記録処理を追加（addMove）
+- [x] T023 [US1] `src/components/ShogiBoard.tsx` に「一手戻る」ハンドラーを実装
+- [x] T024 [US1] `src/components/ShogiBoard.tsx` に盤面復元ロジック（restoreFromHistory）を実装
+- [x] T025 [US1] `src/components/ShogiBoard.tsx` から NavigationControls をレンダリング（「一手戻る」のみ表示）
+- [x] T026 [US1] すべてのテストが GREEN になることを確認
+- [x] T027 [US1] 手動テスト: 駒を3手動かして「一手戻る」で2手目に戻ることを確認
+- [x] T028 [US1] 手動テスト: 駒を取った後に戻ると盤面と持ち駒が正しく復元されることを確認
+- [x] T029 [US1] 手動テスト: 駒を成った後に戻ると成る前の状態に戻ることを確認
 
 **Checkpoint**: User Story 1 が独立して動作可能 - MVP として出荷可能
 
@@ -85,23 +85,23 @@
 
 ### Tests for User Story 2 (TDD - RED phase)
 
-- [ ] T030 [P] [US2] `historyManager.test.ts` に `goToNext` 関数のテストを追加（境界値: 最終手で進めない）
-- [ ] T031 [P] [US2] `historyManager.test.ts` に戻った後に進むテストを追加
-- [ ] T032 [P] [US2] `historyManager.test.ts` に `canGoForward` 状態判定のテストを追加
-- [ ] T033 [US2] テストを実行して RED を確認
+- [x] T030 [P] [US2] `historyManager.test.ts` に `goToNext` 関数のテストを追加（境界値: 最終手で進めない）
+- [x] T031 [P] [US2] `historyManager.test.ts` に戻った後に進むテストを追加
+- [x] T032 [P] [US2] `historyManager.test.ts` に `canGoForward` 状態判定のテストを追加
+- [x] T033 [US2] テストを実行して RED を確認
 
 ### Implementation for User Story 2 (TDD - GREEN phase)
 
-- [ ] T034 [P] [US2] `src/logic/historyManager.ts` に `goToNext` 関数を実装
-- [ ] T035 [P] [US2] `src/logic/historyManager.ts` の `getNavigationState` に `canGoForward` を追加
-- [ ] T036 [US2] historyManager のテストが GREEN になることを確認
-- [ ] T037 [P] [US2] `tests/components/NavigationControls.test.tsx` に「一手進む」ボタンのテストを追加
-- [ ] T038 [US2] NavigationControls のテストを実行して RED を確認
-- [ ] T039 [US2] `src/components/NavigationControls.tsx` に「一手進む」ボタンを追加
-- [ ] T040 [US2] `src/components/ShogiBoard.tsx` に「一手進む」ハンドラーを実装
-- [ ] T041 [US2] すべてのテストが GREEN になることを確認
-- [ ] T042 [US2] 手動テスト: 5手進んで3手目に戻り、「一手進む」で4手目に進むことを確認
-- [ ] T043 [US2] 手動テスト: 最終手で「一手進む」ボタンが無効化されることを確認
+- [x] T034 [P] [US2] `src/logic/historyManager.ts` に `goToNext` 関数を実装
+- [x] T035 [P] [US2] `src/logic/historyManager.ts` の `getNavigationState` に `canGoForward` を追加
+- [x] T036 [US2] historyManager のテストが GREEN になることを確認
+- [x] T037 [P] [US2] `tests/components/NavigationControls.test.tsx` に「一手進む」ボタンのテストを追加
+- [x] T038 [US2] NavigationControls のテストを実行して RED を確認
+- [x] T039 [US2] `src/components/NavigationControls.tsx` に「一手進む」ボタンを追加
+- [x] T040 [US2] `src/components/ShogiBoard.tsx` に「一手進む」ハンドラーを実装
+- [x] T041 [US2] すべてのテストが GREEN になることを確認
+- [x] T042 [US2] 手動テスト: 5手進んで3手目に戻り、「一手進む」で4手目に進むことを確認
+- [x] T043 [US2] 手動テスト: 最終手で「一手進む」ボタンが無効化されることを確認
 
 **Checkpoint**: User Stories 1 と 2 が両方動作 - 基本的な戻る/進む機能が完成
 
@@ -115,21 +115,21 @@
 
 ### Tests for User Story 3 (TDD - RED phase)
 
-- [ ] T044 [P] [US3] `historyManager.test.ts` に `goToFirst` 関数のテストを追加
-- [ ] T045 [P] [US3] `historyManager.test.ts` に初期配置で「初手に戻る」しても変わらないテストを追加
-- [ ] T046 [US3] テストを実行して RED を確認
+- [x] T044 [P] [US3] `historyManager.test.ts` に `goToFirst` 関数のテストを追加
+- [x] T045 [P] [US3] `historyManager.test.ts` に初期配置で「初手に戻る」しても変わらないテストを追加
+- [x] T046 [US3] テストを実行して RED を確認
 
 ### Implementation for User Story 3 (TDD - GREEN phase)
 
-- [ ] T047 [P] [US3] `src/logic/historyManager.ts` に `goToFirst` 関数を実装
-- [ ] T048 [US3] historyManager のテストが GREEN になることを確認
-- [ ] T049 [P] [US3] `tests/components/NavigationControls.test.tsx` に「初手に戻る」ボタンのテストを追加
-- [ ] T050 [US3] NavigationControls のテストを実行して RED を確認
-- [ ] T051 [US3] `src/components/NavigationControls.tsx` に「初手に戻る」ボタンを追加
-- [ ] T052 [US3] `src/components/ShogiBoard.tsx` に「初手に戻る」ハンドラーを実装
-- [ ] T053 [US3] すべてのテストが GREEN になることを確認
-- [ ] T054 [US3] 手動テスト: 10手進んだ後「初手に戻る」で即座に初期配置に戻ることを確認
-- [ ] T055 [US3] 手動テスト: 持ち駒がある状態から戻ると持ち駒が空になることを確認
+- [x] T047 [P] [US3] `src/logic/historyManager.ts` に `goToFirst` 関数を実装
+- [x] T048 [US3] historyManager のテストが GREEN になることを確認
+- [x] T049 [P] [US3] `tests/components/NavigationControls.test.tsx` に「初手に戻る」ボタンのテストを追加
+- [x] T050 [US3] NavigationControls のテストを実行して RED を確認
+- [x] T051 [US3] `src/components/NavigationControls.tsx` に「初手に戻る」ボタンを追加
+- [x] T052 [US3] `src/components/ShogiBoard.tsx` に「初手に戻る」ハンドラーを実装
+- [x] T053 [US3] すべてのテストが GREEN になることを確認
+- [x] T054 [US3] 手動テスト: 10手進んだ後「初手に戻る」で即座に初期配置に戻ることを確認
+- [x] T055 [US3] 手動テスト: 持ち駒がある状態から戻ると持ち駒が空になることを確認
 
 **Checkpoint**: User Stories 1-3 が動作 - 戻る系の操作が完成
 
@@ -143,22 +143,22 @@
 
 ### Tests for User Story 4 (TDD - RED phase)
 
-- [ ] T056 [P] [US4] `historyManager.test.ts` に `goToLast` 関数のテストを追加
-- [ ] T057 [P] [US4] `historyManager.test.ts` に最終手で「最終手に進む」しても変わらないテストを追加
-- [ ] T058 [US4] テストを実行して RED を確認
+- [x] T056 [P] [US4] `historyManager.test.ts` に `goToLast` 関数のテストを追加
+- [x] T057 [P] [US4] `historyManager.test.ts` に最終手で「最終手に進む」しても変わらないテストを追加
+- [x] T058 [US4] テストを実行して RED を確認
 
 ### Implementation for User Story 4 (TDD - GREEN phase)
 
-- [ ] T059 [P] [US4] `src/logic/historyManager.ts` に `goToLast` 関数を実装
-- [ ] T060 [US4] historyManager のテストが GREEN になることを確認
-- [ ] T061 [P] [US4] `tests/components/NavigationControls.test.tsx` に「最終手に進む」ボタンのテストを追加
-- [ ] T062 [US4] NavigationControls のテストを実行して RED を確認
-- [ ] T063 [US4] `src/components/NavigationControls.tsx` に「最終手に進む」ボタンを追加
-- [ ] T064 [US4] `src/components/NavigationControls.tsx` に現在手数の表示（"X手目 / Y手"）を追加
-- [ ] T065 [US4] `src/components/ShogiBoard.tsx` に「最終手に進む」ハンドラーを実装
-- [ ] T066 [US4] すべてのテストが GREEN になることを確認
-- [ ] T067 [US4] 手動テスト: 3手目から「最終手に進む」で5手目に進むことを確認
-- [ ] T068 [US4] 手動テスト: 初期配置から「最終手に進む」で最終手まで進むことを確認
+- [x] T059 [P] [US4] `src/logic/historyManager.ts` に `goToLast` 関数を実装
+- [x] T060 [US4] historyManager のテストが GREEN になることを確認
+- [x] T061 [P] [US4] `tests/components/NavigationControls.test.tsx` に「最終手に進む」ボタンのテストを追加
+- [x] T062 [US4] NavigationControls のテストを実行して RED を確認
+- [x] T063 [US4] `src/components/NavigationControls.tsx` に「最終手に進む」ボタンを追加
+- [x] T064 [US4] `src/components/NavigationControls.tsx` に現在手数の表示（"X手目 / Y手"）を追加
+- [x] T065 [US4] `src/components/ShogiBoard.tsx` に「最終手に進む」ハンドラーを実装
+- [x] T066 [US4] すべてのテストが GREEN になることを確認
+- [x] T067 [US4] 手動テスト: 3手目から「最終手に進む」で5手目に進むことを確認
+- [x] T068 [US4] 手動テスト: 初期配置から「最終手に進む」で最終手まで進むことを確認
 
 **Checkpoint**: 全ユーザーストーリーが完成 - 4つのナビゲーションボタンがすべて動作
 
@@ -168,19 +168,19 @@
 
 **Purpose**: 全体的な品質向上、エッジケースの処理、スタイリング
 
-- [ ] T069 [P] 履歴の途中から新手を指した場合のテストを追加（`historyManager.test.ts`）
-- [ ] T070 [P] `src/logic/historyManager.ts` に `addMove` 関数を実装（現在位置以降の履歴削除）
-- [ ] T071 addMove のテストが GREEN になることを確認
-- [ ] T072 [P] NavigationControls のスタイリングを改善（Tailwind CSS）
-- [ ] T073 [P] ボタンのアクセシビリティ属性（aria-label）を追加・確認
-- [ ] T074 [P] ボタンの無効化状態のスタイルを調整（disabled:bg-gray-300）
-- [ ] T075 手動テスト: 3手目まで戻って新手を指すと4手目以降が削除されることを確認
-- [ ] T076 [P] パフォーマンステスト: 100手以上の履歴で操作が1秒以内に完了することを確認
-- [ ] T077 [P] 既存のすべてのテストが引き続き動作することを確認（リグレッションテスト）
-- [ ] T078 [P] コード品質チェックを実行（`npm run check` で lint と format check）
-- [ ] T079 コードレビュー: 日本語コメントの確認、型安全性の確認
-- [ ] T080 最終統合テスト: すべてのナビゲーション操作を連続して実行
-- [ ] T081 ドキュメント更新: README.md に機能説明を追加（任意）
+- [x] T069 [P] 履歴の途中から新手を指した場合のテストを追加（`historyManager.test.ts`）
+- [x] T070 [P] `src/logic/historyManager.ts` に `addMove` 関数を実装（現在位置以降の履歴削除）
+- [x] T071 addMove のテストが GREEN になることを確認
+- [x] T072 [P] NavigationControls のスタイリングを改善（Tailwind CSS）
+- [x] T073 [P] ボタンのアクセシビリティ属性（aria-label）を追加・確認
+- [x] T074 [P] ボタンの無効化状態のスタイルを調整（disabled:bg-gray-300）
+- [x] T075 手動テスト: 3手目まで戻って新手を指すと4手目以降が削除されることを確認
+- [x] T076 [P] パフォーマンステスト: 100手以上の履歴で操作が1秒以内に完了することを確認
+- [x] T077 [P] 既存のすべてのテストが引き続き動作することを確認（リグレッションテスト）
+- [x] T078 [P] コード品質チェックを実行（`npm run check` で lint と format check）
+- [x] T079 コードレビュー: 日本語コメントの確認、型安全性の確認
+- [x] T080 最終統合テスト: すべてのナビゲーション操作を連続して実行
+- [x] T081 ドキュメント更新: README.md に機能説明を追加（任意）
 
 ---
 
