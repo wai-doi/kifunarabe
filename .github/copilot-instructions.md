@@ -13,6 +13,8 @@ Auto-generated from all feature plans. Last updated: 2025-11-01
 - N/A（クライアント側の状態管理のみ） (006-piece-drop)
 - TypeScript 5.9.3 + React 19.1.1 (useState), Tailwind CSS 4.1.16, Vite 7.1.7 (008-move-history-navigation)
 - N/A（クライアント側の状態管理のみ、履歴はメモリ内配列） (008-move-history-navigation)
+- TypeScript 5.9.3 + React 19.1.1 + React Hooks (useState, useEffect), ブラウザ標準API (localStorage) (009-auto-save-state)
+- localStorage (ブラウザ標準API) (009-auto-save-state)
 
 - TypeScript 5.x (厳格な型チェックを有効化) (001-kifu-viewer-app)
 
@@ -33,9 +35,9 @@ npm test && npm run lint
 TypeScript 5.x (厳格な型チェックを有効化): Follow standard conventions
 
 ## Recent Changes
+- 009-auto-save-state: Added TypeScript 5.9.3 + React 19.1.1 + React Hooks (useState, useEffect), ブラウザ標準API (localStorage)
 - 008-move-history-navigation: Added TypeScript 5.9.3 + React 19.1.1 (useState), Tailwind CSS 4.1.16, Vite 7.1.7
 - 007-piece-promotion: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16, Vite 7.1.7
-- 006-piece-drop: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16, Vite 7.1.7
 
 
 <!-- MANUAL ADDITIONS START -->
