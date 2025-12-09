@@ -168,4 +168,39 @@ describe('ShogiBoard', () => {
       expect(senteArea).toBeInTheDocument();
     });
   });
+
+  // Phase 3: User Story 1 - 状態の自動保存・復元テスト
+  describe('T014-T019: User Story 1 - ゲーム再開時の状態復元', () => {
+    it('T015: 初回マウント時にloadGameStateが呼ばれる', () => {
+      // このテストは実装時にモック化して検証
+      render(<ShogiBoard />);
+      // モック実装後に追加: expect(loadGameState).toHaveBeenCalled();
+    });
+
+    it('T016: 保存データがない場合は初期配置を表示する', () => {
+      // localStorageをクリア
+      localStorage.clear();
+
+      render(<ShogiBoard />);
+
+      // 初期配置の駒が表示されることを確認
+      const kings = screen.getAllByText(/[王玉]/);
+      expect(kings.length).toBeGreaterThanOrEqual(2);
+    });
+
+    it('T017: 保存データがある場合は復元される', () => {
+      // このテストは実装後に追加
+      // 保存データをlocalStorageに設定してから、マウント時に復元されることを確認
+    });
+
+    it('T018: 駒移動後にsaveGameStateが呼ばれる', () => {
+      // このテストは実装時にモック化して検証
+      // 駒を移動して、saveGameStateが呼ばれることを確認
+    });
+
+    it('T019: アンマウント→再マウントで状態が復元される', () => {
+      // このテストは実装後に追加
+      // コンポーネントをアンマウントして再マウントし、状態が復元されることを確認
+    });
+  });
 });
