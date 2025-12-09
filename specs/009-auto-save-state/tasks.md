@@ -24,12 +24,12 @@
 
 ---
 
-## Phase 1: Setup（共通インフラ）
+## Phase 1: Setup(共通インフラ)
 
 **目的**: 型定義とテストセットアップ
 
-- [ ] T001 [P] 永続化データの型定義を作成 `src/types/persistence.ts`
-- [ ] T002 [P] テストヘルパー関数を作成 `tests/helpers/persistenceHelpers.ts`
+- [x] T001 [P] 永続化データの型定義を作成 `src/types/persistence.ts`
+- [x] T002 [P] テストヘルパー関数を作成 `tests/helpers/persistenceHelpers.ts`
 
 ---
 
@@ -41,22 +41,22 @@
 
 ### Tests for persistenceManager (TDD - 実装前にテスト作成)
 
-- [ ] T003 [P] [FOUNDATION] persistenceManager のユニットテスト骨格を作成 `tests/logic/persistenceManager.test.ts`
-- [ ] T004 [P] [FOUNDATION] saveGameState のテストケースを作成（正常系、容量超過、localStorage無効）
-- [ ] T005 [P] [FOUNDATION] loadGameState のテストケースを作成（正常系、データなし、パースエラー、バリデーション失敗）
-- [ ] T006 [P] [FOUNDATION] validatePersistedGameState のテストケースを作成（有効なデータ、必須フィールド欠如、型不一致、範囲外の値）
-- [ ] T007 [P] [FOUNDATION] clearGameState のテストケースを作成
+- [x] T003 [P] [FOUNDATION] persistenceManager のユニットテスト骨格を作成 `tests/logic/persistenceManager.test.ts`
+- [x] T004 [P] [FOUNDATION] saveGameState のテストケースを作成(正常系、容量超過、localStorage無効)
+- [x] T005 [P] [FOUNDATION] loadGameState のテストケースを作成(正常系、データなし、パースエラー、バリデーション失敗)
+- [x] T006 [P] [FOUNDATION] validatePersistedGameState のテストケースを作成(有効なデータ、必須フィールド欠如、型不一致、範囲外の値)
+- [x] T007 [P] [FOUNDATION] clearGameState のテストケースを作成
 
 **Checkpoint**: すべてのテストが失敗することを確認（Red）
 
 ### Implementation for persistenceManager
 
-- [ ] T008 [FOUNDATION] persistenceManager の基本構造を作成 `src/logic/persistenceManager.ts`
-- [ ] T009 [FOUNDATION] validatePersistedGameState 関数を実装（T006のテストが通るまで）
-- [ ] T010 [FOUNDATION] saveGameState 関数を実装（T004のテストが通るまで）
-- [ ] T011 [FOUNDATION] loadGameState 関数を実装（T005のテストが通るまで）
-- [ ] T012 [FOUNDATION] clearGameState 関数を実装（T007のテストが通るまで）
-- [ ] T013 [FOUNDATION] エラーハンドリングとロギングを追加
+- [x] T008 [FOUNDATION] persistenceManager の基本構造を作成 `src/logic/persistenceManager.ts`
+- [x] T009 [FOUNDATION] validatePersistedGameState 関数を実装(T006のテストが通るまで)
+- [x] T010 [FOUNDATION] saveGameState 関数を実装(T004のテストが通るまで)
+- [x] T011 [FOUNDATION] loadGameState 関数を実装(T005のテストが通るまで)
+- [x] T012 [FOUNDATION] clearGameState 関数を実装(T007のテストが通るまで)
+- [x] T013 [FOUNDATION] エラーハンドリングとロギングを追加
 
 **Checkpoint**: すべてのテストが成功することを確認（Green） - ユーザーストーリーの実装を開始可能
 
@@ -75,22 +75,22 @@
 
 ### Tests for User Story 1 (TDD - 実装前にテスト作成)
 
-- [ ] T014 [US1] ShogiBoard の統合テスト骨格を作成 `tests/components/ShogiBoard.test.tsx`
-- [ ] T015 [US1] 初回マウント時に loadGameState が呼ばれるテストを作成
-- [ ] T016 [US1] 保存データがない場合は初期配置を表示するテストを作成
-- [ ] T017 [US1] 保存データがある場合は復元されるテストを作成
-- [ ] T018 [US1] 駒移動後に saveGameState が呼ばれるテストを作成
-- [ ] T019 [US1] アンマウント→再マウントで状態が復元されるテストを作成
+- [x] T014 [US1] ShogiBoard の統合テスト骨格を作成 `tests/components/ShogiBoard.test.tsx`
+- [x] T015 [US1] 初回マウント時に loadGameState が呼ばれるテストを作成
+- [x] T016 [US1] 保存データがない場合は初期配置を表示するテストを作成
+- [x] T017 [US1] 保存データがある場合は復元されるテストを作成
+- [x] T018 [US1] 駒移動後に saveGameState が呼ばれるテストを作成
+- [x] T019 [US1] アンマウント→再マウントで状態が復元されるテストを作成
 
 **Checkpoint**: すべてのテストが失敗することを確認（Red）
 
 ### Implementation for User Story 1
 
-- [ ] T020 [US1] ShogiBoard に persistenceManager をインポート `src/components/ShogiBoard.tsx`
-- [ ] T021 [US1] マウント時に状態を復元する useEffect を追加（T015-T017が通るまで）
-- [ ] T022 [US1] 状態変更時に自動保存する useEffect を追加（T018-T019が通るまで）
-- [ ] T023 [US1] 初回マウント時の保存スキップロジックを追加
-- [ ] T024 [US1] エラー時のフォールバック処理を追加
+- [x] T020 [US1] ShogiBoard に persistenceManager をインポート `src/components/ShogiBoard.tsx`
+- [x] T021 [US1] マウント時に状態を復元する useEffect を追加(T015-T017が通るまで)
+- [x] T022 [US1] 状態変更時に自動保存する useEffect を追加(T018-T019が通るまで)
+- [x] T023 [US1] 初回マウント時の保存スキップロジックを追加
+- [x] T024 [US1] エラー時のフォールバック処理を追加
 
 **Checkpoint**: User Story 1 が完全に機能し、独立してテスト可能
 
@@ -113,19 +113,19 @@
 
 ### Tests for User Story 2 (検証テスト)
 
-- [ ] T025 [P] [US2] 自動保存のタイミング検証テストを作成 `tests/components/ShogiBoard.test.tsx`
-- [ ] T026 [P] [US2] 持ち駒配置後の自動保存テストを作成
-- [ ] T027 [P] [US2] 手番切り替え後の自動保存テストを作成
-- [ ] T028 [P] [US2] 保存失敗時も通常動作を継続するテストを作成
+- [x] T025 [P] [US2] 自動保存のタイミング検証テストを作成 `tests/components/ShogiBoard.test.tsx`
+- [x] T026 [P] [US2] 持ち駒配置後の自動保存テストを作成
+- [x] T027 [P] [US2] 手番切り替え後の自動保存テストを作成
+- [x] T028 [P] [US2] 保存失敗時も通常動作を継続するテストを作成
 
 **Checkpoint**: すべてのテストが失敗または未実装部分を特定（Red）
 
 ### Implementation for User Story 2
 
-- [ ] T029 [US2] 自動保存の依存配列を検証・調整 `src/components/ShogiBoard.tsx`
-- [ ] T030 [US2] 保存失敗時のエラーハンドリングを確認（T028が通るまで）
-- [ ] T031 [US2] パフォーマンス検証（100ms以内の保存完了）
-- [ ] T032 [US2] 必要に応じてデバウンスを追加（パフォーマンス問題がある場合のみ）
+- [x] T029 [US2] 自動保存の依存配列を検証・調整 `src/components/ShogiBoard.tsx`
+- [x] T030 [US2] 保存失敗時のエラーハンドリングを確認（T028が通るまで）
+- [x] T031 [US2] パフォーマンス検証（100ms以内の保存完了）
+- [x] T032 [US2] 必要に応じてデバウンスを追加（パフォーマンス問題がある場合のみ）
 
 **Checkpoint**: User Story 2 が完全に機能し、自動保存の透明性が確保される
 
@@ -145,21 +145,21 @@
 
 ### Tests for User Story 3 (TDD - 実装前にテスト作成)
 
-- [ ] T033 [P] [US3] 履歴ナビゲーション後の保存テストを作成 `tests/components/ShogiBoard.test.tsx`
-- [ ] T034 [P] [US3] 履歴情報（history配列とcurrentIndex）の保存テストを作成
-- [ ] T035 [P] [US3] 履歴ナビゲーション後の復元テストを作成
-- [ ] T036 [P] [US3] 復元後にナビゲーションボタンで手を進めるテストを作成
-- [ ] T037 [P] [US3] 履歴の途中から新しい手を指した場合のテストを作成
+- [x] T033 [P] [US3] 履歴ナビゲーション後の保存テストを作成 `tests/components/ShogiBoard.test.tsx`
+- [x] T034 [P] [US3] 履歴情報（history配列とcurrentIndex）の保存テストを作成
+- [x] T035 [P] [US3] 履歴ナビゲーション後の復元テストを作成
+- [x] T036 [P] [US3] 復元後にナビゲーションボタンで手を進めるテストを作成
+- [x] T037 [P] [US3] 履歴の途中から新しい手を指した場合のテストを作成
 
 **Checkpoint**: すべてのテストが失敗することを確認（Red）
 
 ### Implementation for User Story 3
 
-- [ ] T038 [US3] history と currentIndex を保存対象に追加（既にUS1で実装済みか確認） `src/components/ShogiBoard.tsx`
-- [ ] T039 [US3] loadGameState 時に history と currentIndex も復元（既にUS1で実装済みか確認）
-- [ ] T040 [US3] 履歴ナビゲーション操作後の自動保存を確認（T033-T035が通るまで）
-- [ ] T041 [US3] 履歴の途中から新しい手を指した場合の保存処理を確認（T037が通るまで）
-- [ ] T042 [US3] エッジケース（履歴の最初・最後）のテストと実装
+- [x] T038 [US3] history と currentIndex を保存対象に追加（既にUS1で実装済みか確認） `src/components/ShogiBoard.tsx`
+- [x] T039 [US3] loadGameState 時に history と currentIndex も復元（既にUS1で実装済みか確認）
+- [x] T040 [US3] 履歴ナビゲーション操作後の自動保存を確認（T033-T035が通るまで）
+- [x] T041 [US3] 履歴の途中から新しい手を指した場合の保存処理を確認（T037が通るまで）
+- [x] T042 [US3] エッジケース（履歴の最初・最後）のテストと実装
 
 **Checkpoint**: User Story 3 が完全に機能し、履歴ナビゲーションと統合される
 
@@ -169,14 +169,14 @@
 
 **目的**: 品質向上、エラーケースの網羅、ドキュメント
 
-- [ ] T043 [P] エッジケースのテストを追加（初回訪問、データ破損、容量超過、複数タブ、リロード） `tests/logic/persistenceManager.test.ts`
-- [ ] T044 [P] パフォーマンステストを追加（100ms以内の保存、大きな履歴データ）
-- [ ] T045 [P] コードコメントを日本語で追加 `src/logic/persistenceManager.ts`
-- [ ] T046 [P] コードコメントを日本語で追加 `src/components/ShogiBoard.tsx`
-- [ ] T047 エラーロギングの詳細度を確認・調整
-- [ ] T048 テストカバレッジを確認（persistenceManager: 100%目標）
-- [ ] T049 統合テストの実行と結果確認
-- [ ] T050 ブラウザでの手動テスト（仕様書の受け入れシナリオをすべて実行）
+- [x] T043 [P] エッジケースのテストを追加（初回訪問、データ破損、容量超過、複数タブ、リロード） `tests/logic/persistenceManager.test.ts`
+- [x] T044 [P] パフォーマンステストを追加（100ms以内の保存、大きな履歴データ）
+- [x] T045 [P] コードコメントを日本語で追加 `src/logic/persistenceManager.ts`
+- [x] T046 [P] コードコメントを日本語で追加 `src/components/ShogiBoard.tsx`
+- [x] T047 エラーロギングの詳細度を確認・調整
+- [x] T048 テストカバレッジを確認（persistenceManager: 100%目標）
+- [x] T049 統合テストの実行と結果確認
+- [x] T050 ブラウザでの手動テスト（仕様書の受け入れシナリオをすべて実行）
 
 **Final Checkpoint**: すべての機能が動作し、すべてのテストが成功し、ドキュメントが完成
 

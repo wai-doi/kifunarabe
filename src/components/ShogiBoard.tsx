@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Board from './Board';
 import TurnDisplay from './TurnDisplay';
 import CapturedPiecesComponent from './CapturedPieces';
@@ -33,6 +33,7 @@ import {
   getCurrentEntry,
   getNavigationState,
 } from '../logic/historyManager';
+import { saveGameState, loadGameState } from '../logic/persistenceManager';
 
 /**
  * 将棋盤と駒を統合して表示するコンポーネント
@@ -71,6 +72,52 @@ const ShogiBoard = () => {
 
   // Board コンポーネント用に Position | null に変換
   const selectedPosition = selection && isBoardSelection(selection) ? selection.position : null;
+
+  /**
+   * 初回マウント時に保存された状態を復元
+   *
+   * ブラウザを閉じて再度開いた際に、前回のセッションで
+   * 保存されていた盤面、持ち駒、手番、履歴を復元します。
+   * データがない場合は何もせず、初期配置のまま開始します。
+   */
+  useEffect(() => {
+    const savedState = loadGameState();
+    if (savedState) {
+      // 保存された状態を復元
+      setPieces(savedState.pieces);
+      setCapturedPieces(savedState.capturedPieces);
+      setCurrentTurn(savedState.currentTurn);
+      setHistory({
+        entries: savedState.history,
+        currentIndex: savedState.currentIndex,
+      });
+    }
+    // 依存配列が空 = マウント時のみ実行
+  }, []);
+
+  /**
+   * 状態変更時に自動保存
+   *
+   * 駒を動かす、持ち駒を打つ、履歴をナビゲートするなど、
+   * ゲーム状態が変化するたびに自動的にlocalStorageに保存します。
+   * ユーザーは保存操作を意識する必要はありません。
+   */
+  useEffect(() => {
+    // 初回マウント時の保存をスキップ（historyが初期状態の場合）
+    if (history.entries.length === 1 && history.currentIndex === 0) {
+      // 初期配置のままで、まだ手が進んでいない場合は保存しない
+      return;
+    }
+
+    // ゲーム状態を保存
+    saveGameState({
+      pieces,
+      capturedPieces,
+      currentTurn,
+      history: history.entries,
+      currentIndex: history.currentIndex,
+    });
+  }, [pieces, capturedPieces, currentTurn, history]);
 
   /**
    * T024: 履歴から盤面を復元するヘルパー関数
