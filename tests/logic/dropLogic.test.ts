@@ -56,6 +56,55 @@ describe('dropLogic', () => {
       // 盤面外(file: -1, rank: 5)には打てない
       expect(canDropPiece(pieces, { file: -1, rank: 5 })).toBe(false);
     });
+
+    // T017: 二歩検証のテスト
+    describe('二歩検証', () => {
+      test('既存のテストが後方互換性を保つ（パラメータなし）', () => {
+        const pieces: Piece[] = [
+          { type: '歩', player: 'sente', file: 3, rank: 7, promoted: false },
+        ];
+        // パラメータなしでも動作する
+        expect(canDropPiece(pieces, { file: 5, rank: 5 })).toBe(true);
+      });
+
+      test('同じ筋に歩がある場合、二歩としてfalseを返す', () => {
+        const pieces: Piece[] = [
+          { type: '歩', player: 'sente', file: 3, rank: 7, promoted: false },
+        ];
+        // 3筋に先手の歩があるので、3筋に先手は歩を打てない
+        expect(canDropPiece(pieces, { file: 3, rank: 5 }, '歩', 'sente')).toBe(false);
+      });
+
+      test('異なる筋には歩を打てる', () => {
+        const pieces: Piece[] = [
+          { type: '歩', player: 'sente', file: 3, rank: 7, promoted: false },
+        ];
+        // 5筋には先手の歩がないので打てる
+        expect(canDropPiece(pieces, { file: 5, rank: 5 }, '歩', 'sente')).toBe(true);
+      });
+
+      test('歩以外の駒は二歩チェックをスキップ', () => {
+        const pieces: Piece[] = [
+          { type: '歩', player: 'sente', file: 3, rank: 7, promoted: false },
+        ];
+        // 3筋に歩があっても、角は打てる
+        expect(canDropPiece(pieces, { file: 3, rank: 5 }, '角', 'sente')).toBe(true);
+      });
+
+      test('相手の歩は影響しない', () => {
+        const pieces: Piece[] = [
+          { type: '歩', player: 'sente', file: 3, rank: 7, promoted: false },
+        ];
+        // 3筋に先手の歩があっても、後手は3筋に歩を打てる
+        expect(canDropPiece(pieces, { file: 3, rank: 4 }, '歩', 'gote')).toBe(true);
+      });
+
+      test('成り駒は歩としてカウントされない', () => {
+        const pieces: Piece[] = [{ type: '歩', player: 'sente', file: 3, rank: 4, promoted: true }];
+        // 3筋に成り駒（と金）があっても、歩を打てる
+        expect(canDropPiece(pieces, { file: 3, rank: 7 }, '歩', 'sente')).toBe(true);
+      });
+    });
   });
 
   describe('dropPiece', () => {

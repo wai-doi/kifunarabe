@@ -35,6 +35,8 @@ export interface SquareProps {
   piece?: Piece;
   /** このマス目が選択されているか */
   isSelected?: boolean;
+  /** このマス目が打てる候補マスか */
+  isValidDropSquare?: boolean;
   /** クリックハンドラー */
   onClick?: () => void;
 }

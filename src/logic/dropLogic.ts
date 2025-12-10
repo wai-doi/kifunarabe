@@ -1,5 +1,6 @@
 import type { Piece, PieceType, Player } from '../types/piece';
 import type { Position } from '../types/position';
+import { hasUnpromotedPawnInFile } from './doublePawnValidation';
 
 /**
  * 位置が盤面内かどうかを判定する
@@ -13,9 +14,16 @@ function isWithinBoard(position: Position): boolean {
  *
  * @param pieces - 盤面上の駒配列
  * @param position - 打ちたい位置
+ * @param pieceType - 駒の種類（オプショナル、二歩チェックに必要）
+ * @param player - プレイヤー（オプショナル、二歩チェックに必要）
  * @returns 打てる場合 true
  */
-export function canDropPiece(pieces: Piece[], position: Position): boolean {
+export function canDropPiece(
+  pieces: Piece[],
+  position: Position,
+  pieceType?: PieceType,
+  player?: Player
+): boolean {
   // 盤面外の場合は打てない
   if (!isWithinBoard(position)) {
     return false;
@@ -26,8 +34,19 @@ export function canDropPiece(pieces: Piece[], position: Position): boolean {
     (piece) => piece.file === position.file && piece.rank === position.rank
   );
 
-  // 駒がなければ打てる
-  return !isOccupied;
+  if (isOccupied) {
+    return false;
+  }
+
+  // 歩の二歩チェック（pieceTypeとplayerが指定されている場合のみ）
+  if (pieceType === '歩' && player) {
+    const hasDoublePawn = hasUnpromotedPawnInFile(pieces, position.file, player);
+    if (hasDoublePawn) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Board from './Board';
 import TurnDisplay from './TurnDisplay';
 import CapturedPiecesComponent from './CapturedPieces';
@@ -34,6 +34,7 @@ import {
   getNavigationState,
 } from '../logic/historyManager';
 import { saveGameState, loadGameState } from '../logic/persistenceManager';
+import { getValidPawnDropSquares } from '../logic/doublePawnValidation';
 
 /**
  * 将棋盤と駒を統合して表示するコンポーネント
@@ -69,9 +70,38 @@ const ShogiBoard = () => {
     pieces: Piece[];
     capturedPieces: CapturedPieces;
   } | null>(null);
+  // T018: エラーメッセージの状態管理
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Board コンポーネント用に Position | null に変換
   const selectedPosition = selection && isBoardSelection(selection) ? selection.position : null;
+
+  // T025: 打てる候補マスを計算（useMemoで最適化）
+  const validDropSquares = useMemo(() => {
+    if (!selection || !isCapturedSelection(selection)) {
+      return [];
+    }
+
+    // 歩を選択している場合のみ、二歩を考慮した候補マスを計算
+    if (selection.pieceType === '歩') {
+      return getValidPawnDropSquares(pieces, selection.player);
+    }
+
+    // 歩以外の駒の場合は、全ての空きマスを候補として返す
+    const emptySquares: Position[] = [];
+    for (let file = 1; file <= 9; file++) {
+      for (let rank = 1; rank <= 9; rank++) {
+        const position = { file, rank };
+        const isOccupied = pieces.some(
+          (piece) => piece.file === position.file && piece.rank === position.rank
+        );
+        if (!isOccupied) {
+          emptySquares.push(position);
+        }
+      }
+    }
+    return emptySquares;
+  }, [selection, pieces]);
 
   /**
    * 初回マウント時に保存された状態を復元
@@ -201,7 +231,7 @@ const ShogiBoard = () => {
     // 持ち駒を選択中の場合
     if (selection && isCapturedSelection(selection)) {
       // 空きマスをクリックした場合は駒を打つ
-      if (!clickedPiece && canDropPiece(pieces, position)) {
+      if (!clickedPiece && canDropPiece(pieces, position, selection.pieceType, selection.player)) {
         // 持ち駒を盤面に打つ
         const newPieces = dropPiece(pieces, position, selection.pieceType, selection.player);
         setPieces(newPieces);
@@ -229,6 +259,14 @@ const ShogiBoard = () => {
 
         // 選択解除
         setSelection(null);
+        // エラーメッセージをクリア
+        setErrorMessage(null);
+        return;
+      }
+
+      // T020: 駒を打てない場合はエラーメッセージを表示
+      if (!clickedPiece && !canDropPiece(pieces, position, selection.pieceType, selection.player)) {
+        setErrorMessage('二歩は反則です');
         return;
       }
 
@@ -432,6 +470,19 @@ const ShogiBoard = () => {
 
   return (
     <div className="flex flex-col items-center gap-4 w-full h-full p-4">
+      {/* T019: エラーメッセージ表示 */}
+      {errorMessage && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative flex items-center justify-between max-w-md">
+          <span className="block sm:inline">{errorMessage}</span>
+          <button
+            className="ml-4 font-bold text-red-700 hover:text-red-900"
+            onClick={() => setErrorMessage(null)}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* 後手の持ち駒を盤面上部に配置 */}
       <CapturedPiecesComponent
         capturedPieces={capturedPieces.gote}
@@ -457,6 +508,7 @@ const ShogiBoard = () => {
             currentTurn={currentTurn}
             capturedPieces={capturedPieces}
             onInvalidSelection={handleInvalidSelection}
+            validDropSquares={validDropSquares}
           />
           {/* 成り選択ダイアログ */}
           {promotionState && (

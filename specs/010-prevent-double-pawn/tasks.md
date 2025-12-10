@@ -13,9 +13,9 @@
 
 **目的**: 新しいファイルの作成とプロジェクト構造の準備
 
-- [ ] T001 [P] 型定義ファイルを作成 src/types/validation.ts
-- [ ] T002 [P] 二歩検証ロジックファイルを作成 src/logic/doublePawnValidation.ts
-- [ ] T003 [P] テストファイルを作成 tests/logic/doublePawnValidation.test.ts
+- [x] T001 [P] 型定義ファイルを作成 src/types/validation.ts
+- [x] T002 [P] 二歩検証ロジックファイルを作成 src/logic/doublePawnValidation.ts
+- [x] T003 [P] テストファイルを作成 tests/logic/doublePawnValidation.test.ts
 
 ---
 
@@ -25,11 +25,11 @@
 
 **⚠️ 重要**: このフェーズが完了するまで、ユーザーストーリーの作業は開始できません
 
-- [ ] T004 ValidationErrorCode型を定義 src/types/validation.ts
-- [ ] T005 ValidationResult型を定義 src/types/validation.ts
-- [ ] T006 [P] hasUnpromotedPawnInFile関数のテストを作成 tests/logic/doublePawnValidation.test.ts
-- [ ] T007 hasUnpromotedPawnInFile関数を実装 src/logic/doublePawnValidation.ts
-- [ ] T008 テストを実行してhasUnpromotedPawnInFile関数が正しく動作することを確認
+- [x] T004 ValidationErrorCode型を定義 src/types/validation.ts
+- [x] T005 ValidationResult型を定義 src/types/validation.ts
+- [x] T006 [P] hasUnpromotedPawnInFile関数のテストを作成 tests/logic/doublePawnValidation.test.ts
+- [x] T007 hasUnpromotedPawnInFile関数を実装 src/logic/doublePawnValidation.ts
+- [x] T008 テストを実行してhasUnpromotedPawnInFile関数が正しく動作することを確認
 
 **チェックポイント**: 基盤実装完了 - ユーザーストーリーの実装を並列開始可能
 
@@ -45,65 +45,65 @@
 
 > **注意: これらのテストを最初に書き、実装前に失敗することを確認してください**
 
-- [ ] T009 [P] [US1] 基本的な二歩検証のテストケースを作成 tests/logic/doublePawnValidation.test.ts
+- [x] T009 [P] [US1] 基本的な二歩検証のテストケースを作成 tests/logic/doublePawnValidation.test.ts
   - 同じ筋に歩がある場合はtrueを返す
   - 異なる筋に歩がある場合はfalseを返す
   - 空の盤面の場合はfalseを返す
 
-- [ ] T010 [P] [US1] 成り駒の扱いに関するテストケースを作成 tests/logic/doublePawnValidation.test.ts
+- [x] T010 [P] [US1] 成り駒の扱いに関するテストケースを作成 tests/logic/doublePawnValidation.test.ts
   - 同じ筋に成り駒（と金）がある場合はfalseを返す（成り駒は歩扱いではない）
   - 成り駒と未成の歩が混在する場合、未成の歩のみをカウント
 
-- [ ] T011 [P] [US1] プレイヤー別の二歩判定テストケースを作成 tests/logic/doublePawnValidation.test.ts
+- [x] T011 [P] [US1] プレイヤー別の二歩判定テストケースを作成 tests/logic/doublePawnValidation.test.ts
   - 先手の歩がある筋に後手は歩を打てる（相手の歩は影響しない）
   - 全ての筋（1-9筋）で正しく判定される
 
-- [ ] T012 [P] [US1] validateDoublePawn関数のテストケースを作成 tests/logic/doublePawnValidation.test.ts
+- [x] T012 [P] [US1] validateDoublePawn関数のテストケースを作成 tests/logic/doublePawnValidation.test.ts
   - 二歩の場合、isValid=false、errorCode='DOUBLE_PAWN'を返す
   - 打てる場合、isValid=trueを返す
   - 歩以外の駒の場合、二歩チェックをスキップしてisValid=trueを返す
 
 ### Implementation for User Story 1
 
-- [ ] T013 [US1] validateDoublePawn関数を実装 src/logic/doublePawnValidation.ts
+- [x] T013 [US1] validateDoublePawn関数を実装 src/logic/doublePawnValidation.ts
   - 駒種が歩でない場合は即座にisValid=trueを返す
   - 歩の場合、hasUnpromotedPawnInFileを呼び出して二歩判定
   - 二歩の場合、適切なエラー情報を含むValidationResultを返す
 
-- [ ] T014 [US1] getErrorMessage関数を実装 src/logic/doublePawnValidation.ts
+- [x] T014 [US1] getErrorMessage関数を実装 src/logic/doublePawnValidation.ts
   - DOUBLE_PAWN → "二歩は反則です"
   - OUT_OF_BOARD → "盤面外には打てません"
   - SQUARE_OCCUPIED → "既に駒があるマスには打てません"
 
-- [ ] T015 [US1] テストを実行してvalidateDoublePawn関数が全てのテストケースを通過することを確認
+- [x] T015 [US1] テストを実行してvalidateDoublePawn関数が全てのテストケースを通過することを確認
 
-- [ ] T016 [US1] canDropPiece関数を拡張 src/logic/dropLogic.ts
+- [x] T016 [US1] canDropPiece関数を拡張 src/logic/dropLogic.ts
   - オプショナルパラメータpieceTypeとplayerを追加
   - 既存のチェック（盤面内、占有）を維持
   - pieceType='歩'かつplayerが指定されている場合、hasUnpromotedPawnInFileを呼び出し
   - 二歩の場合はfalseを返す
 
-- [ ] T017 [US1] canDropPiece関数のテストを追加 tests/logic/dropLogic.test.ts
+- [x] T017 [US1] canDropPiece関数のテストを追加 tests/logic/dropLogic.test.ts
   - 既存のテストが全て通過することを確認（後方互換性）
   - 新しいパラメータを使用した二歩検証のテストを追加
   - 二歩の場合はfalseを返すことを確認
   - 歩以外の駒の場合は二歩チェックをスキップすることを確認
 
-- [ ] T018 [US1] エラーメッセージの状態管理を追加 src/App.tsx
+- [x] T018 [US1] エラーメッセージの状態管理を追加 src/App.tsx
   - errorMessage状態を追加（useState<string | null>(null)）
   - setErrorMessage関数をBoardコンポーネントに渡す
 
-- [ ] T019 [US1] エラーメッセージ表示UIを実装 src/App.tsx
+- [x] T019 [US1] エラーメッセージ表示UIを実装 src/App.tsx
   - errorMessageがnullでない場合、エラーバナーを表示
   - 「閉じる」ボタンでerrorMessageをnullにセット
   - Tailwind CSSでスタイリング
 
-- [ ] T020 [US1] Boardコンポーネントで二歩検証を統合 src/components/Board.tsx
+- [x] T020 [US1] Boardコンポーネントで二歩検証を統合 src/components/Board.tsx
   - 駒を打つハンドラーでcanDropPieceを呼び出し、pieceTypeとplayerを渡す
   - canDropPieceがfalseを返した場合、setErrorMessage("二歩は反則です")を呼び出し
   - 手番を変更せず、ユーザーが別の打ち手を選択できる状態を維持
 
-- [ ] T021 [US1] 統合テストを実行して全体の動作を確認
+- [x] T021 [US1] 統合テストを実行して全体の動作を確認
   - npm testを実行し、全てのテストが通過することを確認
   - 手動テスト: アプリを起動し、二歩を打とうとしてエラーメッセージが表示されることを確認
 
@@ -119,36 +119,36 @@
 
 ### Tests for User Story 2
 
-- [ ] T022 [P] [US2] getValidPawnDropSquares関数のテストケースを作成 tests/logic/doublePawnValidation.test.ts
+- [x] T022 [P] [US2] getValidPawnDropSquares関数のテストケースを作成 tests/logic/doublePawnValidation.test.ts
   - 歩がある筋を除外した空きマスのリストを返す
   - 成り駒がある筋は除外しない（打てる）
   - 相手の歩がある筋は除外しない
 
 ### Implementation for User Story 2
 
-- [ ] T023 [US2] getValidPawnDropSquares関数を実装 src/logic/doublePawnValidation.ts
+- [x] T023 [US2] getValidPawnDropSquares関数を実装 src/logic/doublePawnValidation.ts
   - 盤面上の全ての空きマスを取得（81マス - 駒の数）
   - 各マスについて、その筋にhasUnpromotedPawnInFileを呼び出し
   - 二歩にならないマスのみをフィルタリングして返す
 
-- [ ] T024 [US2] テストを実行してgetValidPawnDropSquares関数が正しく動作することを確認
+- [x] T024 [US2] テストを実行してgetValidPawnDropSquares関数が正しく動作することを確認
 
-- [ ] T025 [US2] Boardコンポーネントで打てる候補マスを計算 src/components/Board.tsx
+- [x] T025 [US2] Boardコンポーネントで打てる候補マスを計算 src/components/Board.tsx
   - useMemoを使用して、selectedCapturedPieceとpiecesが変更された時のみ再計算
   - selectedCapturedPiece.type === '歩'の場合、getValidPawnDropSquaresを呼び出し
   - 歩以外の駒の場合は、全ての空きマスを候補として返す
 
-- [ ] T026 [US2] Squareコンポーネントにハイライト表示を追加 src/components/Square.tsx
+- [x] T026 [US2] Squareコンポーネントにハイライト表示を追加 src/components/Square.tsx
   - isValidDropSquare propsを追加
   - isValidDropSquare=trueの場合、ハイライトクラスを適用
   - Tailwind CSSで視覚的に分かりやすいスタイル（例: 薄い緑の背景）
 
-- [ ] T027 [US2] Boardコンポーネントテストを追加 tests/components/Board.test.tsx
+- [x] T027 [US2] Boardコンポーネントテストを追加 tests/components/Board.test.tsx
   - 歩を選択時、正しいマスがハイライトされることを確認
   - 二歩になるマスはハイライトされないことを確認
   - 歩以外の駒を選択時、全ての空きマスがハイライトされることを確認
 
-- [ ] T028 [US2] 統合テストを実行して視覚的表示が正しく動作することを確認
+- [x] T028 [US2] 統合テストを実行して視覚的表示が正しく動作することを確認
   - 手動テスト: 歩を選択し、二歩にならない筋のみがハイライトされることを確認
 
 **チェックポイント**: User Story 1とUser Story 2が両方とも独立して動作
@@ -163,20 +163,20 @@
 
 ### Tests for User Story 3
 
-- [ ] T029 [P] [US3] エッジケースのテストケースを追加 tests/logic/doublePawnValidation.test.ts
+- [x] T029 [P] [US3] エッジケースのテストケースを追加 tests/logic/doublePawnValidation.test.ts
   - 歩が移動した後、元の筋に歩を打てることを確認
   - 歩が成ってと金になった後、同じ筋に歩を打てることを確認
   - 履歴をナビゲートして過去の局面に戻った場合の二歩判定を確認
 
 ### Implementation for User Story 3
 
-- [ ] T030 [US3] 既存の実装がエッジケースを正しく処理することを確認
+- [x] T030 [US3] 既存の実装がエッジケースを正しく処理することを確認
   - hasUnpromotedPawnInFile関数が成り駒を除外していることを再確認
   - 履歴ナビゲーション時、現在の盤面状態に基づいて判定されることを確認
 
-- [ ] T031 [US3] エッジケースのテストを実行して全て通過することを確認
+- [x] T031 [US3] エッジケースのテストを実行して全て通過することを確認
 
-- [ ] T032 [US3] 統合テストと手動テストでエッジケースを検証
+- [x] T032 [US3] 統合テストと手動テストでエッジケースを検証
   - 成り駒がある筋に歩を打てることを確認
   - 履歴を戻った後の二歩判定が正しいことを確認
 
@@ -188,27 +188,27 @@
 
 **目的**: 複数のユーザーストーリーに影響する改善と最終検証
 
-- [ ] T033 [P] パフォーマンステストを実行
+- [x] T033 [P] パフォーマンステストを実行
   - 二歩検証が50ミリ秒以内で完了することを確認（SC-004）
   - 必要に応じて最適化
 
-- [ ] T034 [P] コードカバレッジを確認
+- [x] T034 [P] コードカバレッジを確認
   - npm run test:coverageを実行
   - カバレッジが90%以上であることを確認
 
-- [ ] T035 [P] ESLintとPrettierでコード品質をチェック
+- [x] T035 [P] ESLintとPrettierでコード品質をチェック
   - npm run checkを実行
   - 全てのlintエラーとフォーマットエラーを修正
 
-- [ ] T036 [P] 日本語コメントの確認
+- [x] T036 [P] 日本語コメントの確認
   - 全ての新規コードに適切な日本語コメントがあることを確認
   - JSDocコメントが日本語で記述されていることを確認
 
-- [ ] T037 quickstart.mdの手順を検証
+- [x] T037 quickstart.mdの手順を検証
   - quickstart.mdに記載された手順を実際に実行
   - 手順通りに動作することを確認
 
-- [ ] T038 最終的な統合テストとデモ
+- [x] T038 最終的な統合テストとデモ
   - 全てのユーザーストーリーが正しく動作することを確認
   - エラーケースと正常ケースの両方をテスト
   - パフォーマンスと使いやすさを評価
