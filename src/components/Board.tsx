@@ -12,6 +12,7 @@ interface BoardProps {
   currentTurn: Turn;
   capturedPieces: CapturedPieces;
   onInvalidSelection?: () => void;
+  validDropSquares?: Position[];
 }
 
 /**
@@ -23,6 +24,7 @@ const Board = ({
   onSquareClick,
   currentTurn,
   onInvalidSelection,
+  validDropSquares = [],
 }: BoardProps) => {
   // T013: ターン検証を含むクリックハンドラー
   const handleSquareClick = (position: Position) => {
@@ -51,6 +53,10 @@ const Board = ({
       const piece = pieces.find((p) => p.file === file && p.rank === rank);
       // この位置が選択されているか
       const isSelected = selected !== null && selected.file === file && selected.rank === rank;
+      // T026: この位置が打てる候補マスか
+      const isValidDropSquare = validDropSquares.some(
+        (pos) => pos.file === file && pos.rank === rank
+      );
 
       squares.push(
         <Square
@@ -58,6 +64,7 @@ const Board = ({
           position={position}
           piece={piece}
           isSelected={isSelected}
+          isValidDropSquare={isValidDropSquare}
           onClick={() => handleSquareClick(position)}
         />
       );

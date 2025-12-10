@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ShogiBoard from '../../src/components/ShogiBoard';
+import { hasUnpromotedPawnInFile } from '../../src/logic/doublePawnValidation';
+import type { Piece } from '../../src/types/piece';
 
 /**
  * T033: パフォーマンステスト
@@ -91,5 +93,34 @@ describe('Performance Requirements', () => {
     // 最大操作時間も0.2秒以内
     const maxDuration = Math.max(...durations);
     expect(maxDuration).toBeLessThan(200);
+  });
+
+  it('SC-004: 二歩検証は50ミリ秒以内', () => {
+    // 大量の駒がある状態で二歩検証のパフォーマンスを測定
+    const pieces: Piece[] = [];
+    for (let file = 1; file <= 9; file++) {
+      for (let rank = 1; rank <= 9; rank++) {
+        if (Math.random() > 0.5) {
+          pieces.push({
+            type: Math.random() > 0.5 ? '歩' : '角',
+            player: Math.random() > 0.5 ? 'sente' : 'gote',
+            file,
+            rank,
+            promoted: false,
+          });
+        }
+      }
+    }
+
+    const startTime = performance.now();
+    for (let file = 1; file <= 9; file++) {
+      hasUnpromotedPawnInFile(pieces, file, 'sente');
+    }
+    const endTime = performance.now();
+
+    const duration = endTime - startTime;
+
+    // 全9筋の検証が50ms以内に完了すること
+    expect(duration).toBeLessThan(50);
   });
 });
