@@ -16,6 +16,7 @@ Auto-generated from all feature plans. Last updated: 2025-11-01
 - TypeScript 5.9.3 + React 19.1.1 + React Hooks (useState, useEffect), ブラウザ標準API (localStorage) (009-auto-save-state)
 - localStorage (ブラウザ標準API) (009-auto-save-state)
 - TypeScript 5.9.3 + React 19.1.1, Vite 7.1.7 (010-prevent-double-pawn)
+- N/A (フロントエンドのみの視覚的変更) (011-realistic-piece-design)
 
 - TypeScript 5.x (厳格な型チェックを有効化) (001-kifu-viewer-app)
 
@@ -36,9 +37,9 @@ npm test && npm run lint
 TypeScript 5.x (厳格な型チェックを有効化): Follow standard conventions
 
 ## Recent Changes
+- 011-realistic-piece-design: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16
 - 010-prevent-double-pawn: Added TypeScript 5.9.3 + React 19.1.1, Vite 7.1.7
 - 009-auto-save-state: Added TypeScript 5.9.3 + React 19.1.1 + React Hooks (useState, useEffect), ブラウザ標準API (localStorage)
-- 008-move-history-navigation: Added TypeScript 5.9.3 + React 19.1.1 (useState), Tailwind CSS 4.1.16, Vite 7.1.7
 
 
 <!-- MANUAL ADDITIONS START -->
