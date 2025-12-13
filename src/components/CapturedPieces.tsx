@@ -3,6 +3,9 @@ import type { Player, PieceType } from '../types/piece';
 import {
   CAPTURED_FONT_SIZE,
   CAPTURED_PIECE_CLASS,
+  COUNT_COLOR,
+  COUNT_COLOR_SELECTED,
+  COUNT_FONT_SIZE_RATIO,
   PIECE_TEXT_CLASS,
   PROMOTED_TEXT_COLOR,
   TEXT_COLOR,
@@ -86,12 +89,13 @@ const CapturedPieces = ({
             type="button"
             onClick={() => handleClick(pieceType)}
             className={`${baseStyles} ${selectableStyles} ${CAPTURED_PIECE_CLASS} ${selectedStyles}`}
-            aria-label={`持ち駒の${pieceType}`}
+            aria-label={`持ち駒の${pieceType}${count && count > 1 ? ` ${count}枚` : ''}`}
             aria-pressed={isSelected}
             style={{
               ...pentagonShapeStyle,
               ...surfaceStyle,
               fontSize: CAPTURED_FONT_SIZE,
+              position: 'relative',
             }}
             data-font-size={CAPTURED_FONT_SIZE}
           >
@@ -102,7 +106,20 @@ const CapturedPieces = ({
               {pieceType}
             </span>
             {count !== undefined && count > 1 && (
-              <span className="text-sm font-medium text-amber-700">×{count}</span>
+              <span
+                style={{
+                  position: 'absolute',
+                  right: '2px',
+                  bottom: '2px',
+                  fontSize: `calc(${CAPTURED_FONT_SIZE} * ${COUNT_FONT_SIZE_RATIO})`,
+                  color: isSelected ? COUNT_COLOR_SELECTED : COUNT_COLOR,
+                  fontWeight: 600,
+                  zIndex: 10,
+                  pointerEvents: 'none',
+                }}
+              >
+                {count}
+              </span>
             )}
           </button>
         );

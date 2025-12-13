@@ -21,6 +21,11 @@ export const PROMOTED_TEXT_COLOR = '#CC0000';
 export const BOARD_FONT_SIZE = 'clamp(1.6rem, 2vw, 2.2rem)';
 export const CAPTURED_FONT_SIZE = 'clamp(1.1rem, 2vw, 1.4rem)';
 
+// 持ち駒の数字表示用スタイル定数
+export const COUNT_FONT_SIZE_RATIO = 0.6; // 駒の文字の60%
+export const COUNT_COLOR = '#5C4033'; // 濃い茶色（通常時）
+export const COUNT_COLOR_SELECTED = '#3E2723'; // より濃い茶色（選択時）
+
 export const PIECE_BASE_CLASS = 'shogi-piece shogi-piece-wood';
 export const PIECE_TEXT_CLASS = 'shogi-piece-text';
 export const CAPTURED_PIECE_CLASS = 'shogi-piece shogi-piece-wood shogi-piece-captured';

@@ -202,7 +202,7 @@ describe('持ち駒の表示', () => {
         isSelectable={true}
       />
     );
-    const button = screen.getByLabelText('持ち駒の歩') as HTMLElement;
+    const button = screen.getByLabelText('持ち駒の歩 2枚') as HTMLElement;
     expect(button.style.clipPath).toBe(PENTAGON_CLIP_PATH);
     expect(button.style.background.startsWith('linear-gradient(145deg')).toBe(true);
   });
@@ -216,7 +216,7 @@ describe('持ち駒の表示', () => {
         isSelectable={true}
       />
     );
-    const button = screen.getByLabelText('持ち駒の歩');
+    const button = screen.getByLabelText('持ち駒の歩 2枚');
     expect(button.className).toContain('justify-center');
     expect(button.getAttribute('data-font-size')).toBe(CAPTURED_FONT_SIZE);
   });
