@@ -1,5 +1,17 @@
 import type { Piece as PieceType, PromotablePieceType } from '../types/piece';
 import { PROMOTED_PIECE_DISPLAY } from '../types/piece';
+import {
+  BASE_SHADOW,
+  BOARD_FONT_SIZE,
+  PIECE_BASE_CLASS,
+  PIECE_TEXT_CLASS,
+  PROMOTED_TEXT_COLOR,
+  PENTAGON_CLIP_PATH,
+  SELECTED_SHADOW,
+  SELECTED_WOOD_GRADIENT,
+  TEXT_COLOR,
+  WOOD_GRADIENT,
+} from './pieceStyle';
 
 interface PieceProps {
   piece: PieceType;
@@ -25,26 +37,35 @@ const Piece = ({ piece, isSelected = false }: PieceProps) => {
   const playerLabel = piece.player === 'sente' ? '先手' : '後手';
   const promotedLabel = piece.promoted ? '成り' : '';
 
-  // 選択状態に応じたスタイルクラス
-  const baseClass = 'flex items-center justify-center w-full h-full';
-  const bgClass = isSelected ? 'bg-yellow-200' : 'bg-amber-100';
-  const ringClass = isSelected ? 'ring-4 ring-yellow-500' : '';
-
-  // 成り駒は赤色で表示
-  const textColor = piece.promoted ? '#CC0000' : '#8B4513';
+  const baseClass = 'flex items-center justify-center m-1.5';
+  const textColor = piece.promoted ? PROMOTED_TEXT_COLOR : TEXT_COLOR;
+  const background = isSelected ? SELECTED_WOOD_GRADIENT : WOOD_GRADIENT;
+  const boxShadow = isSelected ? SELECTED_SHADOW : BASE_SHADOW;
 
   return (
     <div
       aria-label={`${playerLabel}の${promotedLabel}${piece.type}`}
-      className={`${baseClass} ${bgClass} ${ringClass}`}
+      className={`${baseClass} ${PIECE_BASE_CLASS} ${isSelected ? 'shogi-piece-selected' : ''}`}
       style={{
+        clipPath: PENTAGON_CLIP_PATH,
+        background,
+        boxShadow,
         color: textColor,
-        fontSize: '2rem',
+        fontSize: BOARD_FONT_SIZE,
         fontWeight: 'bold',
         transform: piece.player === 'gote' ? 'rotate(180deg)' : 'none',
+        width: 'calc(100% - 0.75rem)',
+        height: 'calc(100% - 0.75rem)',
       }}
+      data-font-size={BOARD_FONT_SIZE}
     >
-      {displayText}
+      <span
+        className={PIECE_TEXT_CLASS}
+        style={{ color: textColor, fontSize: BOARD_FONT_SIZE }}
+        data-font-size={BOARD_FONT_SIZE}
+      >
+        {displayText}
+      </span>
     </div>
   );
 };

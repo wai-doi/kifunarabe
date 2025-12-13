@@ -22,7 +22,8 @@ const Square = ({
       aria-label={ariaLabel}
       aria-selected={isSelected}
       tabIndex={0}
-      className={`border border-gray-800 aspect-square flex items-center justify-center relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+      style={{ aspectRatio: '0.92' }}
+      className={`border border-gray-800 flex items-center justify-center relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 ${
         isValidDropSquare ? 'bg-green-100' : ''
       }`}
       onClick={onClick}

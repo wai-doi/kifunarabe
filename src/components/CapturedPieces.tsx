@@ -1,5 +1,15 @@
 import type { CapturedPiecesMap } from '../types/capturedPieces';
 import type { Player, PieceType } from '../types/piece';
+import {
+  CAPTURED_FONT_SIZE,
+  CAPTURED_PIECE_CLASS,
+  PIECE_TEXT_CLASS,
+  PROMOTED_TEXT_COLOR,
+  TEXT_COLOR,
+  capturedBaseSurfaceStyle,
+  capturedSelectedSurfaceStyle,
+  pentagonShapeStyle,
+} from './pieceStyle';
 
 interface CapturedPiecesProps {
   /** 表示する持ち駒のマップ */
@@ -49,27 +59,48 @@ const CapturedPieces = ({
   return (
     <div
       data-testid={`captured-pieces-${player}`}
-      className="flex flex-wrap gap-2 min-h-[60px] p-4 rounded-lg bg-gradient-to-br from-amber-50 to-amber-100 shadow-md"
+      className="flex flex-wrap gap-2 min-h-[48px] p-3 rounded-lg bg-gradient-to-br from-amber-50 to-amber-100"
       role="region"
       aria-label={`${player === 'sente' ? '先手' : '後手'}の持ち駒`}
     >
       {pieces.map(([pieceType, count]) => {
         const isSelected = selectedPieceType === pieceType;
         const baseStyles =
-          'flex items-center gap-1 px-3 py-2 rounded-md shadow-sm transition-shadow';
-        const selectableStyles = isSelectable ? 'cursor-pointer hover:shadow' : 'cursor-default';
-        const selectedStyles = isSelected ? 'bg-yellow-200 ring-2 ring-yellow-400' : 'bg-white';
+          'flex items-center justify-center gap-1 transition-all duration-150 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 border-0';
+        const selectableStyles = isSelectable ? 'cursor-pointer hover:shadow-lg' : 'cursor-default';
+        const selectedStyles = isSelected ? 'shogi-piece-selected' : '';
+        const surfaceStyle = isSelected ? capturedSelectedSurfaceStyle : capturedBaseSurfaceStyle;
+        const textColor =
+          pieceType === 'と' ||
+          pieceType === '杏' ||
+          pieceType === '圭' ||
+          pieceType === '全' ||
+          pieceType === '竜' ||
+          pieceType === '馬'
+            ? PROMOTED_TEXT_COLOR
+            : TEXT_COLOR;
 
         return (
           <button
             key={pieceType}
             type="button"
             onClick={() => handleClick(pieceType)}
-            className={`${baseStyles} ${selectableStyles} ${selectedStyles}`}
+            className={`${baseStyles} ${selectableStyles} ${CAPTURED_PIECE_CLASS} ${selectedStyles}`}
             aria-label={`持ち駒の${pieceType}`}
             aria-pressed={isSelected}
+            style={{
+              ...pentagonShapeStyle,
+              ...surfaceStyle,
+              fontSize: CAPTURED_FONT_SIZE,
+            }}
+            data-font-size={CAPTURED_FONT_SIZE}
           >
-            <span className="text-xl font-bold text-amber-900">{pieceType}</span>
+            <span
+              className={`${PIECE_TEXT_CLASS}`}
+              style={{ fontSize: CAPTURED_FONT_SIZE, color: textColor }}
+            >
+              {pieceType}
+            </span>
             {count !== undefined && count > 1 && (
               <span className="text-sm font-medium text-amber-700">×{count}</span>
             )}

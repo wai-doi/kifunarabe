@@ -53,8 +53,7 @@ describe('ShogiBoard', () => {
     await user.click(king);
 
     // 選択状態のスタイルが適用されることを確認
-    expect(king).toHaveClass('bg-yellow-200');
-    expect(king).toHaveClass('ring-4');
+    expect(king).toHaveClass('shogi-piece-selected');
   });
 
   it('選択中の駒をもう一度クリックすると選択が解除される', async () => {
@@ -64,12 +63,11 @@ describe('ShogiBoard', () => {
 
     // 1回目のクリックで選択
     await user.click(king);
-    expect(king).toHaveClass('bg-yellow-200');
+    expect(king).toHaveClass('shogi-piece-selected');
 
     // 2回目のクリックで選択解除
     await user.click(king);
-    expect(king).not.toHaveClass('bg-yellow-200');
-    expect(king).toHaveClass('bg-amber-100');
+    expect(king).not.toHaveClass('shogi-piece-selected');
   });
 
   it('同じプレイヤーの別の駒をクリックすると選択が切り替わる', async () => {
@@ -79,7 +77,7 @@ describe('ShogiBoard', () => {
     // 王を選択
     const king = screen.getByLabelText('先手の王');
     await user.click(king);
-    expect(king).toHaveClass('bg-yellow-200');
+    expect(king).toHaveClass('shogi-piece-selected');
 
     // 先手の角を取得して選択(角は1つしかない)
     const kaku = screen.getByLabelText('先手の角');
@@ -89,8 +87,8 @@ describe('ShogiBoard', () => {
     const kingAfter = screen.getByLabelText('先手の王');
     const kakuAfter = screen.getByLabelText('先手の角');
 
-    expect(kingAfter).not.toHaveClass('bg-yellow-200');
-    expect(kakuAfter).toHaveClass('bg-yellow-200');
+    expect(kingAfter).not.toHaveClass('shogi-piece-selected');
+    expect(kakuAfter).toHaveClass('shogi-piece-selected');
   });
 
   // T012: US1 - ターン制御の統合テスト
@@ -107,7 +105,7 @@ describe('ShogiBoard', () => {
       const king = screen.getByLabelText('先手の王');
 
       await user.click(king);
-      expect(king).toHaveClass('bg-yellow-200');
+      expect(king).toHaveClass('shogi-piece-selected');
     });
 
     it('先手のターンで後手の駒を選択しようとすると視覚的フィードバックが表示される', async () => {

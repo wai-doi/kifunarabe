@@ -1,6 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Piece from '../../src/components/Piece';
+import CapturedPieces from '../../src/components/CapturedPieces';
+import {
+  BOARD_FONT_SIZE,
+  CAPTURED_FONT_SIZE,
+  PENTAGON_CLIP_PATH,
+} from '../../src/components/pieceStyle';
 import type { Piece as PieceType } from '../../src/types/piece';
 
 describe('Piece', () => {
@@ -20,64 +26,42 @@ describe('Piece', () => {
     promoted: false,
   };
 
-  it('駒の文字が表示される', () => {
-    render(<Piece piece={sentePiece} />);
-    expect(screen.getByText('王')).toBeInTheDocument();
-  });
-
-  it('先手の駒は回転しない', () => {
+  it('五角形のclip-pathが適用され先手は回転しない', () => {
     const { container } = render(<Piece piece={sentePiece} />);
     const piece = container.firstChild as HTMLElement;
-    const transform = window.getComputedStyle(piece).transform;
-    // 回転なし、またはidentity matrix
-    expect(transform === 'none' || transform === 'matrix(1, 0, 0, 1, 0, 0)').toBe(true);
+    expect(piece.style.clipPath).toBe(PENTAGON_CLIP_PATH);
+    expect(piece.style.transform === 'none' || piece.style.transform === '').toBe(true);
   });
 
-  it('後手の駒は180度回転する', () => {
+  it('後手の駒は180度回転しclip-pathが保持される', () => {
     const { container } = render(<Piece piece={gotePiece} />);
     const piece = container.firstChild as HTMLElement;
     expect(piece.style.transform).toBe('rotate(180deg)');
+    expect(piece.style.clipPath).toBe(PENTAGON_CLIP_PATH);
   });
 
-  it('駒の色が正しく適用される', () => {
+  it('木目グラデーションと陰影が適用される', () => {
     const { container } = render(<Piece piece={sentePiece} />);
     const piece = container.firstChild as HTMLElement;
-    expect(piece.style.color).toBe('rgb(139, 69, 19)'); // #8B4513
+    expect(piece.style.background.startsWith('linear-gradient(145deg')).toBe(true);
+    expect(piece.style.background).toContain('rgb');
+    expect(piece.style.boxShadow).toContain('rgba');
   });
 
-  it('aria-labelに駒の種類とプレイヤーが含まれる', () => {
-    render(<Piece piece={sentePiece} />);
-    const piece = screen.getByLabelText('先手の王');
-    expect(piece).toBeInTheDocument();
-  });
-
-  it('後手の駒のaria-labelが正しい', () => {
-    render(<Piece piece={gotePiece} />);
-    const piece = screen.getByLabelText('後手の玉');
-    expect(piece).toBeInTheDocument();
-  });
-
-  // T007: 選択状態のテスト
-  it('isSelectedがtrueの時、選択状態のスタイルが適用される', () => {
+  it('選択状態ではハイライトされた陰影と背景になる', () => {
     const { container } = render(<Piece piece={sentePiece} isSelected={true} />);
     const piece = container.firstChild as HTMLElement;
-    expect(piece).toHaveClass('bg-yellow-200');
-    expect(piece).toHaveClass('ring-4');
-    expect(piece).toHaveClass('ring-yellow-500');
+    expect(piece.className).toContain('shogi-piece-selected');
+    expect(piece.style.background.startsWith('linear-gradient(145deg')).toBe(true);
+    expect(piece.style.boxShadow).toContain('#facc15');
   });
 
-  it('isSelectedがfalseの時、通常のスタイルが適用される', () => {
-    const { container } = render(<Piece piece={sentePiece} isSelected={false} />);
-    const piece = container.firstChild as HTMLElement;
-    expect(piece).toHaveClass('bg-amber-100');
-    expect(piece).not.toHaveClass('bg-yellow-200');
-    expect(piece).not.toHaveClass('ring-4');
-  });
-
-  it('isSelectedが未指定の時、通常のスタイルが適用される', () => {
+  it('文字は中央配置でclampフォントサイズ', () => {
     const { container } = render(<Piece piece={sentePiece} />);
     const piece = container.firstChild as HTMLElement;
-    expect(piece).toHaveClass('bg-amber-100');
+    expect(piece.className).toContain('items-center');
+    expect(piece.className).toContain('justify-center');
+    expect(piece.getAttribute('data-font-size')).toBe(BOARD_FONT_SIZE);
   });
 });
 
@@ -163,8 +147,8 @@ describe('成り駒の表示', () => {
       promoted: true,
     };
     const { container } = render(<Piece piece={promotedFu} />);
-    const piece = container.firstChild as HTMLElement;
-    expect(piece.style.color).toBe('rgb(204, 0, 0)'); // #CC0000
+    const text = container.querySelector('span') as HTMLElement;
+    expect(window.getComputedStyle(text).color).toContain('204, 0, 0');
   });
 
   it('成り駒のaria-labelに「成り」が含まれる', () => {
@@ -188,7 +172,8 @@ describe('成り駒の表示', () => {
       promoted: false,
     };
     render(<Piece piece={normalFu} />);
-    expect(screen.getByText('歩')).toBeInTheDocument();
+    const text = screen.getByText('歩') as HTMLElement;
+    expect(window.getComputedStyle(text).color).toContain('0, 0, 0');
   });
 
   it('後手の成り駒も正しく表示される', () => {
@@ -202,5 +187,37 @@ describe('成り駒の表示', () => {
     render(<Piece piece={promotedFuGote} />);
     expect(screen.getByText('と')).toBeInTheDocument();
     expect(screen.getByLabelText('後手の成り歩')).toBeInTheDocument();
+  });
+});
+
+describe('持ち駒の表示', () => {
+  const captured = { 歩: 2 } as const;
+
+  it('持ち駒にも五角形clip-pathと木目が適用される', () => {
+    render(
+      <CapturedPieces
+        capturedPieces={captured}
+        player="sente"
+        onPieceClick={() => {}}
+        isSelectable={true}
+      />
+    );
+    const button = screen.getByLabelText('持ち駒の歩') as HTMLElement;
+    expect(button.style.clipPath).toBe(PENTAGON_CLIP_PATH);
+    expect(button.style.background.startsWith('linear-gradient(145deg')).toBe(true);
+  });
+
+  it('持ち駒の文字サイズは小さめのclampで中央配置', () => {
+    render(
+      <CapturedPieces
+        capturedPieces={captured}
+        player="gote"
+        onPieceClick={() => {}}
+        isSelectable={true}
+      />
+    );
+    const button = screen.getByLabelText('持ち駒の歩');
+    expect(button.className).toContain('justify-center');
+    expect(button.getAttribute('data-font-size')).toBe(CAPTURED_FONT_SIZE);
   });
 });

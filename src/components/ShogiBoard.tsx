@@ -469,7 +469,7 @@ const ShogiBoard = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 w-full h-full p-4">
+    <div className="flex flex-col items-center gap-8 w-full h-full p-4">
       {/* T019: エラーメッセージ表示 */}
       {errorMessage && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative flex items-center justify-between max-w-md">
@@ -499,7 +499,7 @@ const ShogiBoard = () => {
       {/* T031: ターン表示を盤面上部に配置 */}
       <TurnDisplay currentTurn={currentTurn} isHighlighted={isHighlighted} />
 
-      <div className="flex justify-center items-center flex-1 w-full relative">
+      <div className="flex justify-center items-center w-full relative">
         <div className="relative" style={{ width: 'min(70vmin, 100%)', aspectRatio: '1 / 1' }}>
           <Board
             pieces={pieces}
