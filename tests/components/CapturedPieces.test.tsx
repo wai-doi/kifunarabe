@@ -127,7 +127,7 @@ describe('CapturedPieces', () => {
 
       // 角がハイライト表示される
       const bishopButton = screen.getByRole('button', { name: /角/i });
-      expect(bishopButton).toHaveClass('bg-yellow-200');
+      expect(bishopButton).toHaveClass('shogi-piece-selected');
     });
 
     test('selectedPieceType に指定されていない駒はハイライト表示されない', () => {

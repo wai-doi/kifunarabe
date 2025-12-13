@@ -79,10 +79,8 @@ const Board = ({
       style={{
         backgroundColor: '#D4A574',
         width: 'min(70vmin, 100%)',
-        height: 'min(70vmin, 100%)',
         minWidth: '300px',
-        minHeight: '300px',
-        aspectRatio: '1 / 1',
+        aspectRatio: '1 / 1.087',
       }}
     >
       {squares}
