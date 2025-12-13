@@ -17,6 +17,7 @@ Auto-generated from all feature plans. Last updated: 2025-11-01
 - localStorage (ブラウザ標準API) (009-auto-save-state)
 - TypeScript 5.9.3 + React 19.1.1, Vite 7.1.7 (010-prevent-double-pawn)
 - N/A (フロントエンドのみの視覚的変更) (011-realistic-piece-design)
+- N/A（クライアント側のステート管理のみ） (013-piece-click-highlight)
 
 - TypeScript 5.x (厳格な型チェックを有効化) (001-kifu-viewer-app)
 
@@ -37,9 +38,9 @@ npm test && npm run lint
 TypeScript 5.x (厳格な型チェックを有効化): Follow standard conventions
 
 ## Recent Changes
+- 013-piece-click-highlight: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16
 - 012-piece-count-position: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16
 - 011-realistic-piece-design: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16
-- 010-prevent-double-pawn: Added TypeScript 5.9.3 + React 19.1.1, Vite 7.1.7
 
 
 <!-- MANUAL ADDITIONS START -->
