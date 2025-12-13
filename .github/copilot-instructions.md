@@ -37,9 +37,9 @@ npm test && npm run lint
 TypeScript 5.x (厳格な型チェックを有効化): Follow standard conventions
 
 ## Recent Changes
+- 012-piece-count-position: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16
 - 011-realistic-piece-design: Added TypeScript 5.9.3 + React 19.1.1, Tailwind CSS 4.1.16
 - 010-prevent-double-pawn: Added TypeScript 5.9.3 + React 19.1.1, Vite 7.1.7
-- 009-auto-save-state: Added TypeScript 5.9.3 + React 19.1.1 + React Hooks (useState, useEffect), ブラウザ標準API (localStorage)
 
 
 <!-- MANUAL ADDITIONS START -->
