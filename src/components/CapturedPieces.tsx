@@ -62,7 +62,7 @@ const CapturedPieces = ({
   return (
     <div
       data-testid={`captured-pieces-${player}`}
-      className="flex flex-wrap gap-2 min-h-[48px] p-3 rounded-lg bg-gradient-to-br from-amber-50 to-amber-100"
+      className="flex flex-wrap items-center gap-2 h-16 px-2 py-2 rounded-lg bg-gradient-to-br from-amber-50 to-amber-100"
       role="region"
       aria-label={`${player === 'sente' ? '先手' : '後手'}の持ち駒`}
     >

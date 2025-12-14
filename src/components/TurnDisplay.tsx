@@ -17,7 +17,7 @@ interface TurnDisplayProps {
  */
 const TurnDisplay = ({ currentTurn, isHighlighted }: TurnDisplayProps) => {
   // T029: スタイリング - 盤面上部中央配置、大きめフォント
-  const baseClass = 'text-center py-4 px-8 text-3xl font-bold';
+  const baseClass = 'text-center py-2 px-6 text-xl font-bold';
 
   // T030: アニメーション - isHighlightedの時にshakeアニメーションを適用
   const animationClass = isHighlighted ? 'animate-shake' : '';

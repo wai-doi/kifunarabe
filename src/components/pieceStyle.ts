@@ -18,7 +18,7 @@ export const CAPTURED_SELECTED_SHADOW =
 export const TEXT_COLOR = '#000000';
 export const PROMOTED_TEXT_COLOR = '#CC0000';
 
-export const BOARD_FONT_SIZE = 'clamp(1.6rem, 2vw, 2.2rem)';
+export const BOARD_FONT_SIZE = 'clamp(1.3rem, 1.8vw, 1.8rem)';
 export const CAPTURED_FONT_SIZE = 'clamp(1.1rem, 2vw, 1.4rem)';
 
 // 持ち駒の数字表示用スタイル定数
