@@ -470,8 +470,11 @@ const ShogiBoard = () => {
     setPendingState(null);
   };
 
+  // 盤面以外のUIに必要な高さを差し引いて、viewport内に収まるサイズを算出
+  const boardSize = 'min(65vmin, 90vw, calc((100vh - 360px) / 1.087))';
+
   return (
-    <div className="flex flex-col items-center gap-8 w-full h-full p-4">
+    <div className="flex flex-col items-center gap-2 w-full h-full p-2 sm:p-3">
       {/* T019: エラーメッセージ表示 */}
       {errorMessage && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative flex items-center justify-between max-w-md">
@@ -484,6 +487,9 @@ const ShogiBoard = () => {
           </button>
         </div>
       )}
+
+      {/* T031: ターン表示を盤面上部に配置 */}
+      <TurnDisplay currentTurn={currentTurn} isHighlighted={isHighlighted} />
 
       {/* 後手の持ち駒を盤面上部に配置 */}
       <CapturedPiecesComponent
@@ -498,11 +504,15 @@ const ShogiBoard = () => {
         isSelectable={currentTurn === 'gote'}
       />
 
-      {/* T031: ターン表示を盤面上部に配置 */}
-      <TurnDisplay currentTurn={currentTurn} isHighlighted={isHighlighted} />
-
       <div className="flex justify-center items-center w-full relative">
-        <div className="relative" style={{ width: 'min(70vmin, 100%)', aspectRatio: '1 / 1' }}>
+        <div
+          className="relative flex justify-center"
+          style={{
+            width: boardSize,
+            maxWidth: '100%',
+            aspectRatio: '1 / 1.087',
+          }}
+        >
           <Board
             pieces={pieces}
             selected={selectedPosition}

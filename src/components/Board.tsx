@@ -56,8 +56,8 @@ const Board = ({ pieces, selected, onSquareClick, validDropSquares = [] }: Board
       className="grid grid-cols-9 gap-0"
       style={{
         backgroundColor: '#D4A574',
-        width: 'min(70vmin, 100%)',
-        minWidth: '300px',
+        width: '100%',
+        maxWidth: '100%',
         aspectRatio: '1 / 1.087',
       }}
     >
