@@ -24,6 +24,7 @@ import {
 } from '../logic/captureLogic';
 import { canDropPiece, dropPiece } from '../logic/dropLogic';
 import { canPromoteMove, mustPromote, isPromotablePieceType } from '../logic/promotionLogic';
+import { canSelectPiece } from '../logic/selectionLogic';
 import {
   addMove,
   goToPrevious,
@@ -271,21 +272,22 @@ const ShogiBoard = () => {
       }
 
       // 自分の駒をクリックした場合は盤面上の駒を選択状態に切り替え
-      if (clickedPiece && clickedPiece.player === currentTurn) {
+      if (canSelectPiece(clickedPiece, currentTurn)) {
         setSelection({
           type: 'board',
           position,
-          player: clickedPiece.player,
+          player: clickedPiece!.player,
         });
         return;
       }
 
-      // 相手の駒をクリックした場合は何もしない
+      // 相手の駒または空マスをクリックした場合は何もしない
       return;
     }
 
     // 盤面上の駒を選択中の場合 or 何も選択していない場合
-    if (clickedPiece && clickedPiece.player === currentTurn) {
+    // T022-T023: canSelectPieceを使って選択可否を判定
+    if (canSelectPiece(clickedPiece, currentTurn)) {
       // 自分の駒がある場合
       if (
         selection &&
@@ -300,7 +302,7 @@ const ShogiBoard = () => {
         setSelection({
           type: 'board',
           position,
-          player: clickedPiece.player,
+          player: clickedPiece!.player, // canSelectPieceがtrueならclickedPieceは非null
         });
       }
     } else {

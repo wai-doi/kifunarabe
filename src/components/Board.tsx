@@ -2,7 +2,6 @@ import type { Piece } from '../types/piece';
 import type { Position } from '../types/position';
 import type { Turn } from '../types/turn';
 import type { CapturedPieces } from '../types/capturedPieces';
-import { canSelectPiece } from '../logic/turnControl';
 import Square from './Square';
 
 interface BoardProps {
@@ -18,30 +17,9 @@ interface BoardProps {
 /**
  * 9×9の将棋盤を表示するコンポーネント
  */
-const Board = ({
-  pieces,
-  selected,
-  onSquareClick,
-  currentTurn,
-  onInvalidSelection,
-  validDropSquares = [],
-}: BoardProps) => {
-  // T013: ターン検証を含むクリックハンドラー
+const Board = ({ pieces, selected, onSquareClick, validDropSquares = [] }: BoardProps) => {
+  // クリックハンドラー（選択ロジックは親コンポーネントで処理）
   const handleSquareClick = (position: Position) => {
-    const clickedPiece = pieces.find((p) => p.file === position.file && p.rank === position.rank);
-
-    // 駒を選択しようとしている場合のみターン検証を実行
-    // （移動先として相手の駒をクリックする場合は検証しない）
-    if (clickedPiece && !selected) {
-      // 駒が選択されていない状態で駒をクリック = 駒を選択しようとしている
-      if (!canSelectPiece(currentTurn, clickedPiece.player)) {
-        // 無効な選択 - 親コンポーネントに通知
-        onInvalidSelection?.();
-        return; // 選択を拒否
-      }
-    }
-
-    // 有効な選択 - 親コンポーネントのハンドラーを呼び出す
     onSquareClick(position);
   };
   // 9×9のマス目を生成
