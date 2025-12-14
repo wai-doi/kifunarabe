@@ -24,10 +24,10 @@
 
 **目的**: プロジェクトの初期化と基本構造の確認
 
-- [ ] T001 ブランチ 013-piece-click-highlight にチェックアウト
-- [ ] T002 npm install で依存関係をインストール
-- [ ] T003 npm run dev でデ開発サーバーが起動することを確認
-- [ ] T004 npm test でテストフレームワークが動作することを確認
+- [x] T001 ブランチ 013-piece-click-highlight にチェックアウト
+- [x] T002 npm install で依存関係をインストール
+- [x] T003 npm run dev でデ開発サーバーが起動することを確認
+- [x] T004 npm test でテストフレームワークが動作することを確認
 
 ---
 
@@ -37,10 +37,10 @@
 
 **⚠️ 重要**: このフェーズが完了するまで、ユーザーストーリーの作業は開始できません
 
-- [ ] T005 既存の選択状態管理（ShogiBoard.tsx の selection ステート）を理解
-- [ ] T006 既存の handleSquareClick 関数の動作を理解
-- [ ] T007 既存の Square.tsx コンポーネントのスタイル適用方法を理解
-- [ ] T008 現在の手番（currentTurn）と駒の所有者（piece.player）の関係を確認
+- [x] T005 既存の選択状態管理（ShogiBoard.tsx の selection ステート）を理解
+- [x] T006 既存の handleSquareClick 関数の動作を理解
+- [x] T007 既存の Square.tsx コンポーネントのスタイル適用方法を理解
+- [x] T008 現在の手番（currentTurn）と駒の所有者（piece.player）の関係を確認
 
 **チェックポイント**: 基盤準備完了 - ユーザーストーリーの実装を開始可能
 
@@ -56,28 +56,28 @@
 
 > **注意: これらのテストを最初に書き、失敗することを確認してから実装を開始**
 
-- [ ] T009 [P] [US4] 選択可否判定ロジックのテストファイルを作成 tests/logic/selectionLogic.test.ts
-- [ ] T010 [P] [US4] 空マス（null）の場合はfalseを返すテストを追加
-- [ ] T011 [P] [US4] 先手の手番で先手の駒の場合はtrueを返すテストを追加
-- [ ] T012 [P] [US4] 先手の手番で後手の駒の場合はfalseを返すテストを追加
-- [ ] T013 [P] [US4] 後手の手番で後手の駒の場合はtrueを返すテストを追加
-- [ ] T014 [P] [US4] 後手の手番で先手の駒の場合はfalseを返すテストを追加
-- [ ] T015 [US4] npm test -- selectionLogic.test.ts を実行してテストが失敗することを確認（Red）
+- [x] T009 [P] [US4] 選択可否判定ロジックのテストファイルを作成 tests/logic/selectionLogic.test.ts
+- [x] T010 [P] [US4] 空マス（null）の場合はfalseを返すテストを追加
+- [x] T011 [P] [US4] 先手の手番で先手の駒の場合はtrueを返すテストを追加
+- [x] T012 [P] [US4] 先手の手番で後手の駒の場合はfalseを返すテストを追加
+- [x] T013 [P] [US4] 後手の手番で後手の駒の場合はtrueを返すテストを追加
+- [x] T014 [P] [US4] 後手の手番で先手の駒の場合はfalseを返すテストを追加
+- [x] T015 [US4] npm test -- selectionLogic.test.ts を実行してテストが失敗することを確認（Red）
 
 ### Implementation for User Story 4 (TDD: Green Phase)
 
-- [ ] T016 [US4] 選択可否判定ロジックファイルを作成 src/logic/selectionLogic.ts
-- [ ] T017 [US4] canSelectPiece 関数を実装（piece === null の場合は false を返す）
-- [ ] T018 [US4] canSelectPiece 関数に手番チェックを追加（piece.player === currentTurn）
-- [ ] T019 [US4] 型定義のインポートを追加（Piece, Turn）
-- [ ] T020 [US4] npm test -- selectionLogic.test.ts を実行してすべてのテストが通ることを確認（Green）
+- [x] T016 [US4] 選択可否判定ロジックファイルを作成 src/logic/selectionLogic.ts
+- [x] T017 [US4] canSelectPiece 関数を実装（piece === null の場合は false を返す）
+- [x] T018 [US4] canSelectPiece 関数に手番チェックを追加（piece.player === currentTurn）
+- [x] T019 [US4] 型定義のインポートを追加（Piece, Turn）
+- [x] T020 [US4] npm test -- selectionLogic.test.ts を実行してすべてのテストが通ることを確認（Green）
 
 ### Integration for User Story 4
 
-- [ ] T021 [US4] ShogiBoard.tsx に canSelectPiece をインポート
-- [ ] T022 [US4] handleSquareClick 関数の先頭で canSelectPiece を呼び出し
-- [ ] T023 [US4] 選択不可能な場合は早期リターンを追加
-- [ ] T024 [US4] npm run dev で動作確認（相手の駒をクリックしても枠が出ないことを確認）
+- [x] T021 [US4] ShogiBoard.tsx に canSelectPiece をインポート
+- [x] T022 [US4] handleSquareClick 関数の先頭で canSelectPiece を呼び出し
+- [x] T023 [US4] 選択不可能な場合は早期リターンを追加
+- [x] T024 [US4] npm run dev で動作確認（相手の駒をクリックしても枠が出ないことを確認）
 
 **チェックポイント**: この時点で、User Story 4 が完全に機能し、独立してテスト可能
 
@@ -91,18 +91,18 @@
 
 ### Tests for User Story 1 (TDD: Red Phase)
 
-- [ ] T025 [P] [US1] Square コンポーネントのテストファイルを確認/作成 tests/components/Square.test.tsx
-- [ ] T026 [P] [US1] 選択状態のときオレンジの枠が表示されるテストを追加
-- [ ] T027 [P] [US1] 非選択状態のときオレンジの枠が表示されないテストを追加
-- [ ] T028 [US1] npm test -- Square.test.tsx を実行してテストが失敗することを確認（Red）
+- [x] T025 [P] [US1] Square コンポーネントのテストファイルを確認/作成 tests/components/Square.test.tsx
+- [x] T026 [P] [US1] 選択状態のときオレンジの枠が表示されるテストを追加
+- [x] T027 [P] [US1] 非選択状態のときオレンジの枠が表示されないテストを追加
+- [x] T028 [US1] npm test -- Square.test.tsx を実行してテストが失敗することを確認（Red）
 
 ### Implementation for User Story 1 (TDD: Green Phase)
 
-- [ ] T029 [US1] Square.tsx で選択時の枠スタイルを特定
-- [ ] T030 [US1] 選択時の枠クラスを border-4 border-orange-600 に変更
-- [ ] T031 [US1] 非選択時の枠クラスが border border-gray-400 であることを確認
-- [ ] T032 [US1] npm test -- Square.test.tsx を実行してすべてのテストが通ることを確認（Green）
-- [ ] T033 [US1] npm run dev で動作確認（駒選択時にオレンジ色の枠が表示されることを確認）
+- [x] T029 [US1] Square.tsx で選択時の枠スタイルを特定
+- [x] T030 [US1] 選択時の枠クラスを border-4 border-orange-600 に変更（最終的にoutline使用、amber-700色）
+- [x] T031 [US1] 非選択時の枠クラスが border border-gray-400 であることを確認
+- [x] T032 [US1] npm test -- Square.test.tsx を実行してすべてのテストが通ることを確認（Green）
+- [x] T033 [US1] npm run dev で動作確認（駒選択時にオレンジ色の枠が表示されることを確認）
 
 **チェックポイント**: User Story 1 と User Story 4 が両方とも独立して動作
 

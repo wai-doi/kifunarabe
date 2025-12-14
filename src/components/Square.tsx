@@ -21,18 +21,13 @@ const Square = ({
       role="gridcell"
       aria-label={ariaLabel}
       aria-selected={isSelected}
-      tabIndex={0}
       style={{ aspectRatio: '0.92' }}
-      className={`border border-gray-800 flex items-center justify-center relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+      className={`border border-gray-800 ${
+        isSelected ? 'outline-[3px] outline-amber-700 -outline-offset-[3px]' : ''
+      } flex items-center justify-center relative cursor-pointer ${
         isValidDropSquare ? 'bg-green-100' : ''
       }`}
       onClick={onClick}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick?.();
-        }
-      }}
     >
       {piece && <Piece piece={piece} isSelected={isSelected} />}
     </div>
