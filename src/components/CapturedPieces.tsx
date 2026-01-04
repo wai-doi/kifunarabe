@@ -53,6 +53,9 @@ const CapturedPieces = ({
       return indexA - indexB;
     });
 
+  const hasPieces = pieces.length > 0;
+  const containerClasses = `flex flex-wrap items-center gap-2 h-16 px-2 py-2 rounded-lg transition-colors duration-150 ${hasPieces ? 'bg-gradient-to-br from-amber-50 to-amber-100' : 'bg-transparent'}`;
+
   const handleClick = (pieceType: string) => {
     if (isSelectable && onPieceClick) {
       onPieceClick(pieceType as PieceType);
@@ -62,7 +65,7 @@ const CapturedPieces = ({
   return (
     <div
       data-testid={`captured-pieces-${player}`}
-      className="flex flex-wrap items-center gap-2 h-16 px-2 py-2 rounded-lg bg-gradient-to-br from-amber-50 to-amber-100"
+      className={containerClasses}
       role="region"
       aria-label={`${player === 'sente' ? '先手' : '後手'}の持ち駒`}
     >
